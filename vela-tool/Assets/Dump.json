@@ -1,0 +1,46 @@
+{
+  "context": {
+    "id": "entry-set-context.cadmus"
+  },
+  "entryReader": {
+    "id": "entry-reader.xlsx",
+    "options": {
+      "inputFile": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\vela.xlsx",
+      "hasHeaderRow": true
+    }
+  },
+  "entrySetBoundaryDetector": {
+    "id": "entry-set-detector.cmd",
+    "options": {
+      "name": "row-start",
+      "isStartBoundary": true
+    }
+  },
+  "entryRegionDetectors": [
+    {
+      "id": "region-detector.explicit",
+      "options": {
+        "unpairedCommandNames": [
+          "sheet",
+          "row",
+          "column"
+        ]
+      }
+    },
+    {
+      "id": "region-detector.unmapped",
+      "options": {
+        "unmappedRegionTag": "x"
+      }
+    }
+  ],
+  "entryRegionParsers": [],
+  "entrySetExporters": [
+    {
+      "id": "entry-set-exporter.cadmus.md-dump",
+      "options": {
+        "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\vela-dump\\"
+      }
+    }
+  ]
+}

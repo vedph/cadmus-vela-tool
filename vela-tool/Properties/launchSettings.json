@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "vela-tool": {
+      "commandName": "Project",
+      "commandLineArgs": "import c:\\users\\dfusi\\desktop\\vela.json"
+    }
+  }
+}
