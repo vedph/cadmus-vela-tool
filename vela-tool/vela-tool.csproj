@@ -10,7 +10,8 @@
 
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
-	  <None Remove="Assets\Dump.json" />
+	  <None Remove="Assets\Dump-md.json" />
+	  <None Remove="Assets\Dump-xlsx.json" />
 	  <None Remove="Assets\Import.json" />
 	</ItemGroup>
 
@@ -18,7 +19,10 @@
 	  <Content Include="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="Assets\Dump.json">
+	  <Content Include="Assets\Dump-xlsx.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Assets\Dump-md.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Assets\Import.json">

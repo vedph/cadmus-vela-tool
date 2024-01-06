@@ -24,7 +24,9 @@
           "sheet",
           "row",
           "column"
-        ]
+        ],
+        "tagSuffixArgName": "name",
+        "tagSuffixSeparator": "-"
       }
     },
     {

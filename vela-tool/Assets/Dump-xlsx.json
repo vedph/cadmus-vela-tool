@@ -39,7 +39,11 @@
   "entryRegionParsers": [],
   "entrySetExporters": [
     {
-      "id": "entry-set-exporter.cadmus.mongo"
+      "id": "entry-set-exporter.excel-dump",
+      "options": {
+        "maxEntriesPerDumpFile": 10000,
+        "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\vela-dump"
+      }
     }
   ]
 }
