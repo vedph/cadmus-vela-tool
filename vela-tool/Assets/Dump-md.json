@@ -6,7 +6,8 @@
     "id": "entry-reader.xlsx",
     "options": {
       "inputFile": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\vela.xlsx",
-      "hasHeaderRow": true
+      "hasHeaderRow": true,
+      "columnNameFiltering": true
     }
   },
   "entrySetBoundaryDetector": {
