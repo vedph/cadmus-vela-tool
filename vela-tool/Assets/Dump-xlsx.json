@@ -13,8 +13,8 @@
   "entrySetBoundaryDetector": {
     "id": "entry-set-detector.cmd",
     "options": {
-      "name": "row-start",
-      "isStartBoundary": true
+      "type": 2,
+      "name": "row-end"
     }
   },
   "entryRegionDetectors": [
@@ -24,9 +24,9 @@
         "unpairedCommandNames": [
           "sheet",
           "row",
-          "column"
+          "col"
         ],
-        "tagSuffixArgName": "name",
+        "tagSuffixArgName": "n",
         "tagSuffixSeparator": "-"
       }
     },
