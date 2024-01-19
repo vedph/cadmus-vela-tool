@@ -1,4 +1,5 @@
 ﻿using Cadmus.Import.Proteus;
+using Cadmus.Vela.Import;
 using Fusi.Microsoft.Extensions.Configuration.InMemoryJson;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,10 +41,10 @@ internal static class PipelineFactoryProvider
                 // Proteus.Extras
                 typeof(ExcelEntryReader).Assembly,
                 // Cadmus.Import.Proteus
-                typeof(CadmusEntrySetContext).Assembly);
-            // TODO Proteus.Vela
-            // typeof(MnPatternEntryRegionParser).Assembly,
-        })
+                typeof(CadmusEntrySetContext).Assembly,
+                // Cadmus.Vela.Import
+                typeof(RowEntryRegionParser).Assembly);
+            })
             .ConfigureLogging(logging =>
             {
                 // clear all providers: this avoids the default console logger
