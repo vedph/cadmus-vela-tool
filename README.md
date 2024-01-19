@@ -4,6 +4,7 @@ This is a command-line tool providing administrative functions for [Cadmus VeLA]
 
 ## History
 
-- 2023-1-18:
+- 2024-01-19: updated packages and profiles.
+- 2024-01-18:
   - updated packages.
   - added column name filtering to asset profiles, as our source has column names with whitespaces and various casing.
