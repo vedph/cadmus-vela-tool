@@ -1,4 +1,5 @@
 ﻿using Cadmus.Core;
+using Cadmus.General.Parts;
 using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
@@ -6,28 +7,27 @@ using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA row entry region parser. This resets the context and adds a new item
-/// to it.
-/// <para>Tag: <c>entry-region-parser.vela.row</c>.</para>
+/// VeLA column ID entry region parser. This sets the (last added) item's title
+/// and adds a metadata part with an ID metadatum.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.row")]
-public sealed class RowEntryRegionParser : EntryRegionParser, IEntryRegionParser
+[Tag("entry-region-parser.vela.col-id")]
+public sealed class ColIdEntryRegionParser : EntryRegionParser,
+    IEntryRegionParser
 {
-    private readonly ILogger<RowEntryRegionParser>? _logger;
+    private readonly ILogger<ColIdEntryRegionParser>? _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RowEntryRegionParser"/>
+    /// Initializes a new instance of the <see cref="ColIdEntryRegionParser"/>
     /// class.
     /// </summary>
     /// <param name="logger">The logger.</param>
-    public RowEntryRegionParser(ILogger<RowEntryRegionParser>? logger = null)
+    public ColIdEntryRegionParser(ILogger<ColIdEntryRegionParser>? logger = null)
     {
         _logger = logger;
     }
@@ -50,7 +50,8 @@ public sealed class RowEntryRegionParser : EntryRegionParser, IEntryRegionParser
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "row";
+        // for some reason ID column has no label so tag is just the prefix
+        return regions[regionIndex].Tag == "col-";
     }
 
     /// <summary>
@@ -70,19 +71,37 @@ public sealed class RowEntryRegionParser : EntryRegionParser, IEntryRegionParser
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        set.Context.Reset();
-        DecodedCommandEntry cmd = (DecodedCommandEntry)set.Entries[0];
-        int y = int.Parse(cmd.GetArgument("y")!, CultureInfo.InvariantCulture);
-        _logger?.LogInformation("-- ROW: {row}", y);
-
-        Item item = new()
-        {
-            FacetId = "graffiti",
-            CreatorId = "zeus",
-            UserId = "zeus",
-        };
         CadmusEntrySetContext ctx = (CadmusEntrySetContext)set.Context;
-        ctx.Items.Add(item);
+        if (ctx.Items.Count == 0)
+        {
+            _logger?.LogError("ID column without any item");
+            return regionIndex + 1;
+        }
+
+        IItem item = ctx.Items[^1];
+
+        DecodedTextEntry txt = (DecodedTextEntry)set.Entries[1];
+        string id = txt.Value!.Trim();
+
+        // title
+        item.Title = id;
+
+        // metadata
+        if (item.Parts.Find(p => p is MetadataPart) is not MetadataPart part)
+        {
+            part = new()
+            {
+                ItemId = item.Id,
+                CreatorId = item.CreatorId,
+                UserId = item.UserId,
+            };
+            item.Parts.Add(part);
+        }
+        part.Metadata.Add(new Metadatum
+        {
+            Name = "id",
+            Value = id
+        });
 
         return regionIndex + 1;
     }
