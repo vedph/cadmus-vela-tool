@@ -13,6 +13,7 @@
 	  <None Remove="Assets\Dump-md.json" />
 	  <None Remove="Assets\Dump-xlsx.json" />
 	  <None Remove="Assets\Import.json" />
+	  <None Remove="Assets\Thesauri.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -28,10 +29,13 @@
 	  <Content Include="Assets\Import.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
+	  <Content Include="Assets\Thesauri.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Cadmus.Import.Proteus" Version="4.0.12" />
+		<PackageReference Include="Cadmus.Import.Proteus" Version="4.0.13" />
 		<PackageReference Include="Fusi.Microsoft.Extensions.Configuration.InMemoryJson" Version="3.0.0" />
 		<PackageReference Include="Proteus.Entries" Version="5.0.7" />
 		<PackageReference Include="Proteus.Extras" Version="5.0.8" />

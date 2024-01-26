@@ -1,4 +1,5 @@
-﻿using Cadmus.Vela.Cli.Services;
+﻿using Cadmus.Import.Proteus;
+using Cadmus.Vela.Cli.Services;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Regions;
 using Proteus.Entries.Config;
@@ -25,6 +26,17 @@ internal sealed class ImportCommand : AsyncCommand<ImportCommandSettings>
     {
         using var reader = new StreamReader(path);
         return reader.ReadToEnd();
+    }
+
+    private ThesaurusEntryMap LoadThesaurusMap()
+    {
+        string path = Path.Combine(
+            Directory.GetCurrentDirectory(), "Assets", "Thesauri.json");
+
+        ThesaurusEntryMap map = new();
+        using Stream stream = File.OpenText(path).BaseStream;
+        map.Load(stream);
+        return map;
     }
 
     public override async Task<int> ExecuteAsync(CommandContext context,
@@ -69,12 +81,17 @@ internal sealed class ImportCommand : AsyncCommand<ImportCommandSettings>
             }
 
             // process sets
+            ThesaurusEntryMap map = LoadThesaurusMap();
             ctx.Status("Reading entry sets...");
             pipeline.Start();
             try
             {
                 while (setReader.Read())
                 {
+                    CadmusEntrySetContext c =
+                        (CadmusEntrySetContext)setReader.Set.Context;
+                    c.ThesaurusEntryMap = map;
+
                     count++;
                     if (count % 10 == 0)
                     {
