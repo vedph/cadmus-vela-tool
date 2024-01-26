@@ -1,6 +1,4 @@
-﻿using MongoDB.Libmongocrypt;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Cadmus.Vela.Import;
