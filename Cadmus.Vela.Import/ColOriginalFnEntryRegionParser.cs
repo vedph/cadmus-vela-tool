@@ -2,7 +2,6 @@
 using Cadmus.Vela.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
