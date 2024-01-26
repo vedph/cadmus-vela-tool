@@ -87,16 +87,7 @@ public sealed class ColIdEntryRegionParser : EntryRegionParser,
         item.Title = id;
 
         // metadata
-        if (item.Parts.Find(p => p is MetadataPart) is not MetadataPart part)
-        {
-            part = new()
-            {
-                ItemId = item.Id,
-                CreatorId = item.CreatorId,
-                UserId = item.UserId,
-            };
-            item.Parts.Add(part);
-        }
+        MetadataPart part = ctx.EnsurePartForCurrentItem<MetadataPart>();
         part.Metadata.Add(new Metadatum
         {
             Name = "id",
