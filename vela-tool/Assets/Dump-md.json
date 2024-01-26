@@ -52,7 +52,8 @@
     {
       "id": "entry-set-exporter.cadmus.md-dump",
       "options": {
-        "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\vela-dump\\"
+        "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\vela-dump\\",
+        "noEntries": true
       }
     }
   ]

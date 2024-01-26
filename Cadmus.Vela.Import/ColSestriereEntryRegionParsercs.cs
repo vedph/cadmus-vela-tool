@@ -1,33 +1,4 @@
-# Cadmus VeLA CLI Tool
-
-This is a command-line tool providing administrative functions for [Cadmus VeLA](https://github.com/vedph/cadmus-vela). Currently, it is designed to import data from Excel files into the VeLA database using a [Proteus](https://myrmex.github.io/overview/proteus/)-based pipeline.
-
-To import Excel files, run the `import` command, passing the path to the JSON pipeline configuration file, e.g.:
-
-```ps1
-import c:\users\dfusi\desktop\vela.json
-```
-
-Preset profiles can be found under the `Assets` folder of the CLI app.
-
-## History
-
-- 2024-01-26: updated packages to allow fallback column numbering in case of empty column names.
-- 2024-01-25: updated packages.
-- 2024-01-19: updated packages and profiles.
-- 2024-01-18:
-  - updated packages.
-  - added column name filtering to asset profiles, as our source has column names with whitespaces and various casing.
-
-## Template
-
-Template for region parser:
-
-- `__TAG__`: the region tag.
-- `__UTAG__` the region tag with first letter uppercased.
-
-```cs
-using Cadmus.Import.Proteus;
+﻿using Cadmus.Import.Proteus;
 using Cadmus.Refs.Bricks;
 using Cadmus.Vela.Parts;
 using Fusi.Tools.Configuration;
@@ -40,23 +11,24 @@ using System.Collections.Generic;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column __TAG__ entry region parser. This targets TODO.
+/// VeLA column sestriere entry region parser. This targets
+/// <see cref="GrfLocalizationPart"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-__TAG__")]
-public sealed class Col__UTAG__EntryRegionParser : EntryRegionParser,
+[Tag("entry-region-parser.vela.col-sestriere")]
+public sealed class ColSestriereEntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<Col__UTAG__EntryRegionParser>? _logger;
+    private readonly ILogger<ColSestriereEntryRegionParser>? _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Col__UTAG__EntryRegionParser"/>
+    /// Initializes a new instance of the <see cref="ColSestriereEntryRegionParser"/>
     /// class.
     /// </summary>
     /// <param name="logger">The logger.</param>
-    public Col__UTAG__EntryRegionParser(
-        ILogger<Col__UTAG__EntryRegionParser>? logger = null)
+    public ColSestriereEntryRegionParser(
+        ILogger<ColSestriereEntryRegionParser>? logger = null)
     {
         _logger = logger;
     }
@@ -79,7 +51,7 @@ public sealed class Col__UTAG__EntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-__TAG__";
+        return regions[regionIndex].Tag == "col-sestriere";
     }
 
     /// <summary>
@@ -104,19 +76,25 @@ public sealed class Col__UTAG__EntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("__TAG__ column without any item at region {region}",
+            _logger?.LogError("sestriere column without any item at region {region}",
                 regions[regionIndex]);
             throw new InvalidOperationException(
-                "__TAG__ column without any item at region " + regions[regionIndex]);
+                "sestriere column without any item at region " + regions[regionIndex]);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string __TAG__ = txt.Value!.Trim();
+        string sestriere = txt.Value!.Trim();
 
-        // TODO
+        GrfLocalizationPart part =
+            ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
+        part.Place ??= new ProperName();
+        part.Place.Pieces!.Add(new ProperNamePiece
+        {
+            Type = "sestriere",
+            Value = sestriere
+        });
 
         return regionIndex + 1;
     }
 }
-```
