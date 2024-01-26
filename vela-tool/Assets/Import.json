@@ -60,6 +60,11 @@
       "id": "entry-region-parser.vela.col-funzione_originaria"
     }
   ],
+  "entrySetContextPatchers": [
+    {
+      "id": "entry-set-context-patcher.cadmus"
+    }
+  ],
   "entrySetExporters": [
     {
       "id": "entry-set-exporter.cadmus.mongo"
