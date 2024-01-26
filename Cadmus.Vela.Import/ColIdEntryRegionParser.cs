@@ -78,7 +78,9 @@ public sealed class ColIdEntryRegionParser : EntryRegionParser,
             return regionIndex + 1;
         }
 
-        DecodedTextEntry txt = (DecodedTextEntry)set.Entries[1];
+        EntryRegion region = regions[regionIndex];
+        DecodedTextEntry txt = (DecodedTextEntry)
+            set.Entries[region.Range.Start.Entry + 1];
         string id = txt.Value!.Trim();
 
         // title

@@ -74,7 +74,8 @@ public sealed class RowEntryRegionParser : EntryRegionParser, IEntryRegionParser
 
         // find the first row-start command
         DecodedCommandEntry? row = null;
-        for (int i = 0; i < set.Entries.Count; i++)
+        EntryRegion region = regions[regionIndex];
+        for (int i = region.Range.Start.Entry; i <= region.Range.End.Entry; i++)
         {
             if (set.Entries[i] is DecodedCommandEntry cmd &&
                 cmd.Name == "row-start")
