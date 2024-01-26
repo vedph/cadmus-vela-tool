@@ -71,15 +71,37 @@ public sealed class RowEntryRegionParser : EntryRegionParser, IEntryRegionParser
         ArgumentNullException.ThrowIfNull(regions);
 
         set.Context.Reset();
-        DecodedCommandEntry cmd = (DecodedCommandEntry)set.Entries[0];
-        int y = int.Parse(cmd.GetArgument("y")!, CultureInfo.InvariantCulture);
+
+        // find the first row command
+        DecodedCommandEntry? row = null;
+        for (int i = 0; i < set.Entries.Count; i++)
+        {
+            if (set.Entries[i] is DecodedCommandEntry cmd && cmd.Name == "row")
+            {
+                row = cmd;
+                break;
+            }
+        }
+        if (row == null)
+        {
+            _logger?.LogError("Row command not found in region {region}",
+                regions[regionIndex]);
+            throw new InvalidOperationException(
+                "Row command not found in region " + regions[regionIndex]);
+        }
+
+        // log row's Y
+        int y = int.Parse(row.GetArgument("y")!, CultureInfo.InvariantCulture);
         _logger?.LogInformation("-- ROW: {row}", y);
 
+        // add item for the row
         Item item = new()
         {
             FacetId = "graffiti",
             CreatorId = "zeus",
             UserId = "zeus",
+            // 1 = imported
+            Flags = 1
         };
         CadmusEntrySetContext ctx = (CadmusEntrySetContext)set.Context;
         ctx.Items.Add(item);

@@ -37,7 +37,14 @@
       }
     }
   ],
-  "entryRegionParsers": [],
+  "entryRegionParsers": [
+    {
+      "id": "entry-region-parser.vela.row"
+    },
+    {
+      "id": "entry-region-parser.vela.col-id"
+    }
+  ],
   "entrySetExporters": [
     {
       "id": "entry-set-exporter.cadmus.md-dump",
