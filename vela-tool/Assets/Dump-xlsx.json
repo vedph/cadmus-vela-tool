@@ -46,6 +46,18 @@
     },
     {
       "id": "entry-region-parser.vela.col-area"
+    },
+    {
+      "id": "entry-region-parser.vela.col-sestiere"
+    },
+    {
+      "id": "entry-region-parser.vela.col-location"
+    },
+    {
+      "id": "entry-region-parser.vela.col-funzione_attuale"
+    },
+    {
+      "id": "entry-region-parser.vela.col-funzione_originaria"
     }
   ],
   "entrySetExporters": [

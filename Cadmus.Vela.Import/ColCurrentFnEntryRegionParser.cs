@@ -10,24 +10,24 @@ using System.Collections.Generic;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column funzione_originaria entry region parser. This targets
-/// <see cref="GrfLocalizationPart"/>'s note.
+/// VeLA column funzione_attuale entry region parser. This targets
+/// <see cref="GrfLocalizationPart"/>'s function.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-funzione_originaria")]
-public sealed class ColOriginalFnEntryRegionParser : EntryRegionParser,
+[Tag("entry-region-parser.vela.col-funzione_attuale")]
+public sealed class ColCurrentFnEntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColOriginalFnEntryRegionParser>? _logger;
+    private readonly ILogger<ColCurrentFnEntryRegionParser>? _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ColOriginalFnEntryRegionParser"/>
+    /// Initializes a new instance of the <see cref="ColCurrentFnEntryRegionParser"/>
     /// class.
     /// </summary>
     /// <param name="logger">The logger.</param>
-    public ColOriginalFnEntryRegionParser(
-        ILogger<ColOriginalFnEntryRegionParser>? logger = null)
+    public ColCurrentFnEntryRegionParser(
+        ILogger<ColCurrentFnEntryRegionParser>? logger = null)
     {
         _logger = logger;
     }
@@ -50,7 +50,7 @@ public sealed class ColOriginalFnEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-funzione_originaria";
+        return regions[regionIndex].Tag == "col-funzione_attuale";
     }
 
     /// <summary>
@@ -75,10 +75,10 @@ public sealed class ColOriginalFnEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("funzione_originaria column without any item " +
+            _logger?.LogError("funzione_attuale column without any item " +
                 "at region {region}", regions[regionIndex]);
             throw new InvalidOperationException(
-                "funzione_originaria column without any item at region " +
+                "funzione_attuale column without any item at region " +
                 regions[regionIndex]);
         }
 
@@ -86,9 +86,17 @@ public sealed class ColOriginalFnEntryRegionParser : EntryRegionParser,
             set.Entries[region.Range.Start.Entry + 1];
         string fn = txt.Value!.Trim();
 
+        string? id = ctx.ThesaurusEntryMap?.GetEntryId(
+            VelaHelper.T_CATEGORIES_FUNCTIONS, fn);
+        if (id == null)
+        {
+            _logger?.LogError("Unknown value for funzione_attuale: {fn}", fn);
+            id = fn;
+        }
+
         GrfLocalizationPart part =
             ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
-        part.Note = fn;
+        part.Function = id;
 
         return regionIndex + 1;
     }

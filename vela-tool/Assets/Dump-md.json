@@ -52,6 +52,12 @@
     },
     {
       "id": "entry-region-parser.vela.col-location"
+    },
+    {
+      "id": "entry-region-parser.vela.col-funzione_attuale"
+    },
+    {
+      "id": "entry-region-parser.vela.col-funzione_originaria"
     }
   ],
   "entrySetExporters": [
