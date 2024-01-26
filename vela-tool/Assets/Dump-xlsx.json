@@ -43,6 +43,9 @@
     },
     {
       "id": "entry-region-parser.vela.col-id"
+    },
+    {
+      "id": "entry-region-parser.vela.col-area"
     }
   ],
   "entrySetExporters": [

@@ -1,5 +1,6 @@
-﻿using Cadmus.General.Parts;
-using Cadmus.Import.Proteus;
+﻿using Cadmus.Import.Proteus;
+using Cadmus.Refs.Bricks;
+using Cadmus.Vela.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -10,23 +11,24 @@ using System.Collections.Generic;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column ID entry region parser. This sets the (last added) item's title
-/// and adds a metadata part with an ID metadatum.
+/// VeLA column area entry region parser. This targets a
+/// <see cref="GrfLocalizationPart"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-id")]
-public sealed class ColIdEntryRegionParser : EntryRegionParser,
+[Tag("entry-region-parser.vela.col-area")]
+public sealed class ColAreaEntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColIdEntryRegionParser>? _logger;
+    private readonly ILogger<ColAreaEntryRegionParser>? _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ColIdEntryRegionParser"/>
+    /// Initializes a new instance of the <see cref="ColAreaEntryRegionParser"/>
     /// class.
     /// </summary>
     /// <param name="logger">The logger.</param>
-    public ColIdEntryRegionParser(ILogger<ColIdEntryRegionParser>? logger = null)
+    public ColAreaEntryRegionParser(
+        ILogger<ColAreaEntryRegionParser>? logger = null)
     {
         _logger = logger;
     }
@@ -49,8 +51,7 @@ public sealed class ColIdEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        // for some reason ID column has no label so tag is 1 (=column ordinal)
-        return regions[regionIndex].Tag == "col-1";
+        return regions[regionIndex].Tag == "col-area";
     }
 
     /// <summary>
@@ -75,25 +76,23 @@ public sealed class ColIdEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("ID column without any item at region {region}",
-                region);
+            _logger?.LogError("area column without any item at region {region}",
+                regions[regionIndex]);
             throw new InvalidOperationException(
-                "ID column without any item at region " + region);
+                "area column without any item at region " + regions[regionIndex]);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string id = txt.Value!.Trim();
+        string area = txt.Value!.Trim();
 
-        // title
-        ctx.CurrentItem.Title = id;
-
-        // metadata
-        MetadataPart part = ctx.EnsurePartForCurrentItem<MetadataPart>();
-        part.Metadata.Add(new Metadatum
+        GrfLocalizationPart part =
+            ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
+        part.Place ??= new ProperName();
+        part.Place.Pieces!.Add(new ProperNamePiece
         {
-            Name = "id",
-            Value = id
+            Type = "area",
+            Value = area
         });
 
         return regionIndex + 1;
