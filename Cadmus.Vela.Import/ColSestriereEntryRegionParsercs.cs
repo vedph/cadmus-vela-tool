@@ -11,24 +11,24 @@ using System.Collections.Generic;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column sestriere entry region parser. This targets
+/// VeLA column sestiere entry region parser. This targets
 /// <see cref="GrfLocalizationPart"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-sestriere")]
-public sealed class ColSestriereEntryRegionParser : EntryRegionParser,
+[Tag("entry-region-parser.vela.col-sestiere")]
+public sealed class ColSestiereEntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColSestriereEntryRegionParser>? _logger;
+    private readonly ILogger<ColSestiereEntryRegionParser>? _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ColSestriereEntryRegionParser"/>
+    /// Initializes a new instance of the <see cref="ColSestiereEntryRegionParser"/>
     /// class.
     /// </summary>
     /// <param name="logger">The logger.</param>
-    public ColSestriereEntryRegionParser(
-        ILogger<ColSestriereEntryRegionParser>? logger = null)
+    public ColSestiereEntryRegionParser(
+        ILogger<ColSestiereEntryRegionParser>? logger = null)
     {
         _logger = logger;
     }
@@ -51,7 +51,7 @@ public sealed class ColSestriereEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-sestriere";
+        return regions[regionIndex].Tag == "col-sestiere";
     }
 
     /// <summary>
@@ -76,23 +76,23 @@ public sealed class ColSestriereEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("sestriere column without any item at region {region}",
+            _logger?.LogError("sestiere column without any item at region {region}",
                 regions[regionIndex]);
             throw new InvalidOperationException(
-                "sestriere column without any item at region " + regions[regionIndex]);
+                "sestiere column without any item at region " + regions[regionIndex]);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string sestriere = txt.Value!.Trim();
+        string sestiere = txt.Value!.Trim();
 
         GrfLocalizationPart part =
             ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
         part.Place ??= new ProperName();
         part.Place.Pieces!.Add(new ProperNamePiece
         {
-            Type = "sestriere",
-            Value = sestriere
+            Type = "sestiere",
+            Value = sestiere
         });
 
         return regionIndex + 1;

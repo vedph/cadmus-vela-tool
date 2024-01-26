@@ -51,7 +51,7 @@ public sealed class ColLocationEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-location";
+        return regions[regionIndex].Tag == "col-denominazione";
     }
 
     /// <summary>

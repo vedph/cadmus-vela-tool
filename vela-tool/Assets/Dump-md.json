@@ -46,6 +46,12 @@
     },
     {
       "id": "entry-region-parser.vela.col-area"
+    },
+    {
+      "id": "entry-region-parser.vela.col-sestiere"
+    },
+    {
+      "id": "entry-region-parser.vela.col-location"
     }
   ],
   "entrySetExporters": [
@@ -53,7 +59,8 @@
       "id": "entry-set-exporter.cadmus.md-dump",
       "options": {
         "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\vela-dump\\",
-        "noEntries": true
+        "noEntries": true,
+        "jsonParts": true
       }
     }
   ]
