@@ -2,6 +2,7 @@
 using Cadmus.Vela.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
@@ -84,11 +85,14 @@ public sealed class ColOriginalFnEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string fn = txt.Value!.Trim();
+        string? fn = VelaHelper.FilterValue(txt.Value!.Trim());
 
-        GrfLocalizationPart part =
-            ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
-        part.Note = fn;
+        if (fn != null)
+        {
+            GrfLocalizationPart part =
+                ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
+            part.Note = fn;
+        }
 
         return regionIndex + 1;
     }

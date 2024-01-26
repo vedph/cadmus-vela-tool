@@ -84,7 +84,12 @@ public sealed class ColSestiereEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string sestiere = txt.Value!.Trim();
+        string? sestiere = VelaHelper.FilterValue(txt.Value);
+        if (sestiere == null)
+        {
+            _logger?.LogWarning("sestiere column with no value at region {region}",
+                regions[regionIndex]);
+        }
 
         GrfLocalizationPart part =
             ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();

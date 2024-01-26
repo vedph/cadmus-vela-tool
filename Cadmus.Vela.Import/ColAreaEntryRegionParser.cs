@@ -84,7 +84,13 @@ public sealed class ColAreaEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string area = txt.Value!.Trim();
+        string? area = VelaHelper.FilterValue(txt.Value)!;
+        if (area == null)
+        {
+            _logger?.LogWarning("area column with empty value at region {region}",
+                               regions[regionIndex]);
+            return regionIndex + 1;
+        }
 
         GrfLocalizationPart part =
             ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();

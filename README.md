@@ -24,7 +24,7 @@ Preset profiles can be found under the `Assets` folder of the CLI app.
 Template for region parser:
 
 - `__TAG__`: the region tag.
-- `__UTAG__` the region tag with first letter uppercased.
+- `__NAME__` the class name.
 
 ```cs
 using Cadmus.Import.Proteus;
@@ -45,18 +45,18 @@ namespace Cadmus.Vela.Import;
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.vela.col-__TAG__")]
-public sealed class Col__UTAG__EntryRegionParser : EntryRegionParser,
+public sealed class Col__NAME__EntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<Col__UTAG__EntryRegionParser>? _logger;
+    private readonly ILogger<Col__NAME__EntryRegionParser>? _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Col__UTAG__EntryRegionParser"/>
+    /// Initializes a new instance of the <see cref="Col__NAME__EntryRegionParser"/>
     /// class.
     /// </summary>
     /// <param name="logger">The logger.</param>
-    public Col__UTAG__EntryRegionParser(
-        ILogger<Col__UTAG__EntryRegionParser>? logger = null)
+    public Col__NAME__EntryRegionParser(
+        ILogger<Col__NAME__EntryRegionParser>? logger = null)
     {
         _logger = logger;
     }
@@ -112,7 +112,7 @@ public sealed class Col__UTAG__EntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string __TAG__ = txt.Value!.Trim();
+        string? __TAG__ = VelaHelper.FilterValue(txt.Value);
 
         // TODO
 
