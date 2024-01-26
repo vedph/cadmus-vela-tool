@@ -10,24 +10,24 @@ using System.Collections.Generic;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column funzione_attuale entry region parser. This targets
-/// <see cref="GrfLocalizationPart"/>'s function.
+/// VeLA column tipologia_struttura entry region parser. This targets
+/// <see cref="GrfLocalizationPart.ObjectType"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-funzione_attuale")]
-public sealed class ColCurrentFnEntryRegionParser : EntryRegionParser,
+[Tag("entry-region-parser.vela.col-tipologia_struttura")]
+public sealed class ColStructTypeEntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColCurrentFnEntryRegionParser>? _logger;
+    private readonly ILogger<ColStructTypeEntryRegionParser>? _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ColCurrentFnEntryRegionParser"/>
+    /// Initializes a new instance of the <see cref="ColStructTypeEntryRegionParser"/>
     /// class.
     /// </summary>
     /// <param name="logger">The logger.</param>
-    public ColCurrentFnEntryRegionParser(
-        ILogger<ColCurrentFnEntryRegionParser>? logger = null)
+    public ColStructTypeEntryRegionParser(
+        ILogger<ColStructTypeEntryRegionParser>? logger = null)
     {
         _logger = logger;
     }
@@ -50,7 +50,7 @@ public sealed class ColCurrentFnEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-funzione_attuale";
+        return regions[regionIndex].Tag == "col-tipologia_struttura";
     }
 
     /// <summary>
@@ -75,30 +75,31 @@ public sealed class ColCurrentFnEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("funzione_attuale column without any item " +
-                "at region {region}", regions[regionIndex]);
+            _logger?.LogError("tipologia_struttura column without any " +
+                "item at region {region}", regions[regionIndex]);
             throw new InvalidOperationException(
-                "funzione_attuale column without any item at region " +
+                "tipologia_struttura column without any item at region " +
                 regions[regionIndex]);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
         string? value = VelaHelper.FilterValue(txt.Value);
-
         string? id = value != null
-            ? ctx.ThesaurusEntryMap?.GetEntryId(
-                VelaHelper.T_CATEGORIES_FUNCTIONS, value)
+            ? ctx.ThesaurusEntryMap!.GetEntryId(
+                VelaHelper.T_SUPPORT_OBJECT_TYPES, value)
             : null;
+
         if (id == null)
         {
-            _logger?.LogError("Unknown value for funzione_attuale: {fn}", value);
+            _logger?.LogError("Unknown value for tipologia_struttura: {value} " +
+                "at region {region}", value, regions[regionIndex]);
             id = value;
         }
 
         GrfLocalizationPart part =
             ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
-        part.Function = id;
+        part.ObjectType = id;
 
         return regionIndex + 1;
     }

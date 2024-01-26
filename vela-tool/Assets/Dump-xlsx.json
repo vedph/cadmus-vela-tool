@@ -58,6 +58,9 @@
     },
     {
       "id": "entry-region-parser.vela.col-funzione_originaria"
+    },
+    {
+      "id": "entry-region-parser.vela.col-tipologia_struttura"
     }
   ],
   "entrySetContextPatchers": [

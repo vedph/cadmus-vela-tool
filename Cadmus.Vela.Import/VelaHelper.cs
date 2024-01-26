@@ -14,6 +14,7 @@ internal static partial class VelaHelper
 
     // thesauri IDs
     public const string T_CATEGORIES_FUNCTIONS = "categories_functions@en";
+    public const string T_SUPPORT_OBJECT_TYPES = "grf-support-object-types@en";
 
     [GeneratedRegex(@"\s+")]
     private static partial Regex WsRegex();
