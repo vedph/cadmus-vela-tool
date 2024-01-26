@@ -72,19 +72,17 @@ public sealed class ColIdEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(regions);
 
         CadmusEntrySetContext ctx = (CadmusEntrySetContext)set.Context;
-        if (ctx.Items.Count == 0)
+        if (ctx.CurrentItem == null)
         {
             _logger?.LogError("ID column without any item");
             return regionIndex + 1;
         }
 
-        IItem item = ctx.Items[^1];
-
         DecodedTextEntry txt = (DecodedTextEntry)set.Entries[1];
         string id = txt.Value!.Trim();
 
         // title
-        item.Title = id;
+        ctx.CurrentItem.Title = id;
 
         // metadata
         MetadataPart part = ctx.EnsurePartForCurrentItem<MetadataPart>();
