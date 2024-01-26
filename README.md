@@ -12,6 +12,7 @@ Preset profiles can be found under the `Assets` folder of the CLI app.
 
 ## History
 
+- 2024-01-26: updated packages to allow fallback column numbering in case of empty column names.
 - 2024-01-25: updated packages.
 - 2024-01-19: updated packages and profiles.
 - 2024-01-18:
