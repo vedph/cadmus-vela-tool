@@ -6,5 +6,5 @@
 internal static class VelaHelper
 {
     // thesauri IDs
-    public const string T_CATEGORIES_FUNCTIONS = "categories_functions";
+    public const string T_CATEGORIES_FUNCTIONS = "categories_functions@en";
 }
