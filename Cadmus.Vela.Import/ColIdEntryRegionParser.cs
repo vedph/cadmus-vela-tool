@@ -50,8 +50,8 @@ public sealed class ColIdEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        // for some reason ID column has no label so tag is just the prefix
-        return regions[regionIndex].Tag == "col-";
+        // for some reason ID column has no label so tag is 1 (=column ordinal)
+        return regions[regionIndex].Tag == "col-1";
     }
 
     /// <summary>
