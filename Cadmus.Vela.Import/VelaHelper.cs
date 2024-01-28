@@ -19,6 +19,7 @@ internal static partial class VelaHelper
     public const string T_GRF_SUPPORT_MATERIALS = "grf-support-materials@en";
     public const string T_GRF_SUPPORT_OBJECT_TYPES = "grf-support-object-types@en";
     public const string T_GRF_PERIODS = "grf-periods@en";
+    public const string T_GRF_WRITING_CASING = "grf-writing-casing@en";
     public const string T_GRF_WRITING_LANGUAGES = "grf-writing-languages@en";
     public const string T_GRF_WRITING_SCRIPTS = "grf-writing-scripts@en";
     public const string T_GRF_WRITING_SYSTEMS = "grf-writing-systems@en";

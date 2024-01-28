@@ -171,6 +171,11 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
                 }
                 break;
 
+            case "tipologia_grafica":
+                part.Casing = GetThesaurusId(ctx, region,
+                    VelaHelper.T_GRF_WRITING_CASING, value);
+                break;
+
             // TODO
         }
 
