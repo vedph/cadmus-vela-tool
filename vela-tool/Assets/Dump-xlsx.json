@@ -87,7 +87,10 @@
       "id": "entry-region-parser.vela.col-features"
     },
     {
-      "id": "entry-region-parser.vela.col-tipo_figurativo"
+      "id": "entry-region-parser.vela.col-fig"
+    },
+    {
+      "id": "entry-region-parser.vela.col-misure"
     }
   ],
   "entrySetContextPatchers": [

@@ -9,7 +9,7 @@ namespace Cadmus.Vela.Import;
 internal static partial class VelaHelper
 {
     private static readonly HashSet<string> _emptyValues = [
-        "n\\d", "n/d"
+        "n\\d", "n/d", "N\\D", "N/D"
     ];
 
     // thesauri IDs

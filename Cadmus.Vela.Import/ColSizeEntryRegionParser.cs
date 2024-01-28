@@ -6,28 +6,29 @@ using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column tipo_figurativo and tipo_cornice entry region parser. This
-/// targets <see cref="GrfFramePart.Figure"/>.
+/// VeLA column misure entry region parser. This targets
+/// <see cref="GrfFramePart.Size"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-fig")]
-public sealed class ColFigEntryRegionParser : EntryRegionParser,
+[Tag("entry-region-parser.vela.col-misure")]
+public sealed class ColSizeEntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColFigEntryRegionParser>? _logger;
+    private readonly ILogger<ColSizeEntryRegionParser>? _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ColFigEntryRegionParser"/>
+    /// Initializes a new instance of the <see cref="ColSizeEntryRegionParser"/>
     /// class.
     /// </summary>
     /// <param name="logger">The logger.</param>
-    public ColFigEntryRegionParser(
-        ILogger<ColFigEntryRegionParser>? logger = null)
+    public ColSizeEntryRegionParser(
+        ILogger<ColSizeEntryRegionParser>? logger = null)
     {
         _logger = logger;
     }
@@ -50,8 +51,28 @@ public sealed class ColFigEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-tipo_figurativo" ||
-               regions[regionIndex].Tag == "col-tipo_cornice";
+        return regions[regionIndex].Tag == "col-misure";
+    }
+
+    private static Mat.Bricks.PhysicalSize? ParseSize(string value)
+    {
+        // parse width + height from value like "10X20.5" (cm)
+        int i = value.IndexOf('X');
+        if (i == -1) return null;
+
+        return new()
+        {
+            W = new Mat.Bricks.PhysicalDimension
+            {
+                Value = float.Parse(value[..i], CultureInfo.InvariantCulture),
+                Unit = "cm"
+            },
+            H = new Mat.Bricks.PhysicalDimension
+            {
+                Value = float.Parse(value[(i + 1)..], CultureInfo.InvariantCulture),
+                Unit = "cm"
+            }
+        };
     }
 
     /// <summary>
@@ -76,21 +97,28 @@ public sealed class ColFigEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("{tag} column without any item " +
-                "at region {region}", region.Tag, region);
+            _logger?.LogError("misure column without any item at region {region}",
+                region);
             throw new InvalidOperationException(
-                $"{region.Tag} column without any item at region {region}");
+                "misure column without any item at region " + region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
         string? value = VelaHelper.FilterValue(txt.Value, false);
-
-        GrfFramePart part = ctx.EnsurePartForCurrentItem<GrfFramePart>();
-        if (region.Tag == "col-tipo_figurativo")
-            part.Figure = value;
-        else
-            part.Frame = value;
+        if (value != null)
+        {
+            Mat.Bricks.PhysicalSize? size = ParseSize(value);
+            if (size == null)
+            {
+                _logger?.LogError("invalid size at region {region}", region);
+            }
+            else
+            {
+                GrfFramePart part = ctx.EnsurePartForCurrentItem<GrfFramePart>();
+                part.Size = size;
+            }
+        }
 
         return regionIndex + 1;
     }
