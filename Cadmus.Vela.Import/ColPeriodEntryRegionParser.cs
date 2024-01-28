@@ -1,5 +1,4 @@
 ﻿using Cadmus.Import.Proteus;
-using Cadmus.Refs.Bricks;
 using Cadmus.Vela.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
@@ -11,24 +10,24 @@ using System.Collections.Generic;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column supporto entry region parser. This targets
-/// <see cref="GrfSupportPart.Type"/>.
+/// VeLA column eta entry region parser. This targets
+/// <see cref="GrfLocalizationPart.Period"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-supporto")]
-public sealed class ColSupportEntryRegionParser : EntryRegionParser,
+[Tag("entry-region-parser.vela.col-eta")]
+public sealed class ColPeriodEntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColSupportEntryRegionParser>? _logger;
+    private readonly ILogger<ColPeriodEntryRegionParser>? _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ColSupportEntryRegionParser"/>
+    /// Initializes a new instance of the <see cref="ColPeriodEntryRegionParser"/>
     /// class.
     /// </summary>
     /// <param name="logger">The logger.</param>
-    public ColSupportEntryRegionParser(
-        ILogger<ColSupportEntryRegionParser>? logger = null)
+    public ColPeriodEntryRegionParser(
+        ILogger<ColPeriodEntryRegionParser>? logger = null)
     {
         _logger = logger;
     }
@@ -51,7 +50,7 @@ public sealed class ColSupportEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-supporto";
+        return regions[regionIndex].Tag == "col-eta";
     }
 
     /// <summary>
@@ -76,19 +75,19 @@ public sealed class ColSupportEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("supporto column without any item at region {region}",
+            _logger?.LogError("eta column without any item at region {region}",
                 regions[regionIndex]);
             throw new InvalidOperationException(
-                "supporto column without any item at region " + regions[regionIndex]);
+                "eta column without any item at region " + regions[regionIndex]);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
 
-        string? value = VelaHelper.FilterValue(txt.Value, true);
+        string ? value = VelaHelper.FilterValue(txt.Value, true);
         string? id = value != null
             ? ctx.ThesaurusEntryMap!.GetEntryId(
-                VelaHelper.T_GRF_SUPPORT_OBJECT_TYPES, value)
+                VelaHelper.T_GRF_PERIODS, value)
             : null;
 
         if (id == null)
@@ -98,9 +97,9 @@ public sealed class ColSupportEntryRegionParser : EntryRegionParser,
             id = value;
         }
 
-        GrfSupportPart part =
-            ctx.EnsurePartForCurrentItem<GrfSupportPart>();
-        part.Type = id;
+        GrfLocalizationPart part =
+            ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
+        part.Period = id;
 
         return regionIndex + 1;
     }

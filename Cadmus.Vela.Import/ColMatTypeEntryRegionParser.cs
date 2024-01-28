@@ -87,7 +87,7 @@ public sealed class ColMatTypeEntryRegionParser : EntryRegionParser,
         string? value = VelaHelper.FilterValue(txt.Value, true);
         string? id = value != null
             ? ctx.ThesaurusEntryMap!.GetEntryId(
-                VelaHelper.T_SUPPORT_MATERIALS, value)
+                VelaHelper.T_GRF_SUPPORT_MATERIALS, value)
             : null;
 
         if (id == null)
