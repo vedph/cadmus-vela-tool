@@ -1,5 +1,4 @@
 ﻿using Cadmus.Import.Proteus;
-using Cadmus.Refs.Bricks;
 using Cadmus.Vela.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
@@ -76,10 +75,11 @@ public sealed class ColIndoorEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("interno/esterno column without any item at region {region}",
-                regions[regionIndex]);
+            _logger?.LogError("interno/esterno column without any item " +
+                "at region {region}", regions[regionIndex]);
             throw new InvalidOperationException(
-                "interno/esterno column without any item at region " + regions[regionIndex]);
+                "interno/esterno column without any item at region " +
+                regions[regionIndex]);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)

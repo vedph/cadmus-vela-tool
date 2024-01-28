@@ -25,15 +25,18 @@ internal static partial class VelaHelper
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>Filtered value.</returns>
-    public static string? FilterValue(string? value)
+    public static string? FilterValue(string? value, bool lowercase)
     {
         if (string.IsNullOrEmpty(value)) return value;
 
-        // trim and lowercase
-        value = value.Trim().ToLowerInvariant();
+        // trim
+        value = value.Trim();
 
         // normalize whitespaces to single space
         value = WsRegex().Replace(value, " ");
+
+        // lowercase if required
+        if (lowercase) value = value.ToLowerInvariant();
 
         return _emptyValues.Contains(value) ? null : value;
     }
@@ -47,7 +50,7 @@ internal static partial class VelaHelper
     public static bool? GetNullableBooleanValue(string? value)
     {
         if (string.IsNullOrEmpty(value)) return null;
-        value = FilterValue(value);
+        value = FilterValue(value, true);
         return value switch
         {
             "si" => true,
@@ -65,7 +68,7 @@ internal static partial class VelaHelper
     public static bool GetBooleanValue(string? value)
     {
         if (string.IsNullOrEmpty(value)) return false;
-        value = FilterValue(value);
+        value = FilterValue(value, true);
         return value switch
         {
             "si" => true,

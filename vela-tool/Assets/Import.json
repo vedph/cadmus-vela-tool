@@ -63,6 +63,12 @@
       "id": "entry-region-parser.vela.col-tipologia_struttura"
     },
     {
+      "id": "entry-region-parser.vela.col-interno/esterno"
+    },
+    {
+      "id": "entry-region-parser.vela.col-supporto"
+    },
+    {
       "id": "entry-region-parser.vela.col-materiale"
     }
   ],

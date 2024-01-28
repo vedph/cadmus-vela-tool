@@ -11,24 +11,24 @@ using System.Collections.Generic;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column area entry region parser. This targets a
-/// <see cref="GrfLocalizationPart"/>.
+/// VeLA column supporto entry region parser. This targets
+/// <see cref="GrfSupportPart.Type"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-area")]
-public sealed class ColAreaEntryRegionParser : EntryRegionParser,
+[Tag("entry-region-parser.vela.col-supporto")]
+public sealed class ColSupportEntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColAreaEntryRegionParser>? _logger;
+    private readonly ILogger<ColSupportEntryRegionParser>? _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ColAreaEntryRegionParser"/>
+    /// Initializes a new instance of the <see cref="ColSupportEntryRegionParser"/>
     /// class.
     /// </summary>
     /// <param name="logger">The logger.</param>
-    public ColAreaEntryRegionParser(
-        ILogger<ColAreaEntryRegionParser>? logger = null)
+    public ColSupportEntryRegionParser(
+        ILogger<ColSupportEntryRegionParser>? logger = null)
     {
         _logger = logger;
     }
@@ -51,7 +51,7 @@ public sealed class ColAreaEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-area";
+        return regions[regionIndex].Tag == "col-supporto";
     }
 
     /// <summary>
@@ -76,30 +76,31 @@ public sealed class ColAreaEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("area column without any item at region {region}",
+            _logger?.LogError("supporto column without any item at region {region}",
                 regions[regionIndex]);
             throw new InvalidOperationException(
-                "area column without any item at region " + regions[regionIndex]);
+                "supporto column without any item at region " + regions[regionIndex]);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? area = VelaHelper.FilterValue(txt.Value, false);
-        if (area == null)
+
+        string? value = VelaHelper.FilterValue(txt.Value, true);
+        string? id = value != null
+            ? ctx.ThesaurusEntryMap!.GetEntryId(
+                VelaHelper.T_SUPPORT_OBJECT_TYPES, value)
+            : null;
+
+        if (id == null)
         {
-            _logger?.LogWarning("area column with empty value at region {region}",
-                               regions[regionIndex]);
-            return regionIndex + 1;
+            _logger?.LogError("Unknown value for tipologia_struttura: {value} " +
+                "at region {region}", value, regions[regionIndex]);
+            id = value;
         }
 
-        GrfLocalizationPart part =
-            ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
-        part.Place ??= new ProperName();
-        part.Place.Pieces!.Add(new ProperNamePiece
-        {
-            Type = "area",
-            Value = area
-        });
+        GrfSupportPart part =
+            ctx.EnsurePartForCurrentItem<GrfSupportPart>();
+        part.Type = id;
 
         return regionIndex + 1;
     }

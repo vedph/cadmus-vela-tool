@@ -84,7 +84,7 @@ public sealed class ColLocationEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? location = VelaHelper.FilterValue(txt.Value);
+        string? location = VelaHelper.FilterValue(txt.Value, false);
         if (location == null)
         {
             _logger?.LogWarning("location column with no value at region {region}",

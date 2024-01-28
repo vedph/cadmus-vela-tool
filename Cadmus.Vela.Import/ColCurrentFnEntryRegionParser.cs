@@ -84,7 +84,7 @@ public sealed class ColCurrentFnEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? value = VelaHelper.FilterValue(txt.Value);
+        string? value = VelaHelper.FilterValue(txt.Value, true);
 
         string? id = value != null
             ? ctx.ThesaurusEntryMap?.GetEntryId(

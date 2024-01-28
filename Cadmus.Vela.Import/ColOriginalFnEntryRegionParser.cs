@@ -84,7 +84,7 @@ public sealed class ColOriginalFnEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? fn = VelaHelper.FilterValue(txt.Value!.Trim());
+        string? fn = VelaHelper.FilterValue(txt.Value!.Trim(), false);
 
         if (fn != null)
         {

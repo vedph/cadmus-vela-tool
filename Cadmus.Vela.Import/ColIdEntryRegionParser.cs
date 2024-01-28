@@ -83,7 +83,7 @@ public sealed class ColIdEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? id = VelaHelper.FilterValue(txt.Value) ??
+        string? id = VelaHelper.FilterValue(txt.Value, false) ??
             throw new InvalidOperationException("no ID column at region " + region);
 
         // title

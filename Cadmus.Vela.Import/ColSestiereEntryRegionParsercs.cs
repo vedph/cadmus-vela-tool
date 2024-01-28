@@ -84,7 +84,7 @@ public sealed class ColSestiereEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? sestiere = VelaHelper.FilterValue(txt.Value);
+        string? sestiere = VelaHelper.FilterValue(txt.Value, false);
         if (sestiere == null)
         {
             _logger?.LogWarning("sestiere column with no value at region {region}",
