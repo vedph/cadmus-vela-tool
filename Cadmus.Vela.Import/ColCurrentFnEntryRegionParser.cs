@@ -76,10 +76,10 @@ public sealed class ColCurrentFnEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("funzione_attuale column without any item " +
-                "at region {region}", regions[regionIndex]);
+                "at region {region}", region);
             throw new InvalidOperationException(
                 "funzione_attuale column without any item at region " +
-                regions[regionIndex]);
+                region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)

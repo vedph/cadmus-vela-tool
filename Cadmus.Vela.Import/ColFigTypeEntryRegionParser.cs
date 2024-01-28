@@ -81,17 +81,27 @@ public sealed class ColFigTypeEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("__TAG__ column without any item at region {region}",
-                regions[regionIndex]);
+            _logger?.LogError("{tag} column without any item at region {region}",
+                region.Tag, region);
             throw new InvalidOperationException(
-                "__TAG__ column without any item at region " + regions[regionIndex]);
+                $"{region.Tag} column without any item at region {region}");
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? value = VelaHelper.FilterValue(txt.Value, false);
 
-        // TODO
+        if (VelaHelper.GetBooleanValue(txt.Value))
+        {
+            GrfFigurativePart part =
+                ctx.EnsurePartForCurrentItem<GrfFigurativePart>();
+
+            switch (region.Tag)
+            {
+                case "col-figurativi":
+                    // TODO
+                    break;
+            }
+        }
 
         return regionIndex + 1;
     }

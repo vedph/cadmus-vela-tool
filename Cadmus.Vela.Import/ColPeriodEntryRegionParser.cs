@@ -78,7 +78,7 @@ public sealed class ColPeriodEntryRegionParser : EntryRegionParser,
             _logger?.LogError("eta column without any item at region {region}",
                 regions[regionIndex]);
             throw new InvalidOperationException(
-                "eta column without any item at region " + regions[regionIndex]);
+                "eta column without any item at region " + region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
@@ -92,7 +92,7 @@ public sealed class ColPeriodEntryRegionParser : EntryRegionParser,
         if (id == null)
         {
             _logger?.LogError("Unknown value for eta: {value} " +
-                "at region {region}", value, regions[regionIndex]);
+                "at region {region}", value, region);
             id = value;
         }
 

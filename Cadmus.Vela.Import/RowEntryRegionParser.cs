@@ -87,9 +87,9 @@ public sealed class RowEntryRegionParser : EntryRegionParser, IEntryRegionParser
         if (row == null)
         {
             _logger?.LogError("Row command not found in region {region}",
-                regions[regionIndex]);
+                region);
             throw new InvalidOperationException(
-                "Row command not found in region " + regions[regionIndex]);
+                "Row command not found in region " + region);
         }
 
         // log row's Y

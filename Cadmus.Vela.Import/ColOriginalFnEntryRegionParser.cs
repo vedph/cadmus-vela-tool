@@ -76,10 +76,10 @@ public sealed class ColOriginalFnEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("funzione_originaria column without any item " +
-                "at region {region}", regions[regionIndex]);
+                "at region {region}", region);
             throw new InvalidOperationException(
                 "funzione_originaria column without any item at region " +
-                regions[regionIndex]);
+                region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)

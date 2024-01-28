@@ -77,9 +77,9 @@ public sealed class ColAreaEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("area column without any item at region {region}",
-                regions[regionIndex]);
+                region);
             throw new InvalidOperationException(
-                "area column without any item at region " + regions[regionIndex]);
+                "area column without any item at region " + region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
@@ -88,7 +88,7 @@ public sealed class ColAreaEntryRegionParser : EntryRegionParser,
         if (area == null)
         {
             _logger?.LogWarning("area column with empty value at region {region}",
-                               regions[regionIndex]);
+                region);
             return regionIndex + 1;
         }
 

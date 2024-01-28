@@ -76,10 +76,10 @@ public sealed class ColIndoorEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("interno/esterno column without any item " +
-                "at region {region}", regions[regionIndex]);
+                "at region {region}", region);
             throw new InvalidOperationException(
                 "interno/esterno column without any item at region " +
-                regions[regionIndex]);
+                region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)

@@ -76,10 +76,10 @@ public sealed class ColMatTypeEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("materiale column without any " +
-                "item at region {region}", regions[regionIndex]);
+                "item at region {region}", region);
             throw new InvalidOperationException(
                 "materiale column without any item at region " +
-                regions[regionIndex]);
+                region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
@@ -93,7 +93,7 @@ public sealed class ColMatTypeEntryRegionParser : EntryRegionParser,
         if (id == null)
         {
             _logger?.LogError("Unknown value for materiale: {value} " +
-                "at region {region}", value, regions[regionIndex]);
+                "at region {region}", value, region);
             id = value;
         }
 

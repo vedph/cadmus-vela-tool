@@ -78,10 +78,10 @@ public sealed class ColDatationEntryRegionParser : EntryRegionParser,
         {
             _logger?.LogError(
                 "cronologia column without any item at region {region}",
-                regions[regionIndex]);
+                region);
             throw new InvalidOperationException(
                 "cronologia column without any item at region " +
-                regions[regionIndex]);
+                region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)

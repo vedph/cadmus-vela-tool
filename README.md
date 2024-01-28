@@ -105,9 +105,9 @@ public sealed class Col__NAME__EntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("__TAG__ column without any item at region {region}",
-                regions[regionIndex]);
+                region);
             throw new InvalidOperationException(
-                "__TAG__ column without any item at region " + regions[regionIndex]);
+                "__TAG__ column without any item at region " + region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
@@ -133,7 +133,7 @@ string? id = value != null
 if (id == null)
 {
     _logger?.LogError("Unknown value for tipologia_struttura: {value} " +
-        "at region {region}", value, regions[regionIndex]);
+        "at region {region}", value, region);
     id = value;
 }
 

@@ -76,10 +76,10 @@ public sealed class ColStructTypeEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("tipologia_struttura column without any " +
-                "item at region {region}", regions[regionIndex]);
+                "item at region {region}", region);
             throw new InvalidOperationException(
                 "tipologia_struttura column without any item at region " +
-                regions[regionIndex]);
+                region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
@@ -93,7 +93,7 @@ public sealed class ColStructTypeEntryRegionParser : EntryRegionParser,
         if (id == null)
         {
             _logger?.LogError("Unknown value for tipologia_struttura: {value} " +
-                "at region {region}", value, regions[regionIndex]);
+                "at region {region}", value, region);
             id = value;
         }
 

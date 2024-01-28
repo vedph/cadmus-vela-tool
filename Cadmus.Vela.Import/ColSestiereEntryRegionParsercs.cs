@@ -77,9 +77,9 @@ public sealed class ColSestiereEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("sestiere column without any item at region {region}",
-                regions[regionIndex]);
+                region);
             throw new InvalidOperationException(
-                "sestiere column without any item at region " + regions[regionIndex]);
+                "sestiere column without any item at region " + region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
@@ -88,7 +88,7 @@ public sealed class ColSestiereEntryRegionParser : EntryRegionParser,
         if (sestiere == null)
         {
             _logger?.LogWarning("sestiere column with no value at region {region}",
-                regions[regionIndex]);
+                region);
         }
 
         GrfLocalizationPart part =

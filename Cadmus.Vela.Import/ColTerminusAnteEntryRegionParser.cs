@@ -78,10 +78,10 @@ public sealed class ColTerminusAnteEntryRegionParser : EntryRegionParser,
         {
             _logger?.LogError(
                 "terminus_ante column without any item at region {region}",
-                regions[regionIndex]);
+                region);
             throw new InvalidOperationException(
                 "terminus_ante column without any item at region " +
-                regions[regionIndex]);
+                region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)

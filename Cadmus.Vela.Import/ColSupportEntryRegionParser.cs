@@ -76,9 +76,9 @@ public sealed class ColSupportEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("supporto column without any item at region {region}",
-                regions[regionIndex]);
+                region);
             throw new InvalidOperationException(
-                "supporto column without any item at region " + regions[regionIndex]);
+                "supporto column without any item at region " + region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
@@ -93,7 +93,7 @@ public sealed class ColSupportEntryRegionParser : EntryRegionParser,
         if (id == null)
         {
             _logger?.LogError("Unknown value for tipologia_struttura: {value} " +
-                "at region {region}", value, regions[regionIndex]);
+                "at region {region}", value, region);
             id = value;
         }
 

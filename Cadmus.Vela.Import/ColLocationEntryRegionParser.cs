@@ -77,9 +77,9 @@ public sealed class ColLocationEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("location column without any item at region {region}",
-                regions[regionIndex]);
+                region);
             throw new InvalidOperationException(
-                "location column without any item at region " + regions[regionIndex]);
+                "location column without any item at region " + region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
