@@ -1,6 +1,5 @@
-﻿using Cadmus.Import.Proteus;
-using Cadmus.Refs.Bricks;
-using Cadmus.Vela.Parts;
+﻿using Cadmus.General.Parts;
+using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -12,24 +11,24 @@ namespace Cadmus.Vela.Import;
 
 /// <summary>
 /// VeLA columns figurativi, testo, numeri, cornice entry region parser. This
-/// targets <see cref="GrfFigurativePart.Types"/>.
+/// targets <see cref="CategoriesPart"/> with role <c>features</c>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-fig-types")]
-public sealed class ColFigTypeEntryRegionParser : EntryRegionParser,
+[Tag("entry-region-parser.vela.col-features")]
+public sealed class ColFeaturesEntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColFigTypeEntryRegionParser>? _logger;
+    private readonly ILogger<ColFeaturesEntryRegionParser>? _logger;
     private readonly HashSet<string> _tags;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ColFigTypeEntryRegionParser"/>
+    /// Initializes a new instance of the <see cref="ColFeaturesEntryRegionParser"/>
     /// class.
     /// </summary>
     /// <param name="logger">The logger.</param>
-    public ColFigTypeEntryRegionParser(
-        ILogger<ColFigTypeEntryRegionParser>? logger = null)
+    public ColFeaturesEntryRegionParser(
+        ILogger<ColFeaturesEntryRegionParser>? logger = null)
     {
         _logger = logger;
         _tags =
@@ -92,14 +91,29 @@ public sealed class ColFigTypeEntryRegionParser : EntryRegionParser,
 
         if (VelaHelper.GetBooleanValue(txt.Value))
         {
-            GrfFigurativePart part =
-                ctx.EnsurePartForCurrentItem<GrfFigurativePart>();
-
+            // ID from thesaurus categories_features
+            string? id = null;
             switch (region.Tag)
             {
                 case "col-figurativi":
-                    // TODO
+                    id = "figurative";
                     break;
+                case "col-testo":
+                    id = "text";
+                    break;
+                case "col-numeri":
+                    id = "digits";
+                    break;
+                case "col-cornice":
+                    id = "frame";
+                    break;
+            }
+
+            if (id != null)
+            {
+                CategoriesPart part =
+                    ctx.EnsurePartForCurrentItem<CategoriesPart>();
+                part.Categories.Add(id);
             }
         }
 

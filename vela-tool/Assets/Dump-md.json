@@ -82,6 +82,9 @@
     },
     {
       "id": "entry-region-parser.vela.col-cronologia"
+    },
+    {
+      "id": "entry-region-parser.vela.col-features"
     }
   ],
   "entrySetContextPatchers": [
