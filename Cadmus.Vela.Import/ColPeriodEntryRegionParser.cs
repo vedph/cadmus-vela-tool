@@ -86,13 +86,12 @@ public sealed class ColPeriodEntryRegionParser : EntryRegionParser,
 
         string ? value = VelaHelper.FilterValue(txt.Value, true);
         string? id = value != null
-            ? ctx.ThesaurusEntryMap!.GetEntryId(
-                VelaHelper.T_GRF_PERIODS, value)
+            ? ctx.ThesaurusEntryMap!.GetEntryId(VelaHelper.T_GRF_PERIODS, value)
             : null;
 
         if (id == null)
         {
-            _logger?.LogError("Unknown value for tipologia_struttura: {value} " +
+            _logger?.LogError("Unknown value for eta: {value} " +
                 "at region {region}", value, regions[regionIndex]);
             id = value;
         }
