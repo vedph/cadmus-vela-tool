@@ -1,4 +1,5 @@
 ﻿using Cadmus.Import.Proteus;
+using Cadmus.Mat.Bricks;
 using Cadmus.Vela.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
@@ -54,7 +55,7 @@ public sealed class ColSizeEntryRegionParser : EntryRegionParser,
         return regions[regionIndex].Tag == "col-misure";
     }
 
-    private static Mat.Bricks.PhysicalSize? ParseSize(string value)
+    private static PhysicalSize? ParseSize(string value)
     {
         // parse width + height from value like "10X20.5" (cm)
         int i = value.IndexOf('X');
@@ -62,12 +63,12 @@ public sealed class ColSizeEntryRegionParser : EntryRegionParser,
 
         return new()
         {
-            W = new Mat.Bricks.PhysicalDimension
+            W = new PhysicalDimension
             {
                 Value = float.Parse(value[..i], CultureInfo.InvariantCulture),
                 Unit = "cm"
             },
-            H = new Mat.Bricks.PhysicalDimension
+            H = new PhysicalDimension
             {
                 Value = float.Parse(value[(i + 1)..], CultureInfo.InvariantCulture),
                 Unit = "cm"
@@ -108,7 +109,7 @@ public sealed class ColSizeEntryRegionParser : EntryRegionParser,
         string? value = VelaHelper.FilterValue(txt.Value, false);
         if (value != null)
         {
-            Mat.Bricks.PhysicalSize? size = ParseSize(value);
+            PhysicalSize? size = ParseSize(value);
             if (size == null)
             {
                 _logger?.LogError("invalid size at region {region}", region);
