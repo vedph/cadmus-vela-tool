@@ -88,11 +88,16 @@ public sealed class ColDatationEntryRegionParser : EntryRegionParser,
             set.Entries[region.Range.Start.Entry + 1];
         string? value = VelaHelper.FilterValue(txt.Value, false);
 
-        // cronologia excludes terminus ante/post, so just parse the date
+        // cronologia is just a copy of terminus ante/post if they are present,
+        // so in this case just ignore it
         HistoricalDatePart part =
             ctx.EnsurePartForCurrentItem<HistoricalDatePart>();
 
-        part.Date = HistoricalDate.Parse(value);
+        if (part.Date is null ||
+            part.Date.GetDateType() == HistoricalDateType.Undefined)
+        {
+            part.Date = HistoricalDate.Parse(value);
+        }
 
         return regionIndex + 1;
     }
