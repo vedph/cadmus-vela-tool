@@ -11,8 +11,8 @@ using System.Collections.Generic;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column area entry region parser. This targets a
-/// <see cref="GrfLocalizationPart"/>.
+/// VeLA column area, sestiere and denominazione entry region parser. This
+/// targets a <see cref="GrfLocalizationPart"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
@@ -51,7 +51,9 @@ public sealed class ColAreaEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-area";
+        return regions[regionIndex].Tag == "col-area" ||
+            regions[regionIndex].Tag == "col-sestiere" ||
+            regions[regionIndex].Tag == "col-denominazione";
     }
 
     /// <summary>
@@ -76,19 +78,19 @@ public sealed class ColAreaEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("area column without any item at region {region}",
-                region);
+            _logger?.LogError("{tag} column without any item at region {region}",
+                region.Tag, region);
             throw new InvalidOperationException(
-                "area column without any item at region " + region);
+                $"{region.Tag} column without any item at region {region}");
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? area = VelaHelper.FilterValue(txt.Value, false);
-        if (area == null)
+        string? value = VelaHelper.FilterValue(txt.Value, false);
+        if (value == null)
         {
-            _logger?.LogWarning("area column with empty value at region {region}",
-                region);
+            _logger?.LogWarning("{tag} column with empty value at region {region}",
+                region.Tag, region);
             return regionIndex + 1;
         }
 
@@ -97,8 +99,13 @@ public sealed class ColAreaEntryRegionParser : EntryRegionParser,
         part.Place ??= new ProperName();
         part.Place.Pieces!.Add(new ProperNamePiece
         {
-            Type = "area",
-            Value = area
+            Type = region.Tag switch
+            {
+                "col-sestiere" => "sestiere",
+                "col-denominazione" => "location",
+                _ => "area",
+            },
+            Value = value
         });
 
         return regionIndex + 1;
