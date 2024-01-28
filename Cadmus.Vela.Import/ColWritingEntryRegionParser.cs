@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -76,9 +77,11 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
         return _tags.Contains(regions[regionIndex].Tag ?? "");
     }
 
-    private string GetThesaurusId(CadmusEntrySetContext ctx, EntryRegion region,
-        string thesaurusId, string value)
+    private string? GetThesaurusId(CadmusEntrySetContext ctx, EntryRegion region,
+        string thesaurusId, string? value)
     {
+        if (string.IsNullOrEmpty(value)) return null;
+
         string? id = ctx.ThesaurusEntryMap!.GetEntryId(thesaurusId, value);
 
         if (id == null)
@@ -125,12 +128,13 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
 
         if (string.IsNullOrEmpty(value)) return regionIndex + 1;
 
-        GrfWritingPart part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+        GrfWritingPart? part = null;
         string? id;
 
         switch (region.Tag)
         {
             case "numero_righe":
+                part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
                 part.Counts.Add(new()
                 {
                     Id = "row",
@@ -139,44 +143,96 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
                 break;
 
             case "alfabeto":
-                part.System = GetThesaurusId(ctx, region,
+                id = GetThesaurusId(ctx, region,
                     VelaHelper.T_GRF_WRITING_SYSTEMS, value);
+                if (id != null)
+                {
+                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                    part.System = GetThesaurusId(ctx, region,
+                        VelaHelper.T_GRF_WRITING_SYSTEMS, value);
+                }
                 break;
 
             case "lingua_(iso-639-3)":
-                part.Languages.Add(GetThesaurusId(ctx, region,
-                    VelaHelper.T_GRF_WRITING_LANGUAGES, value));
+                id = GetThesaurusId(ctx, region,
+                    VelaHelper.T_GRF_WRITING_LANGUAGES, value);
+                if (id != null)
+                {
+                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                    part.Languages.Add(id);
+                }
                 break;
 
             case "codice_glottologico":
                 id = GetThesaurusId(ctx, region,
                     VelaHelper.T_GRF_WRITING_LANGUAGES, value);
+                if (id != null)
+                {
+                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
 
-                // if there is no language yet, add it as the first one.
-                // Otherwise, append it to the first one because the first
-                // in this case is the ISO639-3 code.
-                if (part.Languages.Count == 0)
-                    part.Languages.Add(id);
-                else
-                    part.Languages[0] += $"_{id}";
+                    // if there is no language yet, add it as the first one.
+                    // Otherwise, append it to the first one because the first
+                    // in this case is the ISO639-3 code.
+                    if (part.Languages.Count == 0)
+                        part.Languages.Add(id);
+                    else
+                        part.Languages[0] += $"_{id}";
+                }
                 break;
 
             case "tipologia_scrittura":
                 // multiple scripts are separated by comma
-                foreach (string i in VelaHelper.GetValueList(value, true))
+                IList<string> ids = (
+                    from v in VelaHelper.GetValueList(value, true)
+                    let vi = GetThesaurusId(ctx, region,
+                        VelaHelper.T_GRF_WRITING_SCRIPTS, v)
+                    where vi != null
+                    select vi).ToList();
+
+                if (ids.Count > 0)
                 {
-                    id = GetThesaurusId(ctx, region,
-                        VelaHelper.T_GRF_WRITING_SCRIPTS, i);
-                    part.Scripts.Add(id);
+                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                    part.Scripts.AddRange(ids);
                 }
                 break;
 
             case "tipologia_grafica":
-                part.Casing = GetThesaurusId(ctx, region,
+                id = GetThesaurusId(ctx, region,
                     VelaHelper.T_GRF_WRITING_CASING, value);
+                if (id != null)
+                {
+                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                    part.Casing = GetThesaurusId(ctx, region,
+                        VelaHelper.T_GRF_WRITING_CASING, value);
+                }
                 break;
 
-            // TODO
+            case "rubricatura":
+                if (VelaHelper.GetBooleanValue(value))
+                {
+                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                    part.HasRubrics = true;
+                }
+                break;
+
+            case "maiuscolo\\minuscolo_prevalente":
+                // TODO
+                break;
+
+            case "sistema_interpuntivo":
+                break;
+            case "nessi_e_legamenti":
+                break;
+            case "rigatura":
+                break;
+            case "abbreviazioni":
+                break;
+            case "monogrammi":
+                break;
+            case "lettera_singola":
+                break;
+            case "lettere_non_interpretabili":
+                break;
         }
 
         return regionIndex + 1;
