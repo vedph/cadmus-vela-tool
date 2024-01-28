@@ -162,9 +162,13 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
                 break;
 
             case "tipologia_scrittura":
-                id = GetThesaurusId(ctx, region,
-                    VelaHelper.T_GRF_WRITING_SCRIPTS, value);
-                part.Scripts.Add(id);
+                // multiple scripts are separated by comma
+                foreach (string i in VelaHelper.GetValueList(value, true))
+                {
+                    id = GetThesaurusId(ctx, region,
+                        VelaHelper.T_GRF_WRITING_SCRIPTS, i);
+                    part.Scripts.Add(id);
+                }
                 break;
 
             // TODO
