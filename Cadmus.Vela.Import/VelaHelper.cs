@@ -2,6 +2,9 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Cadmus.Import.Proteus;
+using Proteus.Core.Regions;
+using Microsoft.Extensions.Logging;
 
 namespace Cadmus.Vela.Import;
 
@@ -23,6 +26,8 @@ internal static partial class VelaHelper
     public const string T_GRF_SUPPORT_MATERIALS = "grf-support-materials@en";
     public const string T_GRF_SUPPORT_OBJECT_TYPES = "grf-support-object-types@en";
     public const string T_GRF_PERIODS = "grf-periods@en";
+    public const string T_GRF_TECHNIQUES = "grf-techniques@en";
+    public const string T_GRF_TOOLS = "grf-tools@en";
     public const string T_GRF_WRITING_CASING = "grf-writing-casing@en";
     public const string T_GRF_WRITING_LANGUAGES = "grf-writing-languages@en";
     public const string T_GRF_WRITING_SCRIPTS = "grf-writing-scripts@en";
@@ -103,5 +108,22 @@ internal static partial class VelaHelper
             "no" => false,
             _ => false
         };
+    }
+
+    public static string GetThesaurusId(CadmusEntrySetContext ctx,
+        EntryRegion region, string thesaurusId, string value,
+        ILogger? logger)
+    {
+        string? id = ctx.ThesaurusEntryMap!.GetEntryId(thesaurusId,
+            value.ToLowerInvariant());
+
+        if (id == null)
+        {
+            logger?.LogError("Unknown value for {tag}: {value} " +
+                "at region {region}", region.Tag, value, region);
+            id = value;
+        }
+
+        return id;
     }
 }

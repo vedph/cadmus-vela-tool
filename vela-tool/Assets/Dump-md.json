@@ -91,6 +91,9 @@
     },
     {
       "id": "entry-region-parser.vela.col-disegno_non_interpretabile"
+    },
+    {
+      "id": "entry-region-parser.vela.col-tech"
     }
   ],
   "entrySetContextPatchers": [

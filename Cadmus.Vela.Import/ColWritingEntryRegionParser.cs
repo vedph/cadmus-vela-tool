@@ -77,24 +77,6 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
         return _tags.Contains(regions[regionIndex].Tag ?? "");
     }
 
-    private string? GetThesaurusId(CadmusEntrySetContext ctx, EntryRegion region,
-        string thesaurusId, string? value)
-    {
-        if (string.IsNullOrEmpty(value)) return null;
-
-        string? id = ctx.ThesaurusEntryMap!.GetEntryId(thesaurusId,
-            value.ToLowerInvariant());
-
-        if (id == null)
-        {
-            _logger?.LogError("Unknown value for {tag}: {value} " +
-                "at region {region}", region.Tag, value, region);
-            id = value;
-        }
-
-        return id;
-    }
-
     /// <summary>
     /// Parses the region of entries at <paramref name="regionIndex" />
     /// in the specified <paramref name="regions" />.
@@ -144,66 +126,54 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
                 break;
 
             case "col-alfabeto":
-                id = GetThesaurusId(ctx, region,
-                    VelaHelper.T_GRF_WRITING_SYSTEMS, value);
-                if (id != null)
-                {
-                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                    part.System = id;
-                }
+                id = VelaHelper.GetThesaurusId(ctx, region,
+                    VelaHelper.T_GRF_WRITING_SYSTEMS, value, _logger);
+                part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                part.System = id;
                 break;
 
             case "col-lingua_(iso-639-3)":
-                id = GetThesaurusId(ctx, region,
-                    VelaHelper.T_GRF_WRITING_LANGUAGES, value);
-                if (id != null)
-                {
-                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                    part.Languages.Add(id);
-                }
+                id = VelaHelper.GetThesaurusId(ctx, region,
+                    VelaHelper.T_GRF_WRITING_LANGUAGES, value, _logger);
+                part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                part.Languages.Add(id);
                 break;
 
             case "col-codice_glottologico":
-                id = GetThesaurusId(ctx, region,
-                    VelaHelper.T_GRF_WRITING_LANGUAGES, value);
-                if (id != null)
-                {
-                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                id = VelaHelper.GetThesaurusId(ctx, region,
+                VelaHelper.T_GRF_WRITING_LANGUAGES, value, _logger);
+                part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
 
-                    // if there is no language yet, add it as the first one.
-                    // Otherwise, append it to the first one because the first
-                    // in this case is the ISO639-3 code.
-                    if (part.Languages.Count == 0)
-                        part.Languages.Add(id);
-                    else
-                        part.Languages[0] += $"_{id}";
-                }
+                // if there is no language yet, add it as the first one.
+                // Otherwise, append it to the first one because the first
+                // in this case is the ISO639-3 code.
+                if (part.Languages.Count == 0)
+                    part.Languages.Add(id);
+                else
+                    part.Languages[0] += $"_{id}";
                 break;
 
             case "col-tipologia_scrittura":
                 // multiple scripts are separated by comma
-                IList<string> ids = (
-                    from v in VelaHelper.GetValueList(value, true)
-                    let vi = GetThesaurusId(ctx, region,
-                        VelaHelper.T_GRF_WRITING_SCRIPTS, v)
-                    where vi != null
-                    select vi).ToList();
-
-                if (ids.Count > 0)
+                IList<string> tokens = VelaHelper.GetValueList(value, true);
+                if (tokens.Count > 0)
                 {
                     part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                    part.Scripts.AddRange(ids);
+
+                    foreach (string token in tokens)
+                    {
+                        id = VelaHelper.GetThesaurusId(ctx, region,
+                            VelaHelper.T_GRF_WRITING_SCRIPTS, token, _logger);
+                        part.Scripts.Add(id);
+                    }
                 }
                 break;
 
             case "col-tipologia_grafica":
-                id = GetThesaurusId(ctx, region,
-                    VelaHelper.T_GRF_WRITING_CASING, value);
-                if (id != null)
-                {
-                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                    part.Casing = id;
-                }
+                id = VelaHelper.GetThesaurusId(ctx, region,
+                    VelaHelper.T_GRF_WRITING_CASING, value, _logger);
+                part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                part.Casing = id;
                 break;
 
             case "col-rubricatura":
