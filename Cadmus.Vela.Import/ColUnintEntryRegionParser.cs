@@ -1,33 +1,32 @@
-﻿using Cadmus.Core;
-using Cadmus.Import.Proteus;
+﻿using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA row entry region parser. This resets the context and adds a new item
-/// to it.
-/// <para>Tag: <c>entry-region-parser.vela.row</c>.</para>
+/// VeLA column disegno_non_interpretabile entry region parser. This targets
+/// item's flags.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.row")]
-public sealed class RowEntryRegionParser : EntryRegionParser, IEntryRegionParser
+[Tag("entry-region-parser.vela.col-disegno_non_interpretabile")]
+public sealed class ColUnintEntryRegionParser : EntryRegionParser,
+    IEntryRegionParser
 {
-    private readonly ILogger<RowEntryRegionParser>? _logger;
+    private readonly ILogger<ColUnintEntryRegionParser>? _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RowEntryRegionParser"/>
+    /// Initializes a new instance of the <see cref="ColUnintEntryRegionParser"/>
     /// class.
     /// </summary>
     /// <param name="logger">The logger.</param>
-    public RowEntryRegionParser(ILogger<RowEntryRegionParser>? logger = null)
+    public ColUnintEntryRegionParser(
+        ILogger<ColUnintEntryRegionParser>? logger = null)
     {
         _logger = logger;
     }
@@ -50,7 +49,7 @@ public sealed class RowEntryRegionParser : EntryRegionParser, IEntryRegionParser
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "row";
+        return regions[regionIndex].Tag == "col-disegno_non_interpretabile";
     }
 
     /// <summary>
@@ -70,42 +69,24 @@ public sealed class RowEntryRegionParser : EntryRegionParser, IEntryRegionParser
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        set.Context.Reset();
-
-        // find the first row-start command
-        DecodedCommandEntry? row = null;
-        EntryRegion region = regions[regionIndex];
-        for (int i = region.Range.Start.Entry; i <= region.Range.End.Entry; i++)
-        {
-            if (set.Entries[i] is DecodedCommandEntry cmd &&
-                cmd.Name == "row-start")
-            {
-                row = cmd;
-                break;
-            }
-        }
-        if (row == null)
-        {
-            _logger?.LogError("Row command not found in region {region}",
-                region);
-            throw new InvalidOperationException(
-                "Row command not found in region " + region);
-        }
-
-        // log row's Y
-        int y = int.Parse(row.GetArgument("y")!, CultureInfo.InvariantCulture);
-        _logger?.LogInformation("-- ROW: {row}", y);
-
-        // add item for the row
-        Item item = new()
-        {
-            FacetId = "graffiti",
-            CreatorId = "zeus",
-            UserId = "zeus",
-            Flags = VelaHelper.F_IMPORTED
-        };
         CadmusEntrySetContext ctx = (CadmusEntrySetContext)set.Context;
-        ctx.Items.Add(item);
+        EntryRegion region = regions[regionIndex];
+
+        if (ctx.CurrentItem == null)
+        {
+            _logger?.LogError("disegno_non_interpretabile column without " +
+                "any item at region {region}", region);
+            throw new InvalidOperationException(
+                "disegno_non_interpretabile column without any item at region "
+                + region);
+        }
+
+        DecodedTextEntry txt = (DecodedTextEntry)
+            set.Entries[region.Range.Start.Entry + 1];
+        if (VelaHelper.GetBooleanValue(txt.Value))
+        {
+            ctx.CurrentItem.Flags |= VelaHelper.F_NOT_INTERPRETABLE;
+        }
 
         return regionIndex + 1;
     }

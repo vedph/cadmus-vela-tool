@@ -14,6 +14,10 @@ internal static partial class VelaHelper
         "n\\d", "n/d", "N\\D", "N/D"
     ];
 
+    // flag values
+    public const int F_IMPORTED = 1;
+    public const int F_NOT_INTERPRETABLE = 32;
+
     // thesauri IDs
     public const string T_CATEGORIES_FUNCTIONS = "categories_functions@en";
     public const string T_GRF_SUPPORT_MATERIALS = "grf-support-materials@en";

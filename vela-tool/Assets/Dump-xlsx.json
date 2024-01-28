@@ -91,6 +91,12 @@
     },
     {
       "id": "entry-region-parser.vela.col-misure"
+    },
+    {
+      "id": "entry-region-parser.vela.col-writing"
+    },
+    {
+      "id": "entry-region-parser.vela.col-disegno_non_interpretabile"
     }
   ],
   "entrySetContextPatchers": [
