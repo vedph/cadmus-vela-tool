@@ -1,5 +1,6 @@
-﻿using Cadmus.Import.Proteus;
-using Cadmus.Vela.Parts;
+﻿using Cadmus.General.Parts;
+using Cadmus.Import.Proteus;
+using Fusi.Antiquity.Chronology;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -10,24 +11,24 @@ using System.Collections.Generic;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column supporto entry region parser. This targets
-/// <see cref="GrfSupportPart.Type"/>.
+/// VeLA column terminus_post entry region parser. This targets
+/// <see cref="HistoricalDatePart"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-supporto")]
-public sealed class ColSupportEntryRegionParser : EntryRegionParser,
+[Tag("entry-region-parser.vela.col-terminus_post")]
+public sealed class ColTerminusPostEntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColSupportEntryRegionParser>? _logger;
+    private readonly ILogger<ColTerminusPostEntryRegionParser>? _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ColSupportEntryRegionParser"/>
-    /// class.
+    /// Initializes a new instance of the
+    /// <see cref="ColTerminusPostEntryRegionParser"/> class.
     /// </summary>
     /// <param name="logger">The logger.</param>
-    public ColSupportEntryRegionParser(
-        ILogger<ColSupportEntryRegionParser>? logger = null)
+    public ColTerminusPostEntryRegionParser(
+        ILogger<ColTerminusPostEntryRegionParser>? logger = null)
     {
         _logger = logger;
     }
@@ -50,7 +51,7 @@ public sealed class ColSupportEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-supporto";
+        return regions[regionIndex].Tag == "col-terminus_post";
     }
 
     /// <summary>
@@ -75,31 +76,24 @@ public sealed class ColSupportEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("supporto column without any item at region {region}",
+            _logger?.LogError(
+                "terminus_post column without any item at region {region}",
                 regions[regionIndex]);
             throw new InvalidOperationException(
-                "supporto column without any item at region " + regions[regionIndex]);
+                "terminus_post column without any item at region " +
+                regions[regionIndex]);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
+        string? value = VelaHelper.FilterValue(txt.Value, false);
 
-        string? value = VelaHelper.FilterValue(txt.Value, true);
-        string? id = value != null
-            ? ctx.ThesaurusEntryMap!.GetEntryId(
-                VelaHelper.T_GRF_SUPPORT_OBJECT_TYPES, value)
-            : null;
+        // terminus post is the first column to occur, so we just set its
+        // value as the date, and we're done
+        HistoricalDatePart part =
+            ctx.EnsurePartForCurrentItem<HistoricalDatePart>();
 
-        if (id == null)
-        {
-            _logger?.LogError("Unknown value for tipologia_struttura: {value} " +
-                "at region {region}", value, regions[regionIndex]);
-            id = value;
-        }
-
-        GrfSupportPart part =
-            ctx.EnsurePartForCurrentItem<GrfSupportPart>();
-        part.Type = id;
+        part.Date = HistoricalDate.Parse($"{value} - ");
 
         return regionIndex + 1;
     }

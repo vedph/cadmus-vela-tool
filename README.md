@@ -112,7 +112,7 @@ public sealed class Col__NAME__EntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? __TAG__ = VelaHelper.FilterValue(txt.Value);
+        string? value = VelaHelper.FilterValue(txt.Value, false);
 
         // TODO
 

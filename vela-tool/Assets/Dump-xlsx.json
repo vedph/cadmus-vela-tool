@@ -73,6 +73,15 @@
     },
     {
       "id": "entry-region-parser.vela.col-eta"
+    },
+    {
+      "id": "entry-region-parser.vela.col-terminus_post"
+    },
+    {
+      "id": "entry-region-parser.vela.col-terminus_ante"
+    },
+    {
+      "id": "entry-region-parser.vela.col-cronologia"
     }
   ],
   "entrySetContextPatchers": [
