@@ -216,17 +216,41 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
                 break;
 
             case "maiuscolo\\minuscolo_prevalente":
-                // TODO
+                // TODO ask if this is relevant
                 break;
 
             case "sistema_interpuntivo":
+                if (VelaHelper.GetBooleanValue(value))
+                {
+                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                    part.ScriptFeatures.Add("punctuation");
+                }
                 break;
+
             case "nessi_e_legamenti":
+                if (VelaHelper.GetBooleanValue(value))
+                {
+                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                    part.ScriptFeatures.Add("ligature");
+                }
                 break;
+
             case "rigatura":
+                if (VelaHelper.GetBooleanValue(value))
+                {
+                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                    part.HasRuling = true;
+                }
                 break;
+
             case "abbreviazioni":
+                if (VelaHelper.GetBooleanValue(value))
+                {
+                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                    part.ScriptFeatures.Add("abbreviation");
+                }
                 break;
+
             case "monogrammi":
                 break;
             case "lettera_singola":
