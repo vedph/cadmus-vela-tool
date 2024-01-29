@@ -97,6 +97,9 @@
     },
     {
       "id": "entry-region-parser.vela.col-fig-types"
+    },
+    {
+      "id": "entry-region-parser.vela.col-commento"
     }
   ],
   "entrySetContextPatchers": [
