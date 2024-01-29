@@ -1,5 +1,5 @@
-﻿using Cadmus.Import.Proteus;
-using Cadmus.Refs.Bricks;
+﻿using Cadmus.General.Parts;
+using Cadmus.Import.Proteus;
 using Cadmus.Vela.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
@@ -21,8 +21,8 @@ public sealed class ColArgTypesEntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
     private readonly ILogger<ColArgTypesEntryRegionParser>? _logger;
-    private readonly HashSet<string> _fnTags;
-    private readonly HashSet<string> _thTags;
+    private readonly Dictionary<string, string> _fnTags;
+    private readonly Dictionary<string, string> _thTags;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ColArgTypesEntryRegionParser"/>
@@ -33,20 +33,35 @@ public sealed class ColArgTypesEntryRegionParser : EntryRegionParser,
         ILogger<ColArgTypesEntryRegionParser>? logger = null)
     {
         _logger = logger;
-        _fnTags =
-            [
-                "col-funeraria", "col-commemorativa", "col-firma",
-                "col-celebrativa", "col-esortativa", "col-didascalica",
-                "col-segnaletica", "col-parlanti"
-            ];
-        _thTags =
-            [
-                "col-iniziali\\i_nome_persona", "col-citazione", "col-infamante",
-                "col-sport", "col-prostituzione", "col-politica",
-                "col-religiosa", "col-preghiera", "col-ex_voto", "col-amore",
-                "col-insulto", "col-imprecazioni", "col-nome_di_luogo",
-                "col-saluti"
-            ];
+        _fnTags = new Dictionary<string, string>
+        {
+            ["col-funeraria"] = "funerary",
+            ["col-commemorativa"] = "memorial",
+            ["col-firma"] = "signature",
+            ["col-celebrativa"] = "celebratory",
+            ["col-esortativa"] = "exhortative",
+            ["col-didascalica"] = "didascalic",
+            ["col-segnaletica"] = "signaling",
+            ["col-parlanti"] = "speaking"
+        };
+
+        _thTags = new Dictionary<string, string>
+        {
+            ["col-iniziali\\i_nome_persona"] = "initials",
+            ["col-citazione"] = "quote",
+            ["col-infamante"] = "infamous",
+            ["col-sport"] = "sport",
+            ["col-prostituzione"] = "prostitution",
+            ["col-politica"] = "politics",
+            ["col-religiosa"] = "religion",
+            ["col-preghiera"] = "prayer",
+            ["col-ex_voto"] = "ex-voto",
+            ["col-amore"] = "love",
+            ["col-insulto"] = "taunt",
+            ["col-imprecazioni"] = "curse",
+            ["col-nome_di_luogo"] = "toponym",
+            ["col-saluti"] = "greeting"
+        };
     }
 
     /// <summary>
@@ -70,7 +85,7 @@ public sealed class ColArgTypesEntryRegionParser : EntryRegionParser,
         string tag = regions[regionIndex].Tag ?? "";
 
         return tag == "col-sigla" || tag == "col-poesia" ||
-               _fnTags.Contains(tag) || _thTags.Contains(tag);
+               _fnTags.ContainsKey(tag) || _thTags.ContainsKey(tag);
     }
 
     /// <summary>
@@ -106,13 +121,17 @@ public sealed class ColArgTypesEntryRegionParser : EntryRegionParser,
         bool value = VelaHelper.GetBooleanValue(txt.Value);
         if (!value) return regionIndex + 1;
 
-        if (_fnTags.Contains(region.Tag!))
+        if (_fnTags.TryGetValue(region.Tag!, out string? fid))
         {
-            // TODO
+            CategoriesPart part =
+                ctx.EnsurePartForCurrentItem<CategoriesPart>("functions");
+            part.Categories.Add(fid);
         }
-        else if (_thTags.Contains(region.Tag!))
+        else if (_thTags.TryGetValue(region.Tag!, out string? tid))
         {
-            // TODO
+            CategoriesPart part =
+                ctx.EnsurePartForCurrentItem<CategoriesPart>("themes");
+            part.Categories.Add(tid);
         }
         else
         {
