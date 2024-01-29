@@ -110,6 +110,28 @@ internal static partial class VelaHelper
         };
     }
 
+    /// <summary>
+    /// Gets the date value with format DD/MM/YYYY.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <returns>Value or null if empty or invalid.</returns>
+    public static DateTime? GetDateValue(string? value)
+    {
+        if (string.IsNullOrEmpty(value)) return null;
+
+        value = FilterValue(value, true);
+        // parse from format DD/MM/YYYY
+        if (value!.Length == 10 &&
+            int.TryParse(value[..2], out int day) &&
+            int.TryParse(value.AsSpan(3, 2), out int month) &&
+            int.TryParse(value.AsSpan(6, 4), out int year))
+        {
+            return new DateTime(year, month, day, 0, 0, 0, DateTimeKind.Utc);
+        }
+
+        return null;
+    }
+
     public static string GetThesaurusId(CadmusEntrySetContext ctx,
         EntryRegion region, string thesaurusId, string value,
         ILogger? logger)

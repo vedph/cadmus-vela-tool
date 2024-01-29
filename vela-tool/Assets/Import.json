@@ -100,6 +100,9 @@
     },
     {
       "id": "entry-region-parser.vela.col-commento"
+    },
+    {
+      "id": "entry-region-parser.vela.col-states"
     }
   ],
   "entrySetContextPatchers": [
