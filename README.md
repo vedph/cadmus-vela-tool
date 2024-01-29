@@ -156,7 +156,7 @@ where `JsonProfilePath` is the path to the JSON file representing a Proteus impo
 ./vela-tool import c:/users/dfusi/desktop/vela.json
 ```
 
-You can find preset profiles under `Assets`: these cover different outputs from the same input, namely Markdown dump, Excel dump, and database import.
+You can find [preset profiles](./vela-tool/Assets) under the tool's `Assets` folder: these cover different outputs from the same input, namely Markdown dump, Excel dump, and database import.
 
 ### Dumping
 
@@ -167,6 +167,7 @@ The Markdown dump provides an entry for each row imported, assuming that each ro
 - a title, equal to the record's ID.
 - the essential metadata linked to the item being imported: ID, description, facet, etc. All these data are calculated automatically, so you do not have to check for them unless you happen to see something really odd. For instance, here is a dump from a mock item:
 
+```txt
 - ID: `1f4b2f86-40a6-4618-98be-f2ab5fc91d42`
 - description: ``
 - facet ID: `graffiti`
@@ -177,6 +178,7 @@ The Markdown dump provides an entry for each row imported, assuming that each ro
 - user: `zeus`
 - flags: `0001`
 - parts: 9
+```
 
 - the list of all the parts inside the item. For each part, you get a summary line followed by the JSON dump of its contents, like in this example:
 
