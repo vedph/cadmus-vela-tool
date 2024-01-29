@@ -222,6 +222,8 @@ The parts should include all the data from all the relevant columns of the sourc
 
 When data read from cells refer to taxonomies ([thesauri](https://myrmex.github.io/overview/cadmus/dev/concepts/thesauri) in Cadmus lingo), the importer maps the text read to the corresponding entry in its target taxonomy. If this is not possible, an error will be logged and the value read as it is will be used.
 
+>All the thesauri defined for VeLA can be read from its configuration profile at [this page](https://github.com/vedph/cadmus-vela-api/blob/master/CadmusVelaApi/wwwroot/seed-profile.json).
+
 For instance, consider the thesaurus for scripts in its JSON form:
 
 ```json
