@@ -86,7 +86,8 @@ public sealed class ColTerminusAnteEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? value = VelaHelper.FilterValue(txt.Value, false);
+        string? value = VelaHelper.FilterValue(txt.Value, false)
+            ?.Replace(" SECOLO", "");
 
         // terminus ante may come after a terminus post: in this case we have
         // a range, else just a terminus ante

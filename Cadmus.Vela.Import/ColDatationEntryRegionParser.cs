@@ -86,7 +86,8 @@ public sealed class ColDatationEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? value = VelaHelper.FilterValue(txt.Value, false);
+        string? value = VelaHelper.FilterValue(txt.Value, false)
+            ?.Replace(" SECOLO", "");
 
         // cronologia is just a copy of terminus ante/post if they are present,
         // so in this case just ignore it

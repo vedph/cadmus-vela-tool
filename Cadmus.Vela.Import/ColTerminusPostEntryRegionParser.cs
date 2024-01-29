@@ -86,7 +86,8 @@ public sealed class ColTerminusPostEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? value = VelaHelper.FilterValue(txt.Value, false);
+        string? value = VelaHelper.FilterValue(txt.Value, false)
+            ?.Replace(" SECOLO", "");
 
         // terminus post is the first column to occur, so we just set its
         // value as the date, and we're done
