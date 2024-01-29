@@ -84,10 +84,11 @@ public sealed class ColPeriodEntryRegionParser : EntryRegionParser,
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
 
-        string ? value = VelaHelper.FilterValue(txt.Value, true);
-        string? id = value != null
-            ? ctx.ThesaurusEntryMap!.GetEntryId(VelaHelper.T_GRF_PERIODS, value)
-            : null;
+        string? value = VelaHelper.FilterValue(txt.Value, true);
+        if (string.IsNullOrEmpty(value)) return regionIndex + 1;
+
+        string? id = ctx.ThesaurusEntryMap!.GetEntryId(
+            VelaHelper.T_GRF_PERIODS, value);
 
         if (id == null)
         {

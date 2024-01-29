@@ -8,9 +8,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{757BB692-BA35-463A-914D-D79997B0BD03}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+		vela.xlsx = vela.xlsx
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cadmus.Vela.Import", "Cadmus.Vela.Import\Cadmus.Vela.Import.csproj", "{173D6402-1D8E-45E9-8888-EEB88E1068B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cadmus.Vela.Import", "Cadmus.Vela.Import\Cadmus.Vela.Import.csproj", "{173D6402-1D8E-45E9-8888-EEB88E1068B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
