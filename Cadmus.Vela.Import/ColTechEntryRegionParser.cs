@@ -58,6 +58,7 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
                 "col-inchiostro",
                 "col-vernice",
                 "col-lama_(affilatura)",
+                "col-tipo_di_lama"
             ];
     }
 
@@ -190,6 +191,23 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
                         break;
                     case "col-lama_(affilatura)":
                         part.Tools.Add("blade");
+                        break;
+                    case "col-tipo_di_lama":
+                        // non empty values are only "lama curva" or "lama dritta"
+                        switch (value)
+                        {
+                            case "lama curva":
+                                part.Tools.Add("blade-type.curved");
+                                break;
+                            case "lama dritta":
+                                part.Tools.Add("blade-type.straight");
+                                break;
+                            default:
+                                part.Tools.Add(value);
+                                _logger?.LogError("Unknown blade type: {value} " +
+                                    "at region {region}", value, region);
+                                break;
+                        }
                         break;
                 }
             }
