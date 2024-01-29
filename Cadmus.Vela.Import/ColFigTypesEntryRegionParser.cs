@@ -1,5 +1,4 @@
 ﻿using Cadmus.Import.Proteus;
-using Cadmus.Refs.Bricks;
 using Cadmus.Vela.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
@@ -99,10 +98,77 @@ public sealed class ColFigTypesEntryRegionParser : EntryRegionParser,
         {
             // ID from thesaurus grf_figurative_types
             string? id = null;
-            // TODO
-        }
+            switch (region.Tag)
+            {
+                case "col-parti_anatomiche":
+                    id = "hum.anatomical";
+                    break;
+                case "col-volti":
+                    id = "hum.face";
+                    break;
+                case "col-busto":
+                    id = "hum.bust";
+                    break;
+                case "col-figura_umana":
+                    id = "hum.-";
+                    break;
+                case "col-erotici":
+                    id = "erotic";
+                    break;
+                case "col-croce":
+                    id = "sym.cross";
+                    break;
+                case "col-cuore":
+                    id = "sym.heart";
+                    break;
+                case "col-architettura":
+                    id = "architecture";
+                    break;
+                case "col-paesaggi":
+                    id = "landscape";
+                    break;
+                case "col-geometrico":
+                    id = "geometric";
+                    break;
+                case "col-imbarcazioni":
+                    id = "transport.boat";
+                    break;
+                case "col-piante":
+                    id = "plant";
+                    break;
+                case "col-gioco":
+                    id = "game";
+                    break;
+                case "col-arma":
+                    id = "war.weapon";
+                    break;
+                case "col-armatura":
+                    id = "war.armor";
+                    break;
+                case "col-stemma":
+                    id = "coat-of-arms";
+                    break;
+                case "col-bandiera":
+                    id = "flag";
+                    break;
+                case "col-animale":
+                    id = "ani";
+                    break;
+                case "col-simbolo_zodiaco":
+                    id = "sym.zodiac";
+                    break;
+                case "col-graffito_da_affilitura":
+                    id = "sharpening";
+                    break;
+            }
 
-        // TODO
+            if (id != null)
+            {
+                GrfFigurativePart part =
+                    ctx.EnsurePartForCurrentItem<GrfFigurativePart>();
+                part.Types.Add(id);
+            }
+        }
 
         return regionIndex + 1;
     }

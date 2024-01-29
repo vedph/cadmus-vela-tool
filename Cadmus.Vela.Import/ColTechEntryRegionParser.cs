@@ -123,13 +123,75 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
 
             if (_techTags.Contains(region.Tag!))
             {
-                part.Techniques.Add(VelaHelper.GetThesaurusId(ctx, region,
-                    VelaHelper.T_GRF_TECHNIQUES, value, _logger));
+                switch (region.Tag)
+                {
+                    case "col-presenza_di_disegno_preparatorio":
+                        part.Techniques.Add("preparation-drawing");
+                        break;
+                    case "col-presenza_di_preparazione_del_supporto":
+                        part.Techniques.Add("preparation-support");
+                        break;
+                    case "col-graffio":
+                        part.Techniques.Add("scratch");
+                        break;
+                    case "col-incisione":
+                        part.Techniques.Add("engraving");
+                        break;
+                    case "col-intaglio":
+                        part.Techniques.Add("carving");
+                        break;
+                    case "col-disegno":
+                        part.Techniques.Add("drawing");
+                        break;
+                    case "col-punzonatura":
+                        part.Techniques.Add("punching");
+                        break;
+                    case "col-a_rilievo":
+                        part.Techniques.Add("relief");
+                        break;
+                }
             }
             else
             {
-                part.Tools.Add(VelaHelper.GetThesaurusId(ctx, region,
-                    VelaHelper.T_GRF_TOOLS, value, _logger));
+                switch (region.Tag)
+                {
+                    case "col-chiodo":
+                        part.Tools.Add("nail");
+                        break;
+                    case "col-gradina":
+                        part.Tools.Add("gradine");
+                        break;
+                    case "col-scalpello":
+                        part.Tools.Add("chisel");
+                        break;
+                    case "col-sgorbia":
+                        part.Tools.Add("gouge");
+                        break;
+                    case "col-sega":
+                        part.Tools.Add("saw");
+                        break;
+                    case "col-bocciarda":
+                        part.Tools.Add("bush-hammer");
+                            break;
+                    case "col-grafite":
+                        part.Tools.Add("graphite");
+                        break;
+                    case "col-matita_di_piombo":
+                        part.Tools.Add("lead-pencil");
+                        break;
+                    case "col-fumo_di_candela":
+                        part.Tools.Add("candlesmoke");
+                        break;
+                    case "col-inchiostro":
+                        part.Tools.Add("ink");
+                        break;
+                    case "col-vernice":
+                        part.Tools.Add("paint");
+                        break;
+                    case "col-lama_(affilatura)":
+                        part.Tools.Add("blade");
+                        break;
+                }
             }
         }
 
