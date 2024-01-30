@@ -30,18 +30,23 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
             "col-numero_righe",
             "col-alfabeto",
             "col-lingua_(iso-639-3)",
+            // TODO
             "col-codice_glottologico",
             "col-tipologia_scrittura",
             "col-tipologia_grafica",
+            // extracted into GrfWritingPart
             "col-rubricatura",
+            // script features
             "col-maiuscolo\\minuscolo_prevalente",
             "col-sistema_interpuntivo",
             "col-nessi_e_legamenti",
             "col-rigatura",
             "col-abbreviazioni",
+            // letter features
             "col-monogrammi",
             "col-lettera_singola",
-            "col-lettere_non_interpretabili"
+            "col-lettere_non_interpretabili",
+            "col-disegno_non_interpretabile"
         ];
 
     /// <summary>
@@ -183,8 +188,9 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
                 }
                 break;
 
+            // script features
             case "col-maiuscolo\\minuscolo_prevalente":
-                // TODO ask if this is relevant
+                // TODO
                 break;
 
             case "col-sistema_interpuntivo":
@@ -219,6 +225,7 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
                 }
                 break;
 
+            // letter features
             case "col-monogrammi":
                 if (VelaHelper.GetBooleanValue(value))
                 {
@@ -239,7 +246,15 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
                 if (VelaHelper.GetBooleanValue(value))
                 {
                     part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                    part.LetterFeatures.Add("unclear");
+                    part.LetterFeatures.Add("letter-unclear");
+                }
+                break;
+
+            case "col-disegno_non_interpretabile":
+                if (VelaHelper.GetBooleanValue(value))
+                {
+                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                    part.LetterFeatures.Add("drawing-unclear");
                 }
                 break;
         }
