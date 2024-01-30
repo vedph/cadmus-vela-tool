@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -141,7 +140,7 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
 
             case "col-codice_glottologico":
                 id = VelaHelper.GetThesaurusId(ctx, region,
-                VelaHelper.T_GRF_WRITING_LANGUAGES, value, _logger);
+                    VelaHelper.T_GRF_WRITING_LANGUAGES, value, _logger);
                 part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
 
                 // if there is no language yet, add it as the first one.
@@ -164,7 +163,7 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
                     {
                         id = VelaHelper.GetThesaurusId(ctx, region,
                             VelaHelper.T_GRF_WRITING_SCRIPTS, token, _logger);
-                        part.Scripts.Add(id);
+                        if (!part.Scripts.Contains(id)) part.Scripts.Add(id);
                     }
                 }
                 break;

@@ -42,7 +42,7 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
             ["col-disegno"] = "drawing",
             ["col-punzonatura"] = "punching",
             ["col-a_rilievo"] = "relief",
-            // "rubricatura" is handled for GrfWriting
+            // "rubricatura" is handled by ColWritingEntryRegionParser
         };
         _toolTags = new Dictionary<string, string>
         {
@@ -58,8 +58,8 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
             ["col-inchiostro"] = "ink",
             ["col-vernice"] = "paint",
             ["col-lama_(affilatura)"] = "blade",
-            // this has more logic
-            ["col-tipo_di_lama"] = "blade-type"
+            // this has custom logic
+            ["col-tipo_di_lama"] = ""
         };
     }
 
@@ -135,10 +135,10 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
                     switch (value)
                     {
                         case "lama curva":
-                            part.Tools.Add("blade-type.curved");
+                            part.Tools.Add("curved-blade");
                             break;
                         case "lama dritta":
-                            part.Tools.Add("blade-type.straight");
+                            part.Tools.Add("straight-blade");
                             break;
                         default:
                             part.Tools.Add(value);

@@ -88,7 +88,7 @@ public sealed class ColCurrentFnEntryRegionParser : EntryRegionParser,
 
         string? id = value != null
             ? ctx.ThesaurusEntryMap?.GetEntryId(
-                VelaHelper.T_CATEGORIES_FUNCTIONS, value)
+                VelaHelper.T_SUPPORT_FUNCTIONS, value)
             : null;
         if (id == null)
         {

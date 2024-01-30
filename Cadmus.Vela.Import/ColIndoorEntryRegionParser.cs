@@ -84,9 +84,8 @@ public sealed class ColIndoorEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        bool indoor = VelaHelper.GetBooleanValue(txt.Value);
 
-        if (indoor)
+        if (VelaHelper.GetBooleanValue(txt.Value))
         {
             GrfLocalizationPart part =
                 ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();

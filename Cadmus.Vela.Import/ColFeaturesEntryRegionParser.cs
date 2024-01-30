@@ -11,7 +11,7 @@ namespace Cadmus.Vela.Import;
 
 /// <summary>
 /// VeLA columns figurativi, testo, numeri, cornice entry region parser. This
-/// targets <see cref="CategoriesPart"/> with role <c>features</c>.
+/// targets <see cref="CategoriesPart"/> with role <c>feature</c>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
@@ -94,7 +94,7 @@ public sealed class ColFeaturesEntryRegionParser : EntryRegionParser,
 
         if (VelaHelper.GetBooleanValue(txt.Value))
         {
-            ctx.EnsurePartForCurrentItem<CategoriesPart>()
+            ctx.EnsurePartForCurrentItem<CategoriesPart>("feature")
                 .Categories.Add(_tags[region.Tag!]);
         }
 

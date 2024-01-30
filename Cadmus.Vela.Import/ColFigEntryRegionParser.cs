@@ -86,6 +86,8 @@ public sealed class ColFigEntryRegionParser : EntryRegionParser,
             set.Entries[region.Range.Start.Entry + 1];
         string? value = VelaHelper.FilterValue(txt.Value, false);
 
+        if (string.IsNullOrEmpty(value)) return regionIndex + 1;
+
         GrfFramePart part = ctx.EnsurePartForCurrentItem<GrfFramePart>();
         if (region.Tag == "col-tipo_figurativo")
             part.Figure = value;
