@@ -10,6 +10,6 @@
 		<PackageReference Include="Cadmus.General.Parts" Version="6.0.3" />
 		<PackageReference Include="Cadmus.Import.Proteus" Version="4.0.15" />
 		<PackageReference Include="Cadmus.Philology.Parts" Version="8.1.0" />
-		<PackageReference Include="Cadmus.Vela.Parts" Version="2.1.2" />
+		<PackageReference Include="Cadmus.Vela.Parts" Version="2.1.3" />
 	</ItemGroup>
 </Project>

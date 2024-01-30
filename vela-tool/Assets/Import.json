@@ -105,6 +105,9 @@
       "id": "entry-region-parser.vela.col-commento"
     },
     {
+      "id": "entry-region-parser.vela.col-presenza_di_damnatio"
+    },
+    {
       "id": "entry-region-parser.vela.col-states"
     }
   ],
