@@ -21,8 +21,7 @@ public sealed class ColArgTypesEntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
     private readonly ILogger<ColArgTypesEntryRegionParser>? _logger;
-    private readonly Dictionary<string, string> _fnTags;
-    private readonly Dictionary<string, string> _thTags;
+    private readonly Dictionary<string, string> _tags;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ColArgTypesEntryRegionParser"/>
@@ -33,7 +32,7 @@ public sealed class ColArgTypesEntryRegionParser : EntryRegionParser,
         ILogger<ColArgTypesEntryRegionParser>? logger = null)
     {
         _logger = logger;
-        _fnTags = new Dictionary<string, string>
+        _tags = new Dictionary<string, string>
         {
             ["col-funeraria"] = "funerary",
             ["col-commemorativa"] = "memorial",
@@ -41,13 +40,9 @@ public sealed class ColArgTypesEntryRegionParser : EntryRegionParser,
             ["col-celebrativa"] = "celebratory",
             ["col-esortativa"] = "exhortative",
             ["col-didascalica"] = "didascalic",
-            ["col-segnaletica"] = "signaling",
-            ["col-parlanti"] = "speaking"
-        };
-
-        _thTags = new Dictionary<string, string>
-        {
             ["col-iniziali\\i_nome_persona"] = "initials",
+            ["col-sigla"] = "acronym",
+            ["col-segnaletica"] = "signaling",
             ["col-citazione"] = "quote",
             ["col-infamante"] = "infamous",
             ["col-sport"] = "sport",
@@ -57,10 +52,14 @@ public sealed class ColArgTypesEntryRegionParser : EntryRegionParser,
             ["col-preghiera"] = "prayer",
             ["col-ex_voto"] = "ex-voto",
             ["col-amore"] = "love",
+            ["col-parlanti"] = "speaking",
             ["col-insulto"] = "taunt",
             ["col-imprecazioni"] = "curse",
             ["col-nome_di_luogo"] = "toponym",
-            ["col-saluti"] = "greeting"
+            ["col-saluti"] = "greeting",
+            // to GrfWritingPart
+            ["col-prosa"] = "prose",
+            ["col-poesia"] = "poetry"
         };
     }
 
@@ -82,10 +81,7 @@ public sealed class ColArgTypesEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        string tag = regions[regionIndex].Tag ?? "";
-
-        return tag == "col-sigla" || tag == "col-poesia" ||
-               _fnTags.ContainsKey(tag) || _thTags.ContainsKey(tag);
+        return _tags.ContainsKey(regions[regionIndex].Tag ?? "");
     }
 
     /// <summary>
@@ -121,37 +117,33 @@ public sealed class ColArgTypesEntryRegionParser : EntryRegionParser,
         bool value = VelaHelper.GetBooleanValue(txt.Value);
         if (!value) return regionIndex + 1;
 
-        if (_fnTags.TryGetValue(region.Tag!, out string? fid))
+        switch (region.Tag)
         {
-            CategoriesPart part =
-                ctx.EnsurePartForCurrentItem<CategoriesPart>("functions");
-            part.Categories.Add(fid);
-        }
-        else if (_thTags.TryGetValue(region.Tag!, out string? tid))
-        {
-            CategoriesPart part =
-                ctx.EnsurePartForCurrentItem<CategoriesPart>("themes");
-            part.Categories.Add(tid);
-        }
-        else
-        {
-            switch (region.Tag)
-            {
-                case "col-sigla":
-                    ctx.EnsurePartForCurrentItem<GrfWritingPart>()
-                        .LetterFeatures.Add("sigla");
-                    break;
+            case "col-prosa":
+                ctx.EnsurePartForCurrentItem<GrfWritingPart>()
+                    .HasProse = true;
+                break;
 
-                case "col-prosa":
-                    ctx.EnsurePartForCurrentItem<GrfWritingPart>()
-                        .HasProse = true;
-                    break;
+            case "col-poesia":
+                ctx.EnsurePartForCurrentItem<GrfWritingPart>()
+                    .HasPoetry = true;
+                break;
 
-                case "col-poesia":
-                    ctx.EnsurePartForCurrentItem<GrfWritingPart>()
-                        .HasPoetry = true;
-                    break;
-            }
+            default:
+                CategoriesPart part =
+                    ctx.EnsurePartForCurrentItem<CategoriesPart>("topic");
+
+                if (_tags.TryGetValue(region.Tag!, out string? id))
+                {
+                    part.Categories.Add(id);
+                }
+                else
+                {
+                    _logger?.LogError("Unknown tag {tag} at region {region}",
+                        region.Tag, region);
+                    part.Categories.Add(VelaHelper.FilterValue(txt.Value, true)!);
+                }
+                break;
         }
 
         return regionIndex + 1;
