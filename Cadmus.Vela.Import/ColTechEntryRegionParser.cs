@@ -20,8 +20,8 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
     private readonly ILogger<ColTechEntryRegionParser>? _logger;
-    private readonly HashSet<string> _techTags;
-    private readonly HashSet<string> _toolTags;
+    private readonly Dictionary<string, string> _techTags;
+    private readonly Dictionary<string, string> _toolTags;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ColTechEntryRegionParser"/>
@@ -32,34 +32,35 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
         ILogger<ColTechEntryRegionParser>? logger = null)
     {
         _logger = logger;
-        _techTags =
-            [
-                "col-presenza_di_disegno_preparatorio",
-                "col-presenza_di_preparazione_del_supporto",
-                "col-graffio",
-                "col-incisione",
-                "col-intaglio",
-                "col-disegno",
-                "col-punzonatura",
-                // "rubricatura" this is handled for GrfWriting
-                "col-a_rilievo",
-            ];
-        _toolTags =
-            [
-                "col-chiodo",
-                "col-gradina",
-                "col-scalpello",
-                "col-sgorbia",
-                "col-sega",
-                "col-bocciarda",
-                "col-grafite",
-                "col-matita_di_piombo",
-                "col-fumo_di_candela",
-                "col-inchiostro",
-                "col-vernice",
-                "col-lama_(affilatura)",
-                "col-tipo_di_lama"
-            ];
+        _techTags = new Dictionary<string, string>
+        {
+            ["col-presenza_di_disegno_preparatorio"] = "preparation-drawing",
+            ["col-presenza_di_preparazione_del_supporto"] = "preparation-support",
+            ["col-graffio"] = "scratch",
+            ["col-incisione"] = "engraving",
+            ["col-intaglio"] = "carving",
+            ["col-disegno"] = "drawing",
+            ["col-punzonatura"] = "punching",
+            ["col-a_rilievo"] = "relief",
+            // "rubricatura" is handled for GrfWriting
+        };
+        _toolTags = new Dictionary<string, string>
+        {
+            ["col-chiodo"] = "nail",
+            ["col-gradina"] = "gradine",
+            ["col-scalpello"] = "chisel",
+            ["col-sgorbia"] = "gouge",
+            ["col-sega"] = "saw",
+            ["col-bocciarda"] = "bush-hammer",
+            ["col-grafite"] = "graphite",
+            ["col-matita_di_piombo"] = "lead-pencil",
+            ["col-fumo_di_candela"] = "candlesmoke",
+            ["col-inchiostro"] = "ink",
+            ["col-vernice"] = "paint",
+            ["col-lama_(affilatura)"] = "blade",
+            // this has more logic
+            ["col-tipo_di_lama"] = "blade-type"
+        };
     }
 
     /// <summary>
@@ -80,8 +81,8 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return _techTags.Contains(regions[regionIndex].Tag ?? "") ||
-               _toolTags.Contains(regions[regionIndex].Tag ?? "");
+        return _techTags.ContainsKey(regions[regionIndex].Tag ?? "") ||
+               _toolTags.ContainsKey(regions[regionIndex].Tag ?? "");
     }
 
     /// <summary>
@@ -122,93 +123,33 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
             GrfTechniquePart part =
                 ctx.EnsurePartForCurrentItem<GrfTechniquePart>();
 
-            if (_techTags.Contains(region.Tag!))
+            if (_techTags.TryGetValue(region.Tag!, out string? id))
             {
-                switch (region.Tag)
-                {
-                    case "col-presenza_di_disegno_preparatorio":
-                        part.Techniques.Add("preparation-drawing");
-                        break;
-                    case "col-presenza_di_preparazione_del_supporto":
-                        part.Techniques.Add("preparation-support");
-                        break;
-                    case "col-graffio":
-                        part.Techniques.Add("scratch");
-                        break;
-                    case "col-incisione":
-                        part.Techniques.Add("engraving");
-                        break;
-                    case "col-intaglio":
-                        part.Techniques.Add("carving");
-                        break;
-                    case "col-disegno":
-                        part.Techniques.Add("drawing");
-                        break;
-                    case "col-punzonatura":
-                        part.Techniques.Add("punching");
-                        break;
-                    case "col-a_rilievo":
-                        part.Techniques.Add("relief");
-                        break;
-                }
+                part.Techniques.Add(id);
             }
             else
             {
-                switch (region.Tag)
+                if (region.Tag == "col-tipo_di_lama")
                 {
-                    case "col-chiodo":
-                        part.Tools.Add("nail");
-                        break;
-                    case "col-gradina":
-                        part.Tools.Add("gradine");
-                        break;
-                    case "col-scalpello":
-                        part.Tools.Add("chisel");
-                        break;
-                    case "col-sgorbia":
-                        part.Tools.Add("gouge");
-                        break;
-                    case "col-sega":
-                        part.Tools.Add("saw");
-                        break;
-                    case "col-bocciarda":
-                        part.Tools.Add("bush-hammer");
+                    // non empty values are only "lama curva" or "lama dritta"
+                    switch (value)
+                    {
+                        case "lama curva":
+                            part.Tools.Add("blade-type.curved");
                             break;
-                    case "col-grafite":
-                        part.Tools.Add("graphite");
-                        break;
-                    case "col-matita_di_piombo":
-                        part.Tools.Add("lead-pencil");
-                        break;
-                    case "col-fumo_di_candela":
-                        part.Tools.Add("candlesmoke");
-                        break;
-                    case "col-inchiostro":
-                        part.Tools.Add("ink");
-                        break;
-                    case "col-vernice":
-                        part.Tools.Add("paint");
-                        break;
-                    case "col-lama_(affilatura)":
-                        part.Tools.Add("blade");
-                        break;
-                    case "col-tipo_di_lama":
-                        // non empty values are only "lama curva" or "lama dritta"
-                        switch (value)
-                        {
-                            case "lama curva":
-                                part.Tools.Add("blade-type.curved");
-                                break;
-                            case "lama dritta":
-                                part.Tools.Add("blade-type.straight");
-                                break;
-                            default:
-                                part.Tools.Add(value);
-                                _logger?.LogError("Unknown blade type: {value} " +
-                                    "at region {region}", value, region);
-                                break;
-                        }
-                        break;
+                        case "lama dritta":
+                            part.Tools.Add("blade-type.straight");
+                            break;
+                        default:
+                            part.Tools.Add(value);
+                            _logger?.LogError("Unknown blade type: {value} " +
+                                "at region {region}", value, region);
+                            break;
+                    }
+                }
+                else
+                {
+                    part.Tools.Add(_toolTags[region.Tag!]);
                 }
             }
         }

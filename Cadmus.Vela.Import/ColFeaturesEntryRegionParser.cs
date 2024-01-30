@@ -20,7 +20,7 @@ public sealed class ColFeaturesEntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
     private readonly ILogger<ColFeaturesEntryRegionParser>? _logger;
-    private readonly HashSet<string> _tags;
+    private readonly Dictionary<string, string> _tags;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ColFeaturesEntryRegionParser"/>
@@ -31,10 +31,13 @@ public sealed class ColFeaturesEntryRegionParser : EntryRegionParser,
         ILogger<ColFeaturesEntryRegionParser>? logger = null)
     {
         _logger = logger;
-        _tags =
-        [
-            "col-figurativi", "col-testo", "col-numeri", "col-cornice"
-        ];
+        _tags = new Dictionary<string, string>
+        {
+            ["col-figurativi"] = "figurative",
+            ["col-testo"] = "text",
+            ["col-numeri"] = "digits",
+            ["col-cornice"] = "frame"
+        };
     }
 
     /// <summary>
@@ -55,7 +58,7 @@ public sealed class ColFeaturesEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return _tags.Contains(regions[regionIndex].Tag ?? "");
+        return _tags.ContainsKey(regions[regionIndex].Tag ?? "");
     }
 
     /// <summary>
@@ -91,30 +94,8 @@ public sealed class ColFeaturesEntryRegionParser : EntryRegionParser,
 
         if (VelaHelper.GetBooleanValue(txt.Value))
         {
-            // ID from thesaurus categories_features
-            string? id = null;
-            switch (region.Tag)
-            {
-                case "col-figurativi":
-                    id = "figurative";
-                    break;
-                case "col-testo":
-                    id = "text";
-                    break;
-                case "col-numeri":
-                    id = "digits";
-                    break;
-                case "col-cornice":
-                    id = "frame";
-                    break;
-            }
-
-            if (id != null)
-            {
-                CategoriesPart part =
-                    ctx.EnsurePartForCurrentItem<CategoriesPart>();
-                part.Categories.Add(id);
-            }
+            ctx.EnsurePartForCurrentItem<CategoriesPart>()
+                .Categories.Add(_tags[region.Tag!]);
         }
 
         return regionIndex + 1;

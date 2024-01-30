@@ -20,7 +20,7 @@ public sealed class ColFigTypesEntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
     private readonly ILogger<ColFigTypesEntryRegionParser>? _logger;
-    private readonly HashSet<string> _tags;
+    private readonly Dictionary<string, string> _tags;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ColFigTypesEntryRegionParser"/>
@@ -31,15 +31,29 @@ public sealed class ColFigTypesEntryRegionParser : EntryRegionParser,
         ILogger<ColFigTypesEntryRegionParser>? logger = null)
     {
         _logger = logger;
-        _tags =
-            [
-                "col-parti_anatomiche", "col-volti", "col-busto",
-                "col-figura_umana", "col-erotici", "col-croce", "col-cuore",
-                "col-architettura", "col-paesaggi", "col-geometrico",
-                "col-imbarcazioni", "col-piante", "col-gioco", "col-arma",
-                "col-armatura", "col-stemma", "col-bandiera", "col-animale",
-                "col-simbolo_zodiaco", "col-graffito_da_affilitura"
-            ];
+        _tags = new Dictionary<string, string>
+        {
+            ["col-parti_anatomiche"] = "hum.anatomical",
+            ["col-volti"] = "hum.face",
+            ["col-busto"] = "hum.bust",
+            ["col-figura_umana"] = "hum.-",
+            ["col-erotici"] = "erotic",
+            ["col-croce"] = "sym.cross",
+            ["col-cuore"] = "sym.heart",
+            ["col-architettura"] = "architecture",
+            ["col-paesaggi"] = "landscape",
+            ["col-geometrico"] = "geometric",
+            ["col-imbarcazioni"] = "transport.boat",
+            ["col-piante"] = "plant",
+            ["col-gioco"] = "game",
+            ["col-arma"] = "war.weapon",
+            ["col-armatura"] = "war.armor",
+            ["col-stemma"] = "coat-of-arms",
+            ["col-bandiera"] = "flag",
+            ["col-animale"] = "ani",
+            ["col-simbolo_zodiaco"] = "sym.zodiac",
+            ["col-graffito_da_affilitura"] = "sharpening"
+        };
     }
 
     /// <summary>
@@ -60,7 +74,7 @@ public sealed class ColFigTypesEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return _tags.Contains(regions[regionIndex].Tag ?? "");
+        return _tags.ContainsKey(regions[regionIndex].Tag ?? "");
     }
 
     /// <summary>
@@ -97,77 +111,9 @@ public sealed class ColFigTypesEntryRegionParser : EntryRegionParser,
         if (VelaHelper.GetBooleanValue(txt.Value))
         {
             // ID from thesaurus grf_figurative_types
-            string? id = null;
-            switch (region.Tag)
-            {
-                case "col-parti_anatomiche":
-                    id = "hum.anatomical";
-                    break;
-                case "col-volti":
-                    id = "hum.face";
-                    break;
-                case "col-busto":
-                    id = "hum.bust";
-                    break;
-                case "col-figura_umana":
-                    id = "hum.-";
-                    break;
-                case "col-erotici":
-                    id = "erotic";
-                    break;
-                case "col-croce":
-                    id = "sym.cross";
-                    break;
-                case "col-cuore":
-                    id = "sym.heart";
-                    break;
-                case "col-architettura":
-                    id = "architecture";
-                    break;
-                case "col-paesaggi":
-                    id = "landscape";
-                    break;
-                case "col-geometrico":
-                    id = "geometric";
-                    break;
-                case "col-imbarcazioni":
-                    id = "transport.boat";
-                    break;
-                case "col-piante":
-                    id = "plant";
-                    break;
-                case "col-gioco":
-                    id = "game";
-                    break;
-                case "col-arma":
-                    id = "war.weapon";
-                    break;
-                case "col-armatura":
-                    id = "war.armor";
-                    break;
-                case "col-stemma":
-                    id = "coat-of-arms";
-                    break;
-                case "col-bandiera":
-                    id = "flag";
-                    break;
-                case "col-animale":
-                    id = "ani";
-                    break;
-                case "col-simbolo_zodiaco":
-                    id = "sym.zodiac";
-                    break;
-                case "col-graffito_da_affilitura":
-                    id = "sharpening";
-                    break;
-            }
-
-            if (id != null)
-            {
-                GrfFigurativePart part =
-                    ctx.EnsurePartForCurrentItem<GrfFigurativePart>();
-                part.Types.Add(id);
-            }
+            GrfFigurativePart part =
+                ctx.EnsurePartForCurrentItem<GrfFigurativePart>();
+            part.Types.Add(_tags[region.Tag!]);
         }
 
         return regionIndex + 1;
