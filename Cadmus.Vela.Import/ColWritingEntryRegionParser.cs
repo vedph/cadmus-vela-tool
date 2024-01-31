@@ -30,7 +30,6 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
             "col-numero_righe",
             "col-alfabeto",
             "col-lingua_(iso-639-3)",
-            // TODO
             "col-codice_glottologico",
             "col-tipologia_scrittura",
             "col-tipologia_grafica",
@@ -140,21 +139,16 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
                 id = VelaHelper.GetThesaurusId(ctx, region,
                     VelaHelper.T_GRF_WRITING_LANGUAGES, value, _logger);
                 part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                part.Languages.Add(id);
+                if (!part.Languages.Contains(id))
+                    part.Languages.Add(id);
                 break;
 
             case "col-codice_glottologico":
                 id = VelaHelper.GetThesaurusId(ctx, region,
-                    VelaHelper.T_GRF_WRITING_LANGUAGES, value, _logger);
+                    VelaHelper.T_GRF_WRITING_GLOTTOLOGS, value, _logger);
                 part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-
-                // if there is no language yet, add it as the first one.
-                // Otherwise, append it to the first one because the first
-                // in this case is the ISO639-3 code.
-                if (part.Languages.Count == 0)
-                    part.Languages.Add(id);
-                else
-                    part.Languages[0] += $"_{id}";
+                if (!part.GlottologCodes.Contains(id))
+                    part.GlottologCodes.Add(id);
                 break;
 
             case "col-tipologia_scrittura":
@@ -190,7 +184,24 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
 
             // script features
             case "col-maiuscolo\\minuscolo_prevalente":
-                // TODO
+                switch (value)
+                {
+                    case "maiuscolo prevalente":
+                        part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                        part.ScriptFeatures.Add("upper");
+                        break;
+                    case "minuscolo prevalente":
+                        part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                        part.ScriptFeatures.Add("lower");
+                        break;
+                    default:
+                        _logger?.LogError(
+                            "Invalid value for {tag} at {region}: {value}",
+                            region.Tag, region, value);
+                        part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                        part.ScriptFeatures.Add(value);
+                        break;
+                }
                 break;
 
             case "col-sistema_interpuntivo":
