@@ -136,19 +136,17 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
                 break;
 
             case "col-lingua_(iso-639-3)":
-                id = VelaHelper.GetThesaurusId(ctx, region,
-                    VelaHelper.T_GRF_WRITING_LANGUAGES, value, _logger);
+                // this is an ID, not a human-friendly value
                 part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                if (!part.Languages.Contains(id))
-                    part.Languages.Add(id);
+                if (!part.Languages.Contains(value))
+                    part.Languages.Add(value);
                 break;
 
             case "col-codice_glottologico":
-                id = VelaHelper.GetThesaurusId(ctx, region,
-                    VelaHelper.T_GRF_WRITING_GLOTTOLOGS, value, _logger);
+                // this is an ID, not a human-friendly value
                 part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                if (!part.GlottologCodes.Contains(id))
-                    part.GlottologCodes.Add(id);
+                if (!part.GlottologCodes.Contains(value))
+                    part.GlottologCodes.Add(value);
                 break;
 
             case "col-tipologia_scrittura":

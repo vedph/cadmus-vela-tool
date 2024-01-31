@@ -134,11 +134,28 @@ internal static partial class VelaHelper
         return null;
     }
 
-    public static string GetThesaurusId(CadmusEntrySetContext ctx,
+    /// <summary>
+    /// Gets the thesaurus identifier for the specified entry value in the
+    /// specified thesaurus. In case the ID is not found, an error is logged
+    /// if <paramref name="logger"/> is not null, and the value itself is
+    /// returned.
+    /// </summary>
+    /// <param name="context">The data context.</param>
+    /// <param name="region">The current region.</param>
+    /// <param name="thesaurusId">The thesaurus identifier.</param>
+    /// <param name="value">The entry value.</param>
+    /// <param name="logger">The optional logger.</param>
+    /// <returns>ID or value if not found.</returns>
+    public static string GetThesaurusId(CadmusEntrySetContext context,
         EntryRegion region, string thesaurusId, string value,
         ILogger? logger)
     {
-        string? id = ctx.ThesaurusEntryMap!.GetEntryId(thesaurusId,
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(region);
+        ArgumentNullException.ThrowIfNull(thesaurusId);
+        ArgumentNullException.ThrowIfNull(value);
+
+        string? id = context.ThesaurusEntryMap!.GetEntryId(thesaurusId,
             value.ToLowerInvariant());
 
         if (id == null)
