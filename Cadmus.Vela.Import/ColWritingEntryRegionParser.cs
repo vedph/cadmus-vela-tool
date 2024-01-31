@@ -110,11 +110,11 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? value = VelaHelper.FilterValue(txt.Value, false);
+        string? value = VelaHelper.FilterValue(txt.Value, true);
 
         if (string.IsNullOrEmpty(value)) return regionIndex + 1;
 
-        GrfWritingPart? part = null;
+        GrfWritingPart? part;
         string? id;
 
         switch (region.Tag)

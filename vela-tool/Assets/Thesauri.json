@@ -155,7 +155,28 @@
     ]
   },
   {
-    "id": "categories_functions@en",
+    "id": "categories_feature@en",
+    "entries": [
+      {
+        "id": "text",
+        "value": "testo"
+      },
+      {
+        "id": "figurative",
+        "value": "figurativo"
+      },
+      {
+        "id": "digits",
+        "value": "numeri"
+      },
+      {
+        "id": "frame",
+        "value": "cornice"
+      }
+    ]
+  },
+  {
+    "id": "categories_topic@en",
     "entries": [
       {
         "id": "funerary",
@@ -166,6 +187,10 @@
         "value": "commemorativa"
       },
       {
+        "id": "signature",
+        "value": "firma"
+      },
+      {
         "id": "celebratory",
         "value": "celebrativa"
       },
@@ -174,81 +199,32 @@
         "value": "esortativa"
       },
       {
-        "id": "signaling",
-        "value": "segnaletica"
-      },
-      {
-        "id": "auspicious",
-        "value": "augurale"
-      },
-      {
-        "id": "consecration",
-        "value": "consacrazione"
-      },
-      {
-        "id": "dedication",
-        "value": "dedicatoria"
-      },
-      {
-        "id": "date",
-        "value": "data"
-      },
-      {
-        "id": "devotional",
-        "value": "devozionale"
-      },
-      {
         "id": "didascalic",
         "value": "didascalica"
       },
       {
-        "id": "documentary",
-        "value": "documentaria"
+        "id": "initials",
+        "value": "iniziali nome persona"
       },
       {
-        "id": "exegetical",
-        "value": "esegetica"
+        "id": "acronym",
+        "value": "sigla"
       },
       {
-        "id": "signature",
-        "value": "firma"
+        "id": "signaling",
+        "value": "segnaletica"
       },
       {
-        "id": "invocative",
-        "value": "invocativa"
-      },
-      {
-        "id": "liturgical",
-        "value": "liturgica"
-      },
-      {
-        "id": "building",
-        "value": "marchio edile"
-      },
-      {
-        "id": "measure",
-        "value": "misura"
-      },
-      {
-        "id": "votive",
-        "value": "votiva"
-      },
-      {
-        "id": "speaking",
-        "value": "parlanti"
-      }
-    ]
-  },
-  {
-    "id": "categories_themes@en",
-    "entries": [
-      {
-        "id": "sport",
-        "value": "sport"
+        "id": "quote",
+        "value": "citazione"
       },
       {
         "id": "infamous",
         "value": "infamante"
+      },
+      {
+        "id": "sport",
+        "value": "sport"
       },
       {
         "id": "prostitution",
@@ -260,19 +236,23 @@
       },
       {
         "id": "religion",
-        "value": "religione"
-      },
-      {
-        "id": "ex-voto",
-        "value": "ex voto"
+        "value": "religiosa"
       },
       {
         "id": "prayer",
         "value": "preghiera"
       },
       {
+        "id": "ex-voto",
+        "value": "ex voto"
+      },
+      {
         "id": "love",
         "value": "amore"
+      },
+      {
+        "id": "speaking",
+        "value": "parlanti"
       },
       {
         "id": "taunt",
@@ -283,22 +263,18 @@
         "value": "imprecazione"
       },
       {
-        "id": "war",
-        "value": "guerra"
+        "id": "toponym",
+        "value": "nome di luogo"
       },
       {
-        "id": "individual",
-        "value": "individuo"
-      },
-      {
-        "id": "initial",
-        "value": "iniziale nomi"
+        "id": "greeting",
+        "value": "saluti"
       }
     ]
   },
   {
     "id": "comment-categories@en",
-    "targetId": "categories_themes"
+    "targetId": "categories_topic"
   },
   {
     "id": "epi-ligature-types@en",
@@ -334,51 +310,23 @@
     ]
   },
   {
-    "id": "grf-features@en",
+    "id": "grf-damnatio-types@en",
     "entries": [
       {
-        "id": "text",
-        "value": "testo"
+        "id": "-",
+        "value": "---"
       },
       {
-        "id": "digit",
-        "value": "numeri"
+        "id": "absent",
+        "value": "non presente"
       },
       {
-        "id": "punct",
-        "value": "interpunzioni"
+        "id": "partial",
+        "value": "parziale"
       },
       {
-        "id": "ligature",
-        "value": "legature"
-      },
-      {
-        "id": "abbr",
-        "value": "abbreviazioni"
-      },
-      {
-        "id": "mono",
-        "value": "monogrammi"
-      },
-      {
-        "id": "1-letter",
-        "value": "lettera singola"
-      },
-      {
-        "id": "undef-letter",
-        "value": "lettere indef."
-      },
-      {
-        "id": "undef-drawing",
-        "value": "disegno indef."
-      },
-      {
-        "id": "upper",
-        "value": "uppercase"
-      },
-      {
-        "id": "lower",
-        "value": "lowercase"
+        "id": "complete",
+        "value": "totale"
       }
     ]
   },
@@ -452,68 +400,32 @@
     "id": "grf-figurative-types@en",
     "entries": [
       {
-        "id": "hum",
-        "value": "fig.umana"
+        "id": "anatomical",
+        "value": "parti anatomiche"
       },
       {
-        "id": "hum.-",
+        "id": "face",
+        "value": "volti"
+      },
+      {
+        "id": "bust",
+        "value": "busto"
+      },
+      {
+        "id": "human-fig",
         "value": "figura umana"
       },
       {
-        "id": "hum.bust",
-        "value": "figura umana: busto"
-      },
-      {
-        "id": "hum.face",
-        "value": "figura umana: volto"
-      },
-      {
-        "id": "hum.anatomical",
-        "value": "figura umana: parti anatomiche"
-      },
-      {
-        "id": "ani",
-        "value": "animali"
-      },
-      {
-        "id": "plant",
-        "value": "piante"
-      },
-      {
         "id": "erotic",
-        "value": "erotico"
+        "value": "erotici"
       },
       {
-        "id": "geometric",
-        "value": "geometrico"
+        "id": "cross",
+        "value": "croce"
       },
       {
-        "id": "sym",
-        "value": "simbolo"
-      },
-      {
-        "id": "sym.-",
-        "value": "simbolo: cuore"
-      },
-      {
-        "id": "sym.cross",
-        "value": "simbolo: croce"
-      },
-      {
-        "id": "war",
-        "value": "guerra"
-      },
-      {
-        "id": "war.-",
-        "value": "guerra"
-      },
-      {
-        "id": "war.weapon",
-        "value": "guerra: arma"
-      },
-      {
-        "id": "war.armor",
-        "value": "guerra: armatura"
+        "id": "heart",
+        "value": "cuore"
       },
       {
         "id": "architecture",
@@ -524,60 +436,69 @@
         "value": "paesaggi"
       },
       {
-        "id": "stars",
-        "value": "stelle"
+        "id": "geometric",
+        "value": "geometrico"
+      },
+      {
+        "id": "ship",
+        "value": "imbarcazioni"
+      },
+      {
+        "id": "plant",
+        "value": "piante"
       },
       {
         "id": "game",
         "value": "gioco"
       },
       {
-        "id": "sharpening",
-        "value": "graffito da affilatura"
+        "id": "weapon",
+        "value": "arma"
       },
       {
-        "id": "lighting",
-        "value": "illuminazione"
+        "id": "armor",
+        "value": "armatura"
+      },
+      {
+        "id": "coat-of-arms",
+        "value": "stemma"
       },
       {
         "id": "flag",
-        "value": "bandiera/stemma"
+        "value": "bandiera"
       },
       {
-        "id": "obj",
-        "value": "oggetti"
+        "id": "animal",
+        "value": "animale"
       },
       {
-        "id": "obj.tool",
-        "value": "oggetti: attrezzi"
+        "id": "zodiac",
+        "value": "simbolo zodiaco"
       },
       {
-        "id": "obj.music",
-        "value": "oggetti: strumenti musicali"
+        "id": "sharpening",
+        "value": "grafitto da affilitura"
+      }
+    ]
+  },
+  {
+    "id": "grf-periods@en",
+    "entries": [
+      {
+        "id": "roman",
+        "value": "romana"
       },
       {
-        "id": "obj.pipe",
-        "value": "oggetti: pipe"
+        "id": "medieval",
+        "value": "medievale"
       },
       {
-        "id": "obj.camera",
-        "value": "oggetti: macchina fotografica"
+        "id": "modern",
+        "value": "moderna"
       },
       {
-        "id": "obj.agricultural",
-        "value": "oggetti: strumento agricolo"
-      },
-      {
-        "id": "transport",
-        "value": "mezzi di trasporto"
-      },
-      {
-        "id": "transport.boat",
-        "value": "mezzi di trasporto: imbarcazioni"
-      },
-      {
-        "id": "transport.plane",
-        "value": "mezzi di trasporto: aereo"
+        "id": "contemporary",
+        "value": "contemporanea"
       }
     ]
   },
@@ -627,7 +548,7 @@
       },
       {
         "id": "l*",
-        "value": "localit�"
+        "value": "località"
       },
       {
         "id": "_order",
@@ -756,7 +677,7 @@
     "entries": [
       {
         "id": "balustrade",
-        "value": "balustrade"
+        "value": "balaustra"
       },
       {
         "id": "sill",
@@ -775,12 +696,12 @@
         "value": "lapide"
       },
       {
-        "id": "furniture",
-        "value": "arredo"
+        "id": "church-furniture",
+        "value": "mobilio ecclesiastico"
       },
       {
         "id": "wall",
-        "value": "wall"
+        "value": "muro"
       },
       {
         "id": "bench",
@@ -824,8 +745,12 @@
         "value": "---"
       },
       {
-        "id": "preparation",
-        "value": "preparazione"
+        "id": "preparation-drawing",
+        "value": "preparazione disegno"
+      },
+      {
+        "id": "preparation-support",
+        "value": "preparazione supporto"
       },
       {
         "id": "scratch",
@@ -889,10 +814,6 @@
         "value": "grafite"
       },
       {
-        "id": "charcoal",
-        "value": "carboncino"
-      },
-      {
         "id": "lead-pencil",
         "value": "matita di piombo"
       },
@@ -909,12 +830,8 @@
         "value": "vernice"
       },
       {
-        "id": "compass",
-        "value": "compasso"
-      },
-      {
         "id": "blade",
-        "value": "lama, affilatura"
+        "value": "lama (affilatura)"
       },
       {
         "id": "curved-blade",
@@ -930,16 +847,41 @@
     "id": "grf-writing-casing@en",
     "entries": [
       {
+        "id": "cursive",
+        "value": "corsivo"
+      },
+      {
+        "id": "upper",
+        "value": "maiuscolo"
+      },
+      {
+        "id": "upper-lower",
+        "value": "maiuscolo e minuscolo"
+      },
+      {
+        "id": "lower",
+        "value": "minuscolo"
+      },
+      {
+        "id": "-",
+        "value": "---"
+      }
+    ]
+  },
+  {
+    "id": "grf-writing-prevalent-casing@en",
+    "entries": [
+      {
         "id": "-",
         "value": "---"
       },
       {
         "id": "upper",
-        "value": "maiuscolo prevalente"
+        "value": "maiuscolo"
       },
       {
         "id": "lower",
-        "value": "minuscolo prevalente"
+        "value": "minuscolo"
       }
     ]
   },
@@ -956,36 +898,52 @@
     "id": "grf-writing-languages@en",
     "entries": [
       {
-        "id": "ita",
-        "value": "italiano"
+        "id": "arm",
+        "value": "armeno"
+      },
+      {
+        "id": "chi",
+        "value": "cinese"
+      },
+      {
+        "id": "dut",
+        "value": "olandese"
       },
       {
         "id": "lat",
         "value": "latino"
       },
       {
-        "id": "grc",
-        "value": "greco"
+        "id": "jpn",
+        "value": "giapponese"
       },
       {
-        "id": "eng",
-        "value": "inglese"
+        "id": "ita",
+        "value": "italiano"
+      },
+      {
+        "id": "grc",
+        "value": "greco ant."
+      },
+      {
+        "id": "gre",
+        "value": "greco mod."
+      },
+      {
+        "id": "ger",
+        "value": "tedesco"
       },
       {
         "id": "fre",
         "value": "francese"
       },
       {
-        "id": "deu",
-        "value": "tedesco"
+        "id": "eng",
+        "value": "inglese"
       },
       {
-        "id": "gre",
-        "value": "neogreco"
-      },
-      {
-        "id": "spa",
-        "value": "spagnolo"
+        "id": "-",
+        "value": "---"
       }
     ]
   },
@@ -1001,12 +959,12 @@
         "value": "lettere singole"
       },
       {
-        "id": "unclear",
+        "id": "letter-unclear",
         "value": "lettere non interpretabili"
       },
       {
-        "id": "sigla",
-        "value": "sigla"
+        "id": "drawing-unclear",
+        "value": "disegno non interpretabile"
       }
     ]
   },
@@ -1047,6 +1005,14 @@
   {
     "id": "grf-writing-script-features@en",
     "entries": [
+      {
+        "id": "upper",
+        "value": "maiuscolo prevalente"
+      },
+      {
+        "id": "lower",
+        "value": "minuscolo prevalente"
+      },
       {
         "id": "punctuation",
         "value": "interpunzione"
