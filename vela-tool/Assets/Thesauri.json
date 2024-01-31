@@ -895,8 +895,65 @@
     ]
   },
   {
+    "id": "grf-writing-glottologs@en",
+    "entries": [
+      {
+        "id": "arme1259",
+        "value": "Armenian Sign Language"
+      },
+      {
+        "id": "lite1248",
+        "value": "Classical Chinese"
+      },
+      {
+        "id": "lati1261",
+        "value": "Latin"
+      },
+      {
+        "id": "nucl1643",
+        "value": "Japanese"
+      },
+      {
+        "id": "ital1282",
+        "value": "Italian"
+      },
+      {
+        "id": "anci1242",
+        "value": "Ancient Greek"
+      },
+      {
+        "id": "mode1248",
+        "value": "Modern Greek"
+      },
+      {
+        "id": "stan1295",
+        "value": "German"
+      },
+      {
+        "id": "stan1290",
+        "value": "French"
+      },
+      {
+        "id": "stan1293",
+        "value": "English"
+      },
+      {
+        "id": "vene1258",
+        "value": "Venetian"
+      },
+      {
+        "id": "-",
+        "value": "---"
+      }
+    ]
+  },
+  {
     "id": "grf-writing-languages@en",
     "entries": [
+      {
+        "id": "ara",
+        "value": "arabo"
+      },
       {
         "id": "arm",
         "value": "armeno"
