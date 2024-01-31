@@ -256,6 +256,7 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
                 {
                     part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
                     part.LetterFeatures.Add("letter-unclear");
+                    ctx.CurrentItem.Flags |= VelaHelper.F_NOT_INTERPRETABLE;
                 }
                 break;
 
@@ -264,6 +265,7 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
                 {
                     part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
                     part.LetterFeatures.Add("drawing-unclear");
+                    ctx.CurrentItem.Flags |= VelaHelper.F_NOT_INTERPRETABLE;
                 }
                 break;
         }
