@@ -2,7 +2,7 @@
 
 This is a command-line tool providing administrative functions for [Cadmus VeLA](https://github.com/vedph/cadmus-vela). Currently, it is designed to import data from Excel files into the VeLA database using a [Proteus](https://myrmex.github.io/overview/proteus/)-based pipeline.
 
-To import Excel files, run the `import` command, passing the path to the JSON pipeline configuration file, e.g.:
+To import Excel files (like [this](vela.xlsx)), run the `import` command, passing the path to the JSON pipeline configuration file, e.g.:
 
 ```ps1
 import c:\users\dfusi\desktop\vela.json
@@ -12,7 +12,9 @@ Preset profiles can be found under the `Assets` folder of the CLI app.
 
 ## History
 
-- 2024-01-31: updated packages.
+- 2024-01-31:
+  - updated packages.
+  - fixes.
 - 2024-01-26: updated packages to allow fallback column numbering in case of empty column names.
 - 2024-01-25: updated packages.
 - 2024-01-19: updated packages and profiles.
