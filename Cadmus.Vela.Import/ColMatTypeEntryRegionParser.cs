@@ -92,7 +92,7 @@ public sealed class ColMatTypeEntryRegionParser : EntryRegionParser,
 
         if (id == null)
         {
-            _logger?.LogError("Unknown value for materiale: {value} " +
+            _logger?.LogError("Unknown value for materiale: \"{value}\" " +
                 "at region {region}", value, region);
             id = value;
         }

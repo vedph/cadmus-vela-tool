@@ -86,13 +86,14 @@ public sealed class ColCurrentFnEntryRegionParser : EntryRegionParser,
             set.Entries[region.Range.Start.Entry + 1];
         string? value = VelaHelper.FilterValue(txt.Value, true);
 
-        string? id = value != null
-            ? ctx.ThesaurusEntryMap?.GetEntryId(
-                VelaHelper.T_SUPPORT_FUNCTIONS, value)
-            : null;
+        if (string.IsNullOrEmpty(value)) return regionIndex + 1;
+
+        string? id = ctx.ThesaurusEntryMap?.GetEntryId(
+                VelaHelper.T_SUPPORT_FUNCTIONS, value);
         if (id == null)
         {
-            _logger?.LogError("Unknown value for funzione_attuale: {fn}", value);
+            _logger?.LogError("Unknown value for funzione_attuale: \"{fn}\"",
+                value);
             id = value;
         }
 

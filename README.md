@@ -133,7 +133,7 @@ string? id = value != null
 
 if (id == null)
 {
-    _logger?.LogError("Unknown value for tipologia_struttura: {value} " +
+    _logger?.LogError("Unknown value for tipologia_struttura: \"{value}\" " +
         "at region {region}", value, region);
     id = value;
 }

@@ -92,7 +92,7 @@ public sealed class ColPeriodEntryRegionParser : EntryRegionParser,
 
         if (id == null)
         {
-            _logger?.LogError("Unknown value for eta: {value} " +
+            _logger?.LogError("Unknown value for eta: \"{value}\" " +
                 "at region {region}", value, region);
             id = value;
         }

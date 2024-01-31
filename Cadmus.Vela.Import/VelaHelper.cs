@@ -143,7 +143,7 @@ internal static partial class VelaHelper
 
         if (id == null)
         {
-            logger?.LogError("Unknown value for {tag}: {value} " +
+            logger?.LogError("Unknown value for {tag}: \"{value}\" " +
                 "at region {region}", region.Tag, value, region);
             id = value;
         }
