@@ -161,6 +161,14 @@ where `JsonProfilePath` is the path to the JSON file representing a Proteus impo
 
 You can find [preset profiles](./vela-tool/Assets) under the tool's `Assets` folder: these cover different outputs from the same input, namely Markdown dump, Excel dump, and database import.
 
+👉 The typical **import workflow** is:
+
+1. to check for errors, run the [Markdown dump profile](./vela-tool/Assets/Dump-md.json) on your Excel files. Examine the log and ensure that there are no warnings or errors.
+2. create a new database by just launching the VeLA API (set seed items count is 0 if required). This will setup facets, flags, thesauri, etc.
+3. use the [import profile](./vela-tool/Assets/Import.json) to import Excel files.
+
+>⚠️ If you change any thesaurus in the API seed profile, remember to update also its copy used here by the import tool.
+
 ### Dumping
 
 Typically, you will first use the profiles for dumping the import process to ensure that it works properly. There are two dump types: Markdown and Excel. The Markdown dump is the more detailed, and shows the contents of each record read from the source file. The Excel dump is focused on the structure of the input documents, which in this case is less relevant; it shows how the input is decoded into entries, variously grouped into sets and regions. So, while this can be useful to gain a full understanding of the import stages, it is not so relevant in a simple flat input like that provided by Excel files. The Excel dump instead is very relevant when dealing with other source types, like Word documents.
