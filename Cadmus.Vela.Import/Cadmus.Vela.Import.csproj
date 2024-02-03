@@ -7,9 +7,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Cadmus.General.Parts" Version="6.0.4" />
+		<PackageReference Include="Cadmus.General.Parts" Version="6.1.0" />
 		<PackageReference Include="Cadmus.Import.Proteus" Version="4.0.16" />
-		<PackageReference Include="Cadmus.Philology.Parts" Version="8.1.1" />
-		<PackageReference Include="Cadmus.Vela.Parts" Version="2.1.5" />
+		<PackageReference Include="Cadmus.Philology.Parts" Version="8.2.0" />
+		<PackageReference Include="Cadmus.Vela.Parts" Version="2.1.6" />
 	</ItemGroup>
 </Project>

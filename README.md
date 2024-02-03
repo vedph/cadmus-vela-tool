@@ -12,6 +12,7 @@ Preset profiles can be found under the `Assets` folder of the CLI app.
 
 ## History
 
+- 2024-01-03: updated packages and thesauri.
 - 2024-01-31:
   - updated packages.
   - fixes.

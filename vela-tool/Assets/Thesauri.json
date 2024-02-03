@@ -898,48 +898,116 @@
     "id": "grf-writing-glottologs@en",
     "entries": [
       {
-        "id": "arme1259",
-        "value": "Armenian Sign Language"
-      },
-      {
-        "id": "lite1248",
-        "value": "Classical Chinese"
-      },
-      {
-        "id": "lati1261",
-        "value": "Latin"
-      },
-      {
-        "id": "nucl1643",
-        "value": "Japanese"
-      },
-      {
         "id": "ital1282",
-        "value": "Italian"
+        "value": "italiano"
+      },
+      {
+        "id": "vene1257",
+        "value": "veneziano"
       },
       {
         "id": "anci1242",
-        "value": "Ancient Greek"
+        "value": "greco antico"
+      },
+      {
+        "id": "medi1251",
+        "value": "greco medievale"
       },
       {
         "id": "mode1248",
-        "value": "Modern Greek"
+        "value": "greco moderno"
       },
       {
-        "id": "stan1295",
-        "value": "German"
+        "id": "inglese",
+        "value": "stan1293"
       },
       {
-        "id": "stan1290",
-        "value": "French"
+        "id": "olde1238",
+        "value": "Old English"
       },
       {
-        "id": "stan1293",
-        "value": "English"
+        "id": "midd1317",
+        "value": "Middle English"
       },
       {
-        "id": "vene1258",
-        "value": "Venetian"
+        "id": "oldn1244",
+        "value": "Old Norse"
+      },
+      {
+        "id": "olde1239",
+        "value": "Older Runic"
+      },
+      {
+        "id": "clas1249",
+        "value": "armeno classico"
+      },
+      {
+        "id": "arme1241",
+        "value": "armeno"
+      },
+      {
+        "id": "uk1253",
+        "value": "ucraino"
+      },
+      {
+        "id": "oldr1238",
+        "value": "antico russo"
+      },
+      {
+        "id": "russ1263",
+        "value": "russo"
+      },
+      {
+        "id": "prus1238",
+        "value": "antico prussiano"
+      },
+      {
+        "id": "old11238",
+        "value": "latino antico"
+      },
+      {
+        "id": "lati1261",
+        "value": "latino"
+      },
+      {
+        "id": "late1252",
+        "value": "latino tardo"
+      },
+      {
+        "id": "medi1250",
+        "value": "latino medievale"
+      },
+      {
+        "id": "anci1244",
+        "value": "ebraico antico"
+      },
+      {
+        "id": "hebr1245",
+        "value": "ebraico moderno"
+      },
+      {
+        "id": "oldp1256",
+        "value": "polacco antico"
+      },
+      {
+        "id": "poli1260",
+        "value": "polacco"
+      },
+      {
+        "id": "nuc11643",
+        "value": "giapponese"
+      },
+      {
+        "id": "mand1415",
+        "value": "mandarino"
+      },
+      {
+        "id": "lite1248",
+        "value": "cinese classico"
+      },
+      {
+        "id": "arab1395",
+        "value": "arabo"
       },
       {
         "id": "-",
@@ -1001,6 +1069,10 @@
       {
         "id": "eng",
         "value": "inglese"
+      },
+      {
+        "id": "art",
+        "value": "artificiale"
       },
       {
         "id": "-",
