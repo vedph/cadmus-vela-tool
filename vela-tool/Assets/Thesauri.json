@@ -667,6 +667,10 @@
         "value": "prigione"
       },
       {
+        "id": "statue",
+        "value": "statua"
+      },
+      {
         "id": "street",
         "value": "strada"
       }
