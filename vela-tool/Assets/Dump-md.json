@@ -7,7 +7,8 @@
     "options": {
       "inputFile": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\vela.xlsx",
       "hasHeaderRow": true,
-      "columnNameFiltering": true
+      "columnNameFiltering": true,
+      "eofCheckColumn": 1
     }
   },
   "entrySetBoundaryDetector": {
