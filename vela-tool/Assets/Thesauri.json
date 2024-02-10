@@ -848,19 +848,19 @@
     "entries": [
       {
         "id": "cursive",
-        "value": "corsivo"
+        "value": "corsiva"
       },
       {
         "id": "upper",
-        "value": "maiuscolo"
+        "value": "maiuscola"
       },
       {
         "id": "upper-lower",
-        "value": "maiuscolo e minuscolo"
+        "value": "maiuscola e minuscola"
       },
       {
         "id": "lower",
-        "value": "minuscolo"
+        "value": "minuscola"
       },
       {
         "id": "-",
