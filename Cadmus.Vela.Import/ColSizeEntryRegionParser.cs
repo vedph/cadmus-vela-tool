@@ -57,8 +57,8 @@ public sealed class ColSizeEntryRegionParser : EntryRegionParser,
 
     private static PhysicalSize? ParseSize(string value)
     {
-        // parse width + height from value like "10X20.5" (cm)
-        int i = value.IndexOf('X');
+        // parse width + height from value like "10x20.5" (cm)
+        int i = value.IndexOf('x');
         if (i == -1) return null;
 
         return new()
@@ -106,13 +106,15 @@ public sealed class ColSizeEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? value = VelaHelper.FilterValue(txt.Value, false);
-        if (value != null)
+        // lowercase because we have sometimes X and sometimes x
+        string? value = VelaHelper.FilterValue(txt.Value, true);
+        if (!string.IsNullOrEmpty(value))
         {
             PhysicalSize? size = ParseSize(value);
             if (size == null)
             {
-                _logger?.LogError("invalid size at region {region}", region);
+                _logger?.LogError("invalid size at region {region}: \"{size}\"",
+                    region, value);
             }
             else
             {
