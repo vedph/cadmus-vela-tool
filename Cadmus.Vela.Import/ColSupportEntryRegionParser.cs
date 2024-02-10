@@ -92,7 +92,7 @@ public sealed class ColSupportEntryRegionParser : EntryRegionParser,
 
         if (id == null)
         {
-            _logger?.LogError("Unknown value for tipologia_struttura: \"{value}\" " +
+            _logger?.LogError("Unknown value for supporto: \"{value}\" " +
                 "at region {region}", value, region);
             id = value;
         }

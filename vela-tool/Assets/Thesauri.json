@@ -728,6 +728,10 @@
         "value": "pozzo"
       },
       {
+        "id": "statue",
+        "value": "statua"
+      },
+      {
         "id": "jamb",
         "value": "stipite"
       },
@@ -1210,6 +1214,10 @@
       {
         "id": "deva",
         "value": "indiano"
+      },
+      {
+        "id": "runr",
+        "value": "runico"
       }
     ]
   },
