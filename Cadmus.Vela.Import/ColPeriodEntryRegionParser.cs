@@ -50,7 +50,7 @@ public sealed class ColPeriodEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-eta";
+        return regions[regionIndex].Tag == "col-età";
     }
 
     /// <summary>

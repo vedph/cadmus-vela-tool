@@ -486,19 +486,19 @@
     "entries": [
       {
         "id": "roman",
-        "value": "romana"
+        "value": "età romana"
       },
       {
         "id": "medieval",
-        "value": "medievale"
+        "value": "età medioevale"
       },
       {
         "id": "modern",
-        "value": "moderna"
+        "value": "età moderna"
       },
       {
         "id": "contemporary",
-        "value": "contemporanea"
+        "value": "età contemporanea"
       }
     ]
   },
