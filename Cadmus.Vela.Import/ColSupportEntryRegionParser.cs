@@ -83,23 +83,25 @@ public sealed class ColSupportEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-
-        string? value = VelaHelper.FilterValue(txt.Value, true);
-        string? id = value != null
-            ? ctx.ThesaurusEntryMap!.GetEntryId(
-                VelaHelper.T_GRF_SUPPORT_TYPES, value)
-            : null;
-
-        if (id == null)
+        if (!string.IsNullOrEmpty(txt.Value))
         {
-            _logger?.LogError("Unknown value for supporto: \"{value}\" " +
-                "at region {region}", value, region);
-            id = value;
-        }
+            string? value = VelaHelper.FilterValue(txt.Value, true);
+            string? id = value != null
+                ? ctx.ThesaurusEntryMap!.GetEntryId(
+                    VelaHelper.T_GRF_SUPPORT_TYPES, value)
+                : null;
 
-        GrfSupportPart part =
-            ctx.EnsurePartForCurrentItem<GrfSupportPart>();
-        part.Type = id;
+            if (id == null)
+            {
+                _logger?.LogError("Unknown value for supporto: \"{value}\" " +
+                    "at region {region}", value, region);
+                id = value;
+            }
+
+            GrfSupportPart part =
+                ctx.EnsurePartForCurrentItem<GrfSupportPart>();
+            part.Type = id;
+        }
 
         return regionIndex + 1;
     }

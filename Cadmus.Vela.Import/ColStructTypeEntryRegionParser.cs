@@ -84,22 +84,25 @@ public sealed class ColStructTypeEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? value = VelaHelper.FilterValue(txt.Value, true);
-        string? id = value != null
-            ? ctx.ThesaurusEntryMap!.GetEntryId(
-                VelaHelper.T_GRF_SUPPORT_OBJECT_TYPES, value)
-            : null;
-
-        if (id == null)
+        if (!string.IsNullOrEmpty(txt.Value))
         {
-            _logger?.LogError("Unknown value for tipologia_struttura: \"{value}\" " +
-                "at region {region}", value, region);
-            id = value;
-        }
+            string? value = VelaHelper.FilterValue(txt.Value, true);
+            string? id = value != null
+                ? ctx.ThesaurusEntryMap!.GetEntryId(
+                    VelaHelper.T_GRF_SUPPORT_OBJECT_TYPES, value)
+                : null;
 
-        GrfLocalizationPart part =
-            ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
-        part.ObjectType = id;
+            if (id == null)
+            {
+                _logger?.LogError("Unknown value for tipologia_struttura: \"{value}\" " +
+                    "at region {region}", value, region);
+                id = value;
+            }
+
+            GrfLocalizationPart part =
+                ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
+            part.ObjectType = id;
+        }
 
         return regionIndex + 1;
     }
