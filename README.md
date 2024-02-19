@@ -12,6 +12,7 @@ Preset profiles can be found under the `Assets` folder of the CLI app.
 
 ## History
 
+- 2024-02-19: more empty or invalid number checks in parsers.
 - 2024-02-10: updated packages and added EOF column option to asset profiles so that import can stop at the first row having column 1 empty. This seems to be required in real-world Excel files, as the last rows are often empty.
 - 2024-01-03: updated packages and thesauri.
 - 2024-01-31:
