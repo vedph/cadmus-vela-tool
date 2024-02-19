@@ -7,7 +7,7 @@
     - [Examining Log](#examining-log)
   - [Code Template](#code-template)
   - [History](#history)
-    - [1.0.1](#101)
+    - [1.0.2](#102)
 
 This is a command-line tool providing administrative functions for [Cadmus VeLA](https://github.com/vedph/cadmus-vela). Currently, it is designed to import data from Excel files into the VeLA database using a [Proteus](https://myrmex.github.io/overview/proteus/)-based pipeline.
 
@@ -330,7 +330,7 @@ part.ObjectType = id;
 
 ## History
 
-### 1.0.1
+### 1.0.2
 
 - 2024-02-19: more empty or invalid number checks in parsers.
 - 2024-02-10: updated packages and added EOF column option to asset profiles so that import can stop at the first row having column 1 empty. This seems to be required in real-world Excel files, as the last rows are often empty.
