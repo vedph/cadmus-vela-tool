@@ -27,7 +27,7 @@ To validate the Excel files:
 2. unpack the downloaded file into some folder in your computer.
 3. in Linux or OSX, remember to make the `vela-tool` file executable (e.g. `chmod +x vela-tool` in Ubuntu).
 4. create a working folder for your data files and place into it (a) the Excel files you want to validate and (b) the [JSON profile for Markdown output](https://github.com/vedph/cadmus-vela-tool/blob/master/vela-tool/Assets/Dump-md.json).
-5. for each Excel file, update its file name in the above JSON profile (under `entryReader/options/inputFile`), and run the validation with `./vela-tool import <PATH_TO_YOUR_JSON_PROFILE>`.
+5. for each Excel file, update its input and output file names in the above JSON profile (under `entryReader/options/inputFile` and `entrySetExporters/options/outputDirectory`), and run the validation with `./vela-tool import <PATH_TO_YOUR_JSON_PROFILE>`.
 6. [examine the log file](#examining-log) generated in the folder where you unpacked the tool.
 
 ## Usage
@@ -44,6 +44,8 @@ where `JsonProfilePath` is the path to the JSON file representing a Proteus impo
 ./vela-tool import c:/users/dfusi/desktop/vela.json
 ```
 
+👉 When running the tool for **diagnostic output**, you should specify the path to the input file, and the directory of the output files.
+
 The _name of the input Excel file_ is found in this profile under section `entryReader`, e.g.:
 
 ```json
@@ -59,6 +61,21 @@ The _name of the input Excel file_ is found in this profile under section `entry
 ```
 
 In this section, the `inputFile` entry contains the path to the input Excel file. Usually this is all what you need to change, unless you know what you are doing and you are willing to customize the parser's behavior.
+
+For diagnostic outputs, the _name of the output directory_ is found under the same profile in entry `entrySetExporters/options/outputDirectory`:
+
+```json
+"entrySetExporters": [
+  {
+    "id": "entry-set-exporter.cadmus.md-dump",
+    "options": {
+      "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\vela-dump\\",
+      "noEntries": true,
+      "jsonParts": true
+    }
+  }
+]
+```
 
 You can find [preset profiles](./vela-tool/Assets) under the tool's `Assets` folder: these cover different outputs from the same input, namely Markdown dump, Excel dump, and database import.
 
