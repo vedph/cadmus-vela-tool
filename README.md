@@ -1,5 +1,14 @@
 # Cadmus VeLA CLI Tool
 
+- [Cadmus VeLA CLI Tool](#cadmus-vela-cli-tool)
+  - [Quick Start](#quick-start)
+  - [Usage](#usage)
+    - [Dumping](#dumping)
+    - [Examining Log](#examining-log)
+  - [Code Template](#code-template)
+  - [History](#history)
+    - [1.0.1](#101)
+
 This is a command-line tool providing administrative functions for [Cadmus VeLA](https://github.com/vedph/cadmus-vela). Currently, it is designed to import data from Excel files into the VeLA database using a [Proteus](https://myrmex.github.io/overview/proteus/)-based pipeline.
 
 To import Excel files (like [this](vela.xlsx)), run the `import` command, passing the path to the JSON pipeline configuration file, e.g.:
@@ -10,22 +19,16 @@ import c:\users\dfusi\desktop\vela.json
 
 Preset profiles can be found under the `Assets` folder of the CLI app.
 
-## History
+## Quick Start
 
-### 1.0.1
+To validate the Excel files:
 
-- 2024-02-19: more empty or invalid number checks in parsers.
-- 2024-02-10: updated packages and added EOF column option to asset profiles so that import can stop at the first row having column 1 empty. This seems to be required in real-world Excel files, as the last rows are often empty.
-- 2024-01-03: updated packages and thesauri.
-- 2024-01-31:
-  - updated packages.
-  - fixes.
-- 2024-01-26: updated packages to allow fallback column numbering in case of empty column names.
-- 2024-01-25: updated packages.
-- 2024-01-19: updated packages and profiles.
-- 2024-01-18:
-  - updated packages.
-  - added column name filtering to asset profiles, as our source has column names with whitespaces and various casing.
+1. from the [releases](https://github.com/vedph/cadmus-vela-tool/releases) page, download the release for your OS.
+2. unpack the downloaded file into some folder in your computer.
+3. in Linux or OSX, remember to make the `vela-tool` file executable (e.g. `chmod +x vela-tool` in Ubuntu).
+4. create a working folder for your data files and place into it (a) the Excel files you want to validate and (b) the [JSON profile for Markdown output](https://github.com/vedph/cadmus-vela-tool/blob/master/vela-tool/Assets/Dump-md.json).
+5. for each Excel file, update its file name in the above JSON profile (under `entryReader/options/inputFile`), and run the validation with `./vela-tool import <PATH_TO_YOUR_JSON_PROFILE>`.
+6. [examine the log file](#examining-log) generated in the folder where you unpacked the tool.
 
 ## Usage
 
@@ -307,3 +310,20 @@ GrfLocalizationPart part =
     ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
 part.ObjectType = id;
 ```
+
+## History
+
+### 1.0.1
+
+- 2024-02-19: more empty or invalid number checks in parsers.
+- 2024-02-10: updated packages and added EOF column option to asset profiles so that import can stop at the first row having column 1 empty. This seems to be required in real-world Excel files, as the last rows are often empty.
+- 2024-01-03: updated packages and thesauri.
+- 2024-01-31:
+  - updated packages.
+  - fixes.
+- 2024-01-26: updated packages to allow fallback column numbering in case of empty column names.
+- 2024-01-25: updated packages.
+- 2024-01-19: updated packages and profiles.
+- 2024-01-18:
+  - updated packages.
+  - added column name filtering to asset profiles, as our source has column names with whitespaces and various casing.
