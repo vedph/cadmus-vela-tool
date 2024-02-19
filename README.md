@@ -27,129 +27,6 @@ Preset profiles can be found under the `Assets` folder of the CLI app.
   - updated packages.
   - added column name filtering to asset profiles, as our source has column names with whitespaces and various casing.
 
-## Template
-
-Template for region parser:
-
-- `__TAG__`: the region tag.
-- `__NAME__` the class name.
-
-```cs
-using Cadmus.Import.Proteus;
-using Cadmus.Refs.Bricks;
-using Cadmus.Vela.Parts;
-using Fusi.Tools.Configuration;
-using Microsoft.Extensions.Logging;
-using Proteus.Core.Entries;
-using Proteus.Core.Regions;
-using System;
-using System.Collections.Generic;
-
-namespace Cadmus.Vela.Import;
-
-/// <summary>
-/// VeLA column __TAG__ entry region parser. This targets TODO.
-/// </summary>
-/// <seealso cref="EntryRegionParser" />
-/// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-__TAG__")]
-public sealed class Col__NAME__EntryRegionParser : EntryRegionParser,
-    IEntryRegionParser
-{
-    private readonly ILogger<Col__NAME__EntryRegionParser>? _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Col__NAME__EntryRegionParser"/>
-    /// class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public Col__NAME__EntryRegionParser(
-        ILogger<Col__NAME__EntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-    }
-
-    /// <summary>
-    /// Determines whether this parser is applicable to the specified
-    /// region. Typically, the applicability is determined via a configurable
-    /// nested object, having parameters like region tag(s) and paths.
-    /// </summary>
-    /// <param name="set">The entries set.</param>
-    /// <param name="regions">The regions.</param>
-    /// <param name="regionIndex">Index of the region.</param>
-    /// <returns>
-    ///   <c>true</c> if applicable; otherwise, <c>false</c>.
-    /// </returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    public bool IsApplicable(EntrySet set, IReadOnlyList<EntryRegion> regions,
-        int regionIndex)
-    {
-        ArgumentNullException.ThrowIfNull(set);
-        ArgumentNullException.ThrowIfNull(regions);
-
-        return regions[regionIndex].Tag == "col-__TAG__";
-    }
-
-    /// <summary>
-    /// Parses the region of entries at <paramref name="regionIndex" />
-    /// in the specified <paramref name="regions" />.
-    /// </summary>
-    /// <param name="set">The entries set.</param>
-    /// <param name="regions">The regions.</param>
-    /// <param name="regionIndex">Index of the region in the set.</param>
-    /// <returns>
-    /// The index to the next region to be parsed.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">set or regions</exception>
-    public int Parse(EntrySet set, IReadOnlyList<EntryRegion> regions,
-        int regionIndex)
-    {
-        ArgumentNullException.ThrowIfNull(set);
-        ArgumentNullException.ThrowIfNull(regions);
-
-        CadmusEntrySetContext ctx = (CadmusEntrySetContext)set.Context;
-        EntryRegion region = regions[regionIndex];
-
-        if (ctx.CurrentItem == null)
-        {
-            _logger?.LogError("__TAG__ column without any item at region {region}",
-                region);
-            throw new InvalidOperationException(
-                "__TAG__ column without any item at region " + region);
-        }
-
-        DecodedTextEntry txt = (DecodedTextEntry)
-            set.Entries[region.Range.Start.Entry + 1];
-        string? value = VelaHelper.FilterValue(txt.Value, false);
-
-        // TODO
-
-        return regionIndex + 1;
-    }
-}
-```
-
-Variant for thesaurus entry value:
-
-```cs
-string? value = VelaHelper.FilterValue(txt.Value);
-string? id = value != null
-    ? ctx.ThesaurusEntryMap!.GetEntryId(
-        VelaHelper.T_SUPPORT_OBJECT_TYPES, value)
-    : null;
-
-if (id == null)
-{
-    _logger?.LogError("Unknown value for tipologia_struttura: \"{value}\" " +
-        "at region {region}", value, region);
-    id = value;
-}
-
-GrfLocalizationPart part =
-    ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
-part.ObjectType = id;
-```
-
 ## Usage
 
 The CLI tool has a unique command used to import data from [Excel documents](https://github.com/vedph/cadmus-vela?tab=readme-ov-file#original-spreadsheet). Syntax:
@@ -163,6 +40,22 @@ where `JsonProfilePath` is the path to the JSON file representing a Proteus impo
 ```ps1
 ./vela-tool import c:/users/dfusi/desktop/vela.json
 ```
+
+The _name of the input Excel file_ is found in this profile under section `entryReader`, e.g.:
+
+```json
+"entryReader": {
+  "id": "entry-reader.xlsx",
+  "options": {
+    "inputFile": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\vela.xlsx",
+    "hasHeaderRow": true,
+    "columnNameFiltering": true,
+    "eofCheckColumn": 1
+  }
+}
+```
+
+In this section, the `inputFile` entry contains the path to the input Excel file. Usually this is all what you need to change, unless you know what you are doing and you are willing to customize the parser's behavior.
 
 You can find [preset profiles](./vela-tool/Assets) under the tool's `Assets` folder: these cover different outputs from the same input, namely Markdown dump, Excel dump, and database import.
 
@@ -291,3 +184,126 @@ For instance, here is an excerpt from the log for the dump of the mock document:
 ```
 
 As you can see, here the log provides 3 errors related to missing entries in the target thesauri. For each of these errors you have the indication of its type (e.g. "Unknown value for..."), the column being handled (e.g. "funzione_attuale"), and the text value being imported (e.g. "religiosa"). Armed with this knowledge, fixing issues by supplying new values into the corresponding thesauri will be a trivial operation.
+
+## Code Template
+
+Template for region parser:
+
+- `__TAG__`: the region tag.
+- `__NAME__` the class name.
+
+```cs
+using Cadmus.Import.Proteus;
+using Cadmus.Refs.Bricks;
+using Cadmus.Vela.Parts;
+using Fusi.Tools.Configuration;
+using Microsoft.Extensions.Logging;
+using Proteus.Core.Entries;
+using Proteus.Core.Regions;
+using System;
+using System.Collections.Generic;
+
+namespace Cadmus.Vela.Import;
+
+/// <summary>
+/// VeLA column __TAG__ entry region parser. This targets TODO.
+/// </summary>
+/// <seealso cref="EntryRegionParser" />
+/// <seealso cref="IEntryRegionParser" />
+[Tag("entry-region-parser.vela.col-__TAG__")]
+public sealed class Col__NAME__EntryRegionParser : EntryRegionParser,
+    IEntryRegionParser
+{
+    private readonly ILogger<Col__NAME__EntryRegionParser>? _logger;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Col__NAME__EntryRegionParser"/>
+    /// class.
+    /// </summary>
+    /// <param name="logger">The logger.</param>
+    public Col__NAME__EntryRegionParser(
+        ILogger<Col__NAME__EntryRegionParser>? logger = null)
+    {
+        _logger = logger;
+    }
+
+    /// <summary>
+    /// Determines whether this parser is applicable to the specified
+    /// region. Typically, the applicability is determined via a configurable
+    /// nested object, having parameters like region tag(s) and paths.
+    /// </summary>
+    /// <param name="set">The entries set.</param>
+    /// <param name="regions">The regions.</param>
+    /// <param name="regionIndex">Index of the region.</param>
+    /// <returns>
+    ///   <c>true</c> if applicable; otherwise, <c>false</c>.
+    /// </returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public bool IsApplicable(EntrySet set, IReadOnlyList<EntryRegion> regions,
+        int regionIndex)
+    {
+        ArgumentNullException.ThrowIfNull(set);
+        ArgumentNullException.ThrowIfNull(regions);
+
+        return regions[regionIndex].Tag == "col-__TAG__";
+    }
+
+    /// <summary>
+    /// Parses the region of entries at <paramref name="regionIndex" />
+    /// in the specified <paramref name="regions" />.
+    /// </summary>
+    /// <param name="set">The entries set.</param>
+    /// <param name="regions">The regions.</param>
+    /// <param name="regionIndex">Index of the region in the set.</param>
+    /// <returns>
+    /// The index to the next region to be parsed.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">set or regions</exception>
+    public int Parse(EntrySet set, IReadOnlyList<EntryRegion> regions,
+        int regionIndex)
+    {
+        ArgumentNullException.ThrowIfNull(set);
+        ArgumentNullException.ThrowIfNull(regions);
+
+        CadmusEntrySetContext ctx = (CadmusEntrySetContext)set.Context;
+        EntryRegion region = regions[regionIndex];
+
+        if (ctx.CurrentItem == null)
+        {
+            _logger?.LogError("__TAG__ column without any item at region {region}",
+                region);
+            throw new InvalidOperationException(
+                "__TAG__ column without any item at region " + region);
+        }
+
+        DecodedTextEntry txt = (DecodedTextEntry)
+            set.Entries[region.Range.Start.Entry + 1];
+        string? value = VelaHelper.FilterValue(txt.Value, false);
+
+        // TODO
+
+        return regionIndex + 1;
+    }
+}
+```
+
+Variant for thesaurus entry value:
+
+```cs
+string? value = VelaHelper.FilterValue(txt.Value);
+string? id = value != null
+    ? ctx.ThesaurusEntryMap!.GetEntryId(
+        VelaHelper.T_SUPPORT_OBJECT_TYPES, value)
+    : null;
+
+if (id == null)
+{
+    _logger?.LogError("Unknown value for tipologia_struttura: \"{value}\" " +
+        "at region {region}", value, region);
+    id = value;
+}
+
+GrfLocalizationPart part =
+    ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
+part.ObjectType = id;
+```
