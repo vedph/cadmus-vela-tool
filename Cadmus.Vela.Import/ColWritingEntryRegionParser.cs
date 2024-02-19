@@ -121,10 +121,16 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
         {
             case "col-numero_righe":
                 part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
+                if (!int.TryParse(value, CultureInfo.InvariantCulture, out int rows))
+                {
+                    _logger?.LogError("Invalid value for {tag} at " +
+                        "{region}: \"{value}\"", region.Tag, region, value);
+                    break;
+                }
                 part.Counts.Add(new()
                 {
                     Id = "row",
-                    Value = int.Parse(value, CultureInfo.InvariantCulture)
+                    Value = rows
                 });
                 break;
 

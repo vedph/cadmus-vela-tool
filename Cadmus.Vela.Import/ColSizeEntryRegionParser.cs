@@ -55,22 +55,35 @@ public sealed class ColSizeEntryRegionParser : EntryRegionParser,
         return regions[regionIndex].Tag == "col-misure";
     }
 
-    private static PhysicalSize? ParseSize(string value)
+    private PhysicalSize? ParseSize(string value)
     {
         // parse width + height from value like "10x20.5" (cm)
         int i = value.IndexOf('x');
         if (i == -1) return null;
 
+        if (!float.TryParse(value[..i], NumberStyles.Float,
+            CultureInfo.InvariantCulture, out float w))
+        {
+            Logger?.LogError("Invalid width in size: {value}", value);
+            return null;
+        }
+        if (!float.TryParse(value[(i + 1)..], NumberStyles.Float,
+            CultureInfo.InvariantCulture, out float h))
+        {
+            Logger?.LogError("Invalid height in size: {value}", value);
+            return null;
+        }
+
         return new()
         {
             W = new PhysicalDimension
             {
-                Value = float.Parse(value[..i], CultureInfo.InvariantCulture),
+                Value = w,
                 Unit = "cm"
             },
             H = new PhysicalDimension
             {
-                Value = float.Parse(value[(i + 1)..], CultureInfo.InvariantCulture),
+                Value = h,
                 Unit = "cm"
             }
         };
