@@ -3,7 +3,10 @@
 - [Cadmus VeLA CLI Tool](#cadmus-vela-cli-tool)
   - [Quick Start](#quick-start)
   - [Usage](#usage)
+    - [Diagnostic Output](#diagnostic-output)
+    - [Database Output](#database-output)
     - [Dumping](#dumping)
+      - [Markdown](#markdown)
     - [Examining Log](#examining-log)
   - [Code Template](#code-template)
   - [History](#history)
@@ -33,7 +36,7 @@ To validate the Excel files:
 
 ## Usage
 
-The CLI tool has a unique command used to import data from [Excel documents](https://github.com/vedph/cadmus-vela?tab=readme-ov-file#original-spreadsheet). Syntax:
+The CLI tool has a single command used to import data from [Excel documents](https://github.com/vedph/cadmus-vela?tab=readme-ov-file#original-spreadsheet). Syntax:
 
 ```ps1
 ./vela-tool import <JsonProfilePath>
@@ -45,7 +48,9 @@ where `JsonProfilePath` is the path to the JSON file representing a Proteus impo
 ./vela-tool import c:/users/dfusi/desktop/vela.json
 ```
 
-👉 When running the tool for **diagnostic output**, you should specify the path to the input file, and the directory of the output files.
+### Diagnostic Output
+
+👉 When running the tool for diagnostic output, you should specify the path to the input file, and the directory of the output files.
 
 The _name of the input Excel file_ is found in this profile under section `entryReader`, e.g.:
 
@@ -80,7 +85,9 @@ For diagnostic outputs, the _name of the output directory_ is found under the sa
 
 You can find [preset profiles](./vela-tool/Assets) under the tool's `Assets` folder: these cover different outputs from the same input, namely Markdown dump, Excel dump, and database import.
 
-👉 The typical **import workflow** is:
+### Database Output
+
+👉 The typical import workflow is:
 
 1. to check for errors, run the [Markdown dump profile](./vela-tool/Assets/Dump-md.json) on your Excel files. Examine the log and ensure that there are no warnings or errors.
 2. create a new database by just launching the VeLA API (set seed items count is 0 if required). This will setup facets, flags, thesauri, etc.
@@ -90,7 +97,15 @@ You can find [preset profiles](./vela-tool/Assets) under the tool's `Assets` fol
 
 ### Dumping
 
-Typically, you will first use the profiles for dumping the import process to ensure that it works properly. There are two dump types: Markdown and Excel. The Markdown dump is the more detailed, and shows the contents of each record read from the source file. The Excel dump is focused on the structure of the input documents, which in this case is less relevant; it shows how the input is decoded into entries, variously grouped into sets and regions. So, while this can be useful to gain a full understanding of the import stages, it is not so relevant in a simple flat input like that provided by Excel files. The Excel dump instead is very relevant when dealing with other source types, like Word documents.
+Typically, you will first use the profiles for dumping the import process to ensure that it works properly.
+
+There are two dump types: Markdown and Excel.
+
+The _Markdown dump_ is the more detailed, and shows the contents of each record read from the source file.
+
+The _Excel dump_ is focused on the structure of the input documents, which in this case is less relevant; it shows how the input is decoded into entries, variously grouped into sets and regions. So, while this can be useful to gain a full understanding of the import stages, it is not so relevant in a simple flat input like that provided by Excel files. The Excel dump instead is very relevant when dealing with other source types, like Word documents.
+
+#### Markdown
 
 The Markdown dump provides an entry for each row imported, assuming that each row corresponds to an item (a record). For each item using the preset profiles (some dump options are customizable) you get:
 
