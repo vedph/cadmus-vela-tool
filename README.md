@@ -9,9 +9,6 @@
       - [Markdown](#markdown)
     - [Examining Log](#examining-log)
   - [Code Template](#code-template)
-  - [History](#history)
-    - [1.0.3](#103)
-    - [1.0.2](#102)
 
 This is a command-line tool providing administrative functions for [Cadmus VeLA](https://github.com/vedph/cadmus-vela). Currently, it is designed to import data from Excel files into the VeLA database using a [Proteus](https://myrmex.github.io/overview/proteus/)-based pipeline.
 
@@ -346,6 +343,9 @@ part.ObjectType = id;
 
 ## History
 
+### 1.0.4
+
+- 2024-10-10: updated packages.
 - 2024-09-17: updated packages.
 - 2024-07-19: updated packages.
 

@@ -28,7 +28,7 @@ internal sealed class ImportCommand : AsyncCommand<ImportCommandSettings>
         return reader.ReadToEnd();
     }
 
-    private ThesaurusEntryMap LoadThesaurusMap()
+    private static ThesaurusEntryMap LoadThesaurusMap()
     {
         string path = Path.Combine(
             Directory.GetCurrentDirectory(), "Assets", "Thesauri.json");
