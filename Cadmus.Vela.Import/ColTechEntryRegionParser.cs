@@ -42,7 +42,6 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
             ["col-disegno"] = "drawing",
             ["col-punzonatura"] = "punching",
             ["col-a_rilievo"] = "relief",
-            // "rubricatura" is handled by ColWritingEntryRegionParser
         };
         _toolTags = new Dictionary<string, string>
         {
@@ -52,6 +51,8 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
             ["col-sgorbia"] = "gouge",
             ["col-sega"] = "saw",
             ["col-bocciarda"] = "bush-hammer",
+            ["col-carboncino"] = "charcoal",
+            ["col-seppia"] = "sepia",
             ["col-grafite"] = "graphite",
             ["col-matita_di_piombo"] = "lead-pencil",
             ["col-fumo_di_candela"] = "candlesmoke",
@@ -123,10 +124,13 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
             GrfTechniquePart part =
                 ctx.EnsurePartForCurrentItem<GrfTechniquePart>();
 
+            // techniques
             if (_techTags.TryGetValue(region.Tag!, out string? id))
             {
-                part.Techniques.Add(id);
+                if (VelaHelper.GetBooleanValue(value))
+                    part.Techniques.Add(id);
             }
+            // tools
             else
             {
                 if (region.Tag == "col-tipo_di_lama")
@@ -147,7 +151,7 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
                             break;
                     }
                 }
-                else
+                else if (VelaHelper.GetBooleanValue(value))
                 {
                     part.Tools.Add(_toolTags[region.Tag!]);
                 }
