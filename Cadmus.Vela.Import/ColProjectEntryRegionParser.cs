@@ -96,6 +96,9 @@ public sealed class ColProjectEntryRegionParser : EntryRegionParser,
             case "vela palazzo ducale":
                 ctx.CurrentItem.Flags |= 256;
                 break;
+            case "imai":
+                ctx.CurrentItem.Flags |= 512;
+                break;
             default:
                 _logger?.LogError(
                     "Invalid segmento_progetto value at region {Region}: {Value}",

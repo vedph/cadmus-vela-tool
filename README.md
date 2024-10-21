@@ -344,6 +344,8 @@ part.ObjectType = id;
 
 ## History
 
+- 2024-10-21: added IMAI flag.
+
 ### 1.0.5
 
 - 2024-10-21:
