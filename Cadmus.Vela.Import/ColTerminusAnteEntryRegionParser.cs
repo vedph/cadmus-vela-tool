@@ -77,7 +77,7 @@ public sealed class ColTerminusAnteEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError(
-                "terminus_ante column without any item at region {region}",
+                "terminus_ante column without any item at region {Region}",
                 region);
             throw new InvalidOperationException(
                 "terminus_ante column without any item at region " +

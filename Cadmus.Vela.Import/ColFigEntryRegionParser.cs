@@ -76,8 +76,8 @@ public sealed class ColFigEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("{tag} column without any item " +
-                "at region {region}", region.Tag, region);
+            _logger?.LogError("{Tag} column without any item " +
+                "at region {Region}", region.Tag, region);
             throw new InvalidOperationException(
                 $"{region.Tag} column without any item at region {region}");
         }

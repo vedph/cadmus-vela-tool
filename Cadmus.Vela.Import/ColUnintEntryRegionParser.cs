@@ -75,7 +75,7 @@ public sealed class ColUnintEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("disegno_non_interpretabile column without " +
-                "any item at region {region}", region);
+                "any item at region {Region}", region);
             throw new InvalidOperationException(
                 "disegno_non_interpretabile column without any item at region "
                 + region);

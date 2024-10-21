@@ -77,7 +77,7 @@ public sealed class ColDatationEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError(
-                "cronologia column without any item at region {region}",
+                "cronologia column without any item at region {Region}",
                 region);
             throw new InvalidOperationException(
                 "cronologia column without any item at region " +

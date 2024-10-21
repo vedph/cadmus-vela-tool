@@ -86,7 +86,7 @@ public sealed class RowEntryRegionParser : EntryRegionParser, IEntryRegionParser
         }
         if (row == null)
         {
-            _logger?.LogError("Row command not found in region {region}",
+            _logger?.LogError("Row command not found in region {Region}",
                 region);
             throw new InvalidOperationException(
                 "Row command not found in region " + region);
@@ -94,7 +94,7 @@ public sealed class RowEntryRegionParser : EntryRegionParser, IEntryRegionParser
 
         // log row's Y
         int y = int.Parse(row.GetArgument("y")!, CultureInfo.InvariantCulture);
-        _logger?.LogInformation("-- ROW: {row}", y);
+        _logger?.LogInformation("-- ROW: {Row}", y);
 
         // add item for the row
         Item item = new()

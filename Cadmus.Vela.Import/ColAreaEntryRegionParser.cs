@@ -78,7 +78,7 @@ public sealed class ColAreaEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("{tag} column without any item at region {region}",
+            _logger?.LogError("{Tag} column without any item at region {Region}",
                 region.Tag, region);
             throw new InvalidOperationException(
                 $"{region.Tag} column without any item at region {region}");
@@ -89,7 +89,7 @@ public sealed class ColAreaEntryRegionParser : EntryRegionParser,
         string? value = VelaHelper.FilterValue(txt.Value, false);
         if (value == null)
         {
-            _logger?.LogWarning("{tag} column with empty value at region {region}",
+            _logger?.LogWarning("{Tag} column with empty value at region {Region}",
                 region.Tag, region);
             return regionIndex + 1;
         }

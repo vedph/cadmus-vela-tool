@@ -83,7 +83,7 @@ public sealed class ColFeaturesEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("{tag} column without any item at region {region}",
+            _logger?.LogError("{Tag} column without any item at region {Region}",
                 region.Tag, region);
             throw new InvalidOperationException(
                 $"{region.Tag} column without any item at region {region}");

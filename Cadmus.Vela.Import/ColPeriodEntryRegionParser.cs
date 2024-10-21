@@ -75,7 +75,7 @@ public sealed class ColPeriodEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("eta column without any item at region {region}",
+            _logger?.LogError("eta column without any item at region {Region}",
                 regions[regionIndex]);
             throw new InvalidOperationException(
                 "eta column without any item at region " + region);
@@ -92,8 +92,8 @@ public sealed class ColPeriodEntryRegionParser : EntryRegionParser,
 
         if (id == null)
         {
-            _logger?.LogError("Unknown value for eta: \"{value}\" " +
-                "at region {region}", value, region);
+            _logger?.LogError("Unknown value for eta: \"{Value}\" " +
+                "at region {Region}", value, region);
             id = value;
         }
 

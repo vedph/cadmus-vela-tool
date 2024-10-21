@@ -76,7 +76,7 @@ public sealed class ColIndoorEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("interno/esterno column without any item " +
-                "at region {region}", region);
+                "at region {Region}", region);
             throw new InvalidOperationException(
                 "interno/esterno column without any item at region " +
                 region);

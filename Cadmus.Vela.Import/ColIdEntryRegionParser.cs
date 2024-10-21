@@ -75,7 +75,7 @@ public sealed class ColIdEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("ID column without any item at region {region}",
+            _logger?.LogError("ID column without any item at region {Region}",
                 region);
             throw new InvalidOperationException(
                 "ID column without any item at region " + region);

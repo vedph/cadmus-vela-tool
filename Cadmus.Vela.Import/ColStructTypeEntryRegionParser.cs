@@ -76,7 +76,7 @@ public sealed class ColStructTypeEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("tipologia_struttura column without any " +
-                "item at region {region}", region);
+                "item at region {Region}", region);
             throw new InvalidOperationException(
                 "tipologia_struttura column without any item at region " +
                 region);
@@ -94,8 +94,8 @@ public sealed class ColStructTypeEntryRegionParser : EntryRegionParser,
 
             if (id == null)
             {
-                _logger?.LogError("Unknown value for tipologia_struttura: \"{value}\" " +
-                    "at region {region}", value, region);
+                _logger?.LogError("Unknown value for tipologia_struttura: \"{Value}\" " +
+                    "at region {Region}", value, region);
                 id = value;
             }
 

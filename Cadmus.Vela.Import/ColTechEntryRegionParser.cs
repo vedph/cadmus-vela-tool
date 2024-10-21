@@ -107,7 +107,7 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("{tag} column without any item at region {region}",
+            _logger?.LogError("{Tag} column without any item at region {Region}",
                 region.Tag, region);
             throw new InvalidOperationException(
                 $"{region.Tag} column without any item at region {region}");
@@ -142,8 +142,8 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
                             break;
                         default:
                             part.Tools.Add(value);
-                            _logger?.LogError("Unknown blade type: {value} " +
-                                "at region {region}", value, region);
+                            _logger?.LogError("Unknown blade type: {Value} " +
+                                "at region {Region}", value, region);
                             break;
                     }
                 }

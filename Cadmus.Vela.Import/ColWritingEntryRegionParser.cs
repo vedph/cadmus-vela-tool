@@ -102,7 +102,7 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("{tag} column without any item at region {region}",
+            _logger?.LogError("{Tag} column without any item at region {Region}",
                 region.Tag, region);
             throw new InvalidOperationException(
                 $"{region.Tag} column without any item at region {region}");
@@ -123,8 +123,8 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
                 part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
                 if (!int.TryParse(value, CultureInfo.InvariantCulture, out int rows))
                 {
-                    _logger?.LogError("Invalid value for {tag} at " +
-                        "{region}: \"{value}\"", region.Tag, region, value);
+                    _logger?.LogError("Invalid value for {Tag} at " +
+                        "{Region}: \"{Value}\"", region.Tag, region, value);
                     break;
                 }
                 part.Counts.Add(new()
@@ -200,7 +200,7 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
                         break;
                     default:
                         _logger?.LogError(
-                            "Invalid value for {tag} at {region}: {value}",
+                            "Invalid value for {Tag} at {Region}: {Value}",
                             region.Tag, region, value);
                         part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
                         part.ScriptFeatures.Add(value);

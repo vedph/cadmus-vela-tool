@@ -75,7 +75,7 @@ public sealed class ColSupportEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("supporto column without any item at region {region}",
+            _logger?.LogError("supporto column without any item at region {Region}",
                 region);
             throw new InvalidOperationException(
                 "supporto column without any item at region " + region);
@@ -93,8 +93,8 @@ public sealed class ColSupportEntryRegionParser : EntryRegionParser,
 
             if (id == null)
             {
-                _logger?.LogError("Unknown value for supporto: \"{value}\" " +
-                    "at region {region}", value, region);
+                _logger?.LogError("Unknown value for supporto: \"{Value}\" " +
+                    "at region {Region}", value, region);
                 id = value;
             }
 

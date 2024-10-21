@@ -76,7 +76,7 @@ public sealed class ColMatTypeEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("materiale column without any " +
-                "item at region {region}", region);
+                "item at region {Region}", region);
             throw new InvalidOperationException(
                 "materiale column without any item at region " +
                 region);
@@ -95,8 +95,8 @@ public sealed class ColMatTypeEntryRegionParser : EntryRegionParser,
 
             if (id == null)
             {
-                _logger?.LogError("Unknown value for materiale: \"{value}\" " +
-                    "at region {region}", value, region);
+                _logger?.LogError("Unknown value for materiale: \"{Value}\" " +
+                    "at region {Region}", value, region);
                 id = value;
             }
 

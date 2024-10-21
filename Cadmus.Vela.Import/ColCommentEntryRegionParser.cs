@@ -74,7 +74,7 @@ public sealed class ColCommentEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("commento column without any item at region {region}",
+            _logger?.LogError("commento column without any item at region {Region}",
                 region);
             throw new InvalidOperationException(
                 "commento column without any item at region " + region);

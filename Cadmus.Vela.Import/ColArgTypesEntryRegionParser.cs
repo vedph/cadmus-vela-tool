@@ -106,7 +106,7 @@ public sealed class ColArgTypesEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("{tag} column without any item at region {region}",
+            _logger?.LogError("{Tag} column without any item at region {Region}",
                 region.Tag, region);
             throw new InvalidOperationException(
                 $"{region.Tag} column without any item at region {region}");
@@ -139,7 +139,7 @@ public sealed class ColArgTypesEntryRegionParser : EntryRegionParser,
                 }
                 else
                 {
-                    _logger?.LogError("Unknown tag {tag} at region {region}",
+                    _logger?.LogError("Unknown tag {Tag} at region {Region}",
                         region.Tag, region);
                     part.Categories.Add(VelaHelper.FilterValue(txt.Value, true)!);
                 }

@@ -64,13 +64,13 @@ public sealed class ColSizeEntryRegionParser : EntryRegionParser,
         if (!float.TryParse(value[..i], NumberStyles.Float,
             CultureInfo.InvariantCulture, out float w))
         {
-            Logger?.LogError("Invalid width in size: {value}", value);
+            Logger?.LogError("Invalid width in size: {Value}", value);
             return null;
         }
         if (!float.TryParse(value[(i + 1)..], NumberStyles.Float,
             CultureInfo.InvariantCulture, out float h))
         {
-            Logger?.LogError("Invalid height in size: {value}", value);
+            Logger?.LogError("Invalid height in size: {Value}", value);
             return null;
         }
 
@@ -111,7 +111,7 @@ public sealed class ColSizeEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("misure column without any item at region {region}",
+            _logger?.LogError("misure column without any item at region {Region}",
                 region);
             throw new InvalidOperationException(
                 "misure column without any item at region " + region);
@@ -126,7 +126,7 @@ public sealed class ColSizeEntryRegionParser : EntryRegionParser,
             PhysicalSize? size = ParseSize(value);
             if (size == null)
             {
-                _logger?.LogError("invalid size at region {region}: \"{size}\"",
+                _logger?.LogError("invalid size at region {Region}: \"{Size}\"",
                     region, value);
             }
             else

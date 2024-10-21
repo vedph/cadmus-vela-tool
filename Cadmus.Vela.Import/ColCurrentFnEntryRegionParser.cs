@@ -76,7 +76,7 @@ public sealed class ColCurrentFnEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("funzione_attuale column without any item " +
-                "at region {region}", region);
+                "at region {Region}", region);
             throw new InvalidOperationException(
                 "funzione_attuale column without any item at region " +
                 region);
@@ -92,7 +92,7 @@ public sealed class ColCurrentFnEntryRegionParser : EntryRegionParser,
                 VelaHelper.T_SUPPORT_FUNCTIONS, value);
         if (id == null)
         {
-            _logger?.LogError("Unknown value for funzione_attuale: \"{fn}\"",
+            _logger?.LogError("Unknown value for funzione_attuale: \"{Fn}\"",
                 value);
             id = value;
         }

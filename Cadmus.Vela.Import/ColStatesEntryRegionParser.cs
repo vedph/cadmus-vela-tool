@@ -81,7 +81,7 @@ public sealed class ColStatesEntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("{tag} column without any item at region {region}",
+            _logger?.LogError("{Tag} column without any item at region {Region}",
                 region.Tag, region);
             throw new InvalidOperationException(
                 $"{region.Tag} column without any item at region {region}");
@@ -113,8 +113,8 @@ public sealed class ColStatesEntryRegionParser : EntryRegionParser,
                     dt = VelaHelper.GetDateValue(value);
                     if (dt == null)
                     {
-                        _logger?.LogError("{tag} column with invalid date value " +
-                            "{value} at region {region}", region.Tag, value, region);
+                        _logger?.LogError("{Tag} column with invalid date value " +
+                            "{Value} at region {Region}", region.Tag, value, region);
                     }
                     else
                     {
@@ -130,8 +130,8 @@ public sealed class ColStatesEntryRegionParser : EntryRegionParser,
                     dt = VelaHelper.GetDateValue(value);
                     if (dt == null)
                     {
-                        _logger?.LogError("{tag} column with invalid date value " +
-                            "{value} at region {region}", region.Tag, value, region);
+                        _logger?.LogError("{Tag} column with invalid date value " +
+                            "{Value} at region {Region}", region.Tag, value, region);
                     }
                     else
                     {

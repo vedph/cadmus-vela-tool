@@ -76,7 +76,7 @@ public sealed class ColOriginalFnEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("funzione_originaria column without any item " +
-                "at region {region}", region);
+                "at region {Region}", region);
             throw new InvalidOperationException(
                 "funzione_originaria column without any item at region " +
                 region);

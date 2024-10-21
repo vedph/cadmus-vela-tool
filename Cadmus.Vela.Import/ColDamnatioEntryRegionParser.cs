@@ -76,7 +76,7 @@ public sealed class ColDamnatioEntryRegionParser : EntryRegionParser,
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError("presenza_di_damnatio column without any item " +
-                "at region {region}", region);
+                "at region {Region}", region);
             throw new InvalidOperationException(
                 "presenza_di_damnatio column without any item at region "
                 + region);
@@ -103,8 +103,8 @@ public sealed class ColDamnatioEntryRegionParser : EntryRegionParser,
                 part.Damnatio = "complete";
                 break;
             default:
-                _logger?.LogError("Unknown presenza_di_damnatio value {value} " +
-                    "at region {region}", value, region);
+                _logger?.LogError("Unknown presenza_di_damnatio value {Value} " +
+                    "at region {Region}", value, region);
                 part.Damnatio = value;
                 break;
         }
