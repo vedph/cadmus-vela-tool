@@ -49,6 +49,9 @@
       "id": "entry-region-parser.vela.col-area"
     },
     {
+      "id": "entry-region-parser.vela.col-autore"
+    },
+    {
       "id": "entry-region-parser.vela.col-funzione_attuale"
     },
     {
@@ -109,8 +112,17 @@
       "id": "entry-region-parser.vela.col-presenza_di_damnatio"
     },
     {
+      "id": "entry-region-parser.vela.col-segmento_progetto"
+    },
+    {
       "id": "entry-region-parser.vela.col-states"
     }
+  ],
+  "entrySetContextPatchers": [
+    {
+      "id": "entry-set-context-patcher.cadmus"
+    }
+
   ],
   "entrySetContextPatchers": [
     {

@@ -23,6 +23,7 @@ internal static partial class VelaHelper
 
     // thesauri IDs
     public const string T_SUPPORT_FUNCTIONS = "grf-support-functions@en";
+    public const string T_STATES_TYPES = "grf-states@en";
     public const string T_GRF_SUPPORT_MATERIALS = "grf-support-materials@en";
     public const string T_GRF_SUPPORT_OBJECT_TYPES = "grf-support-object-types@en";
     public const string T_GRF_SUPPORT_TYPES = "grf-support-types@en";
@@ -160,8 +161,8 @@ internal static partial class VelaHelper
 
         if (id == null)
         {
-            logger?.LogError("Unknown value for {tag}: \"{value}\" " +
-                "at region {region}", region.Tag, value, region);
+            logger?.LogError("Unknown value for {Tag}: \"{Value}\" " +
+                "at region {Region}", region.Tag, value, region);
             id = value;
         }
 

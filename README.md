@@ -247,6 +247,7 @@ namespace Cadmus.Vela.Import;
 public sealed class Col__NAME__EntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
+    private const string COL___TAG__ = "col-__TAG__";
     private readonly ILogger<Col__NAME__EntryRegionParser>? _logger;
 
     /// <summary>
@@ -278,7 +279,7 @@ public sealed class Col__NAME__EntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-__TAG__";
+        return regions[regionIndex].Tag == COL___TAG__;
     }
 
     /// <summary>
@@ -303,7 +304,7 @@ public sealed class Col__NAME__EntryRegionParser : EntryRegionParser,
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("__TAG__ column without any item at region {region}",
+            _logger?.LogError("__TAG__ column without any item at region {Region}",
                 region);
             throw new InvalidOperationException(
                 "__TAG__ column without any item at region " + region);
@@ -342,6 +343,15 @@ part.ObjectType = id;
 ```
 
 ## History
+
+### 1.0.5
+
+- 2024-10-21:
+  - uppercase names in log placeholders.
+  - added `state` column to the states parser.
+  - added `entry-region-parser.vela.col-autore` parser for `autore`.
+  - added `entry-region-parser.vela.col-segmento_progetto` for `segmento progetto`.
+  - updated profiles and thesauri list.
 
 ### 1.0.4
 

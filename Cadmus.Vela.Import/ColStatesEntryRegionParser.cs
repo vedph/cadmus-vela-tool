@@ -19,6 +19,7 @@ namespace Cadmus.Vela.Import;
 public sealed class ColStatesEntryRegionParser : EntryRegionParser,
     IEntryRegionParser
 {
+    private const string COL_STATE = "stato";
     private const string COL_NOTE = "osservazioni_sullo_stato_di_conservazione";
     private const string COL_DATE1 = "data_primo_rilievo";
     private const string COL_DATE2 = "data_ultima_ricognizione";
@@ -54,7 +55,8 @@ public sealed class ColStatesEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == COL_NOTE ||
+        return regions[regionIndex].Tag == COL_STATE ||
+               regions[regionIndex].Tag == COL_NOTE ||
                regions[regionIndex].Tag == COL_DATE1 ||
                regions[regionIndex].Tag == COL_DATE2;
     }
@@ -105,6 +107,21 @@ public sealed class ColStatesEntryRegionParser : EntryRegionParser,
             DateTime? dt;
             switch (region.Tag)
             {
+                case COL_STATE:
+                    string? type = VelaHelper.FilterValue(txt.Value, true);
+                    string? id = type != null
+                        ? ctx.ThesaurusEntryMap!.GetEntryId(
+                            VelaHelper.T_STATES_TYPES, type)
+                        : null;
+                    if (id == null)
+                    {
+                        _logger?.LogError("Unknown value for stato: \"{Value}\" " +
+                            "at region {Region}", value, region);
+                        id = type;
+                    }
+                    state.Type = id;
+                    break;
+
                 case COL_NOTE:
                     state.Note = value;
                     break;
