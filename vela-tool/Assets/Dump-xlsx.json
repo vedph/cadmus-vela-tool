@@ -5,7 +5,7 @@
   "entryReader": {
     "id": "entry-reader.xlsx",
     "options": {
-      "inputFile": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\vela.xlsx",
+      "inputFile": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\vela\\vela.xlsx",
       "hasHeaderRow": true,
       "columnNameFiltering": true,
       "eofCheckColumn": 1
@@ -124,17 +124,12 @@
     }
 
   ],
-  "entrySetContextPatchers": [
-    {
-      "id": "entry-set-context-patcher.cadmus"
-    }
-  ],
   "entrySetExporters": [
     {
       "id": "entry-set-exporter.excel-dump",
       "options": {
         "maxEntriesPerDumpFile": 10000,
-        "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\vela-dump"
+        "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\vela\\vela-dump"
       }
     }
   ]
