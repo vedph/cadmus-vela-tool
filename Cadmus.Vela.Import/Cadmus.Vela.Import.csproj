@@ -10,6 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Cadmus.Epigraphy.Parts" Version="4.0.1" />
 		<PackageReference Include="Cadmus.General.Parts" Version="6.1.4" />
 		<PackageReference Include="Cadmus.Import.Proteus" Version="4.0.17" />
 		<PackageReference Include="Cadmus.Philology.Parts" Version="8.2.1" />

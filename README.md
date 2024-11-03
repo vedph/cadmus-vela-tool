@@ -10,6 +10,8 @@
     - [Examining Log](#examining-log)
   - [Code Template](#code-template)
 
+⚠️ IMPORTANT : ensure that the local copy of the thesaurus is up-to-date with [the one used by the API](https://github.com/vedph/cadmus-vela-api/blob/master/CadmusVelaApi/wwwroot/seed-profile.json)!
+
 This is a command-line tool providing administrative functions for [Cadmus VeLA](https://github.com/vedph/cadmus-vela). Currently, it is designed to import data from Excel files into the VeLA database using a [Proteus](https://myrmex.github.io/overview/proteus/)-based pipeline.
 
 To import Excel files (like [this](vela.xlsx)), run the `import` command, passing the path to the JSON pipeline configuration file, e.g.:

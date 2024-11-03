@@ -1,5 +1,5 @@
-﻿using Cadmus.Import.Proteus;
-using Cadmus.Vela.Parts;
+﻿using Cadmus.Epigraphy.Parts;
+using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -11,26 +11,17 @@ namespace Cadmus.Vela.Import;
 
 /// <summary>
 /// VeLA column supporto entry region parser. This targets
-/// <see cref="GrfSupportPart.Type"/>.
+/// <see cref="EpiSupportPart.ObjectType"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.vela.col-supporto")]
-public sealed class ColSupportEntryRegionParser : EntryRegionParser,
+public sealed class ColSupportEntryRegionParser(
+    ILogger<ColSupportEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColSupportEntryRegionParser>? _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColSupportEntryRegionParser"/>
-    /// class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public ColSupportEntryRegionParser(
-        ILogger<ColSupportEntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-    }
+    private const string COL_SUPPORTO = "col-supporto";
+    private readonly ILogger<ColSupportEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -50,7 +41,7 @@ public sealed class ColSupportEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-supporto";
+        return regions[regionIndex].Tag == COL_SUPPORTO;
     }
 
     /// <summary>
@@ -83,24 +74,19 @@ public sealed class ColSupportEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
+
         if (!string.IsNullOrEmpty(txt.Value))
         {
             string? value = VelaHelper.FilterValue(txt.Value, true);
-            string? id = value != null
-                ? ctx.ThesaurusEntryMap!.GetEntryId(
-                    VelaHelper.T_GRF_SUPPORT_TYPES, value)
-                : null;
-
-            if (id == null)
+            if (value != null)
             {
-                _logger?.LogError("Unknown value for supporto: \"{Value}\" " +
-                    "at region {Region}", value, region);
-                id = value;
-            }
+                string id = VelaHelper.GetThesaurusId(ctx, region,
+                    VelaHelper.T_EPI_SUPPORT_OBJECT_TYPES, value, _logger);
 
-            GrfSupportPart part =
-                ctx.EnsurePartForCurrentItem<GrfSupportPart>();
-            part.Type = id;
+                EpiSupportPart part =
+                    ctx.EnsurePartForCurrentItem<EpiSupportPart>();
+                part.ObjectType = id;
+            }
         }
 
         return regionIndex + 1;

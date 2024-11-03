@@ -89,7 +89,7 @@ public sealed class ColCurrentFnEntryRegionParser : EntryRegionParser,
         if (string.IsNullOrEmpty(value)) return regionIndex + 1;
 
         string? id = ctx.ThesaurusEntryMap?.GetEntryId(
-                VelaHelper.T_SUPPORT_FUNCTIONS, value);
+                VelaHelper.T_EPI_SUPPORT_FUNCTIONS, value);
         if (id == null)
         {
             _logger?.LogError("Unknown value for funzione_attuale: \"{Fn}\"",
