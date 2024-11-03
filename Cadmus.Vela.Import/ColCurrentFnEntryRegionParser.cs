@@ -1,5 +1,5 @@
 ﻿using Cadmus.Import.Proteus;
-using Cadmus.Vela.Parts;
+using Cadmus.Epigraphy.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -11,26 +11,17 @@ namespace Cadmus.Vela.Import;
 
 /// <summary>
 /// VeLA column funzione_attuale entry region parser. This targets
-/// <see cref="GrfLocalizationPart"/>'s function.
+/// <see cref="EpiSupportPart.CurrentFn"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.vela.col-funzione_attuale")]
-public sealed class ColCurrentFnEntryRegionParser : EntryRegionParser,
+public sealed class ColCurrentFnEntryRegionParser(
+    ILogger<ColCurrentFnEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColCurrentFnEntryRegionParser>? _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColCurrentFnEntryRegionParser"/>
-    /// class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public ColCurrentFnEntryRegionParser(
-        ILogger<ColCurrentFnEntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-    }
+    private const string COL_FUNZIONE_ATTUALE = "col-funzione_attuale";
+    private readonly ILogger<ColCurrentFnEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -50,7 +41,7 @@ public sealed class ColCurrentFnEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-funzione_attuale";
+        return regions[regionIndex].Tag == COL_FUNZIONE_ATTUALE;
     }
 
     /// <summary>
@@ -88,18 +79,12 @@ public sealed class ColCurrentFnEntryRegionParser : EntryRegionParser,
 
         if (string.IsNullOrEmpty(value)) return regionIndex + 1;
 
-        string? id = ctx.ThesaurusEntryMap?.GetEntryId(
-                VelaHelper.T_EPI_SUPPORT_FUNCTIONS, value);
-        if (id == null)
-        {
-            _logger?.LogError("Unknown value for funzione_attuale: \"{Fn}\"",
-                value);
-            id = value;
-        }
+        string id = VelaHelper.GetThesaurusId(ctx, region,
+            VelaHelper.T_EPI_SUPPORT_FUNCTIONS, value, _logger);
 
-        GrfLocalizationPart part =
-            ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
-        part.Function = id;
+        EpiSupportPart part =
+            ctx.EnsurePartForCurrentItem<EpiSupportPart>();
+        part.CurrentFn = id;
 
         return regionIndex + 1;
     }

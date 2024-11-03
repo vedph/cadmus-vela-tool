@@ -1,4 +1,5 @@
-﻿using Cadmus.Import.Proteus;
+﻿using Cadmus.Epigraphy.Parts;
+using Cadmus.Import.Proteus;
 using Cadmus.Vela.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
@@ -11,26 +12,17 @@ namespace Cadmus.Vela.Import;
 
 /// <summary>
 /// VeLA column funzione_originaria entry region parser. This targets
-/// <see cref="GrfLocalizationPart"/>'s note.
+/// <see cref="EpiSupportPart.OriginalFn"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.vela.col-funzione_originaria")]
-public sealed class ColOriginalFnEntryRegionParser : EntryRegionParser,
+public sealed class ColOriginalFnEntryRegionParser(
+    ILogger<ColOriginalFnEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColOriginalFnEntryRegionParser>? _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColOriginalFnEntryRegionParser"/>
-    /// class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public ColOriginalFnEntryRegionParser(
-        ILogger<ColOriginalFnEntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-    }
+    private const string COL_FUNZIONE_ORIGINARIA = "col-funzione_originaria";
+    private readonly ILogger<ColOriginalFnEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -50,7 +42,7 @@ public sealed class ColOriginalFnEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-funzione_originaria";
+        return regions[regionIndex].Tag == COL_FUNZIONE_ORIGINARIA;
     }
 
     /// <summary>
@@ -84,14 +76,16 @@ public sealed class ColOriginalFnEntryRegionParser : EntryRegionParser,
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? fn = VelaHelper.FilterValue(txt.Value!.Trim(), false);
+        string? value = VelaHelper.FilterValue(txt.Value, true);
 
-        if (fn != null)
-        {
-            GrfLocalizationPart part =
-                ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
-            part.Note = fn;
-        }
+        if (string.IsNullOrEmpty(value)) return regionIndex + 1;
+
+        string id = VelaHelper.GetThesaurusId(ctx, region,
+            VelaHelper.T_EPI_SUPPORT_FUNCTIONS, value, _logger);
+
+        EpiSupportPart part =
+            ctx.EnsurePartForCurrentItem<EpiSupportPart>();
+        part.OriginalFn = id;
 
         return regionIndex + 1;
     }
