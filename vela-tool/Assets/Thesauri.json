@@ -15,48 +15,36 @@
         "value": "commento"
       },
       {
+        "id": "it.vedph.district-location",
+        "value": "localizzazione"
+      },
+      {
         "id": "it.vedph.doc-references",
         "value": "riferimenti"
+      },
+      {
+        "id": "it.vedph.epigraphy.support",
+        "value": "supporto"
+      },
+      {
+        "id": "it.vedph.epigraphy.technique",
+        "value": "tecnica"
+      },
+      {
+        "id": "it.vedph.epigraphy.writing",
+        "value": "scrittura"
       },
       {
         "id": "it.vedph.external-ids",
         "value": "ID esterni"
       },
       {
-        "id": "it.vedph.graffiti.figurative",
-        "value": "figurativo"
-      },
-      {
-        "id": "it.vedph.graffiti.frame",
-        "value": "cornice"
-      },
-      {
-        "id": "it.vedph.graffiti.localization",
-        "value": "localizzazione"
-      },
-      {
-        "id": "it.vedph.graffiti.states",
-        "value": "stati"
-      },
-      {
-        "id": "it.vedph.graffiti.support",
-        "value": "supporto"
-      },
-      {
-        "id": "it.vedph.graffiti.technique",
-        "value": "tecnica"
-      },
-      {
-        "id": "it.vedph.graffiti.writing",
-        "value": "scrittura"
+        "id": "it.vedph.geo.asserted-locations",
+        "value": "geolocalizzazione"
       },
       {
         "id": "it.vedph.historical-date",
         "value": "datazione"
-      },
-      {
-        "id": "it.vedph.index-keywords",
-        "value": "parole chiave"
       },
       {
         "id": "it.vedph.metadata",
@@ -65,6 +53,10 @@
       {
         "id": "it.vedph.note",
         "value": "nota"
+      },
+      {
+        "id": "it.vedph.physical-states",
+        "value": "stati"
       },
       {
         "id": "it.vedph.token-text",
@@ -107,7 +99,40 @@
   },
   {
     "id": "bibliography-languages@en",
-    "targetId": "languages"
+    "entries": [
+      {
+        "id": "eng",
+        "value": "inglese"
+      },
+      {
+        "id": "fre",
+        "value": "francese"
+      },
+      {
+        "id": "deu",
+        "value": "tedesco"
+      },
+      {
+        "id": "grc",
+        "value": "greco"
+      },
+      {
+        "id": "gre",
+        "value": "neogreco"
+      },
+      {
+        "id": "ita",
+        "value": "italiano"
+      },
+      {
+        "id": "lat",
+        "value": "latino"
+      },
+      {
+        "id": "spa",
+        "value": "spagnolo"
+      }
+    ]
   },
   {
     "id": "bibliography-types@en",
@@ -155,126 +180,444 @@
     ]
   },
   {
-    "id": "categories_feature@en",
+    "id": "categories_fn@en",
     "entries": [
       {
         "id": "text",
         "value": "testo"
       },
       {
-        "id": "figurative",
-        "value": "figurativo"
+        "id": "monogram",
+        "value": "monogramma"
       },
       {
-        "id": "digits",
-        "value": "numeri"
+        "id": "letter",
+        "value": "lettera singola"
       },
       {
-        "id": "frame",
-        "value": "cornice"
+        "id": "unint",
+        "value": "lettere non interpretabili"
       }
     ]
   },
   {
-    "id": "categories_topic@en",
+    "id": "categories_cnt@en",
     "entries": [
       {
-        "id": "funerary",
-        "value": "funeraria"
+        "id": "love",
+        "value": "amore"
       },
       {
-        "id": "memorial",
-        "value": "commemorativa"
+        "id": "auspicious",
+        "value": "augurale"
       },
       {
-        "id": "signature",
-        "value": "firma"
+        "id": "relic-auth",
+        "value": "autentica di reliquie"
+      },
+      {
+        "id": "brick-stamp",
+        "value": "bollo laterizio"
+      },
+      {
+        "id": "calendar",
+        "value": "calendario"
       },
       {
         "id": "celebratory",
         "value": "celebrativa"
       },
       {
-        "id": "exhortative",
-        "value": "esortativa"
+        "id": "digit",
+        "value": "cifra"
       },
       {
-        "id": "didascalic",
-        "value": "didascalica"
+        "id": "digit.ara",
+        "value": "cifra: araba"
       },
       {
-        "id": "initials",
-        "value": "iniziali nome persona"
+        "id": "digit.arm",
+        "value": "cifra: armena"
       },
       {
-        "id": "acronym",
-        "value": "sigla"
+        "id": "digit.cyr",
+        "value": "cifra: cirillica"
       },
       {
-        "id": "signaling",
-        "value": "segnaletica"
+        "id": "digit.glg",
+        "value": "cifra: glagolitica"
+      },
+      {
+        "id": "digit.rom",
+        "value": "cifra: romana"
       },
       {
         "id": "quote",
         "value": "citazione"
       },
       {
-        "id": "infamous",
-        "value": "infamante"
+        "id": "memorial",
+        "value": "commemorativa"
       },
       {
-        "id": "sport",
-        "value": "sport"
+        "id": "consecration",
+        "value": "consacrazione"
       },
       {
-        "id": "prostitution",
-        "value": "prostituzione"
+        "id": "dedication",
+        "value": "dedicatoria"
       },
       {
-        "id": "politics",
-        "value": "politica"
+        "id": "devotional",
+        "value": "devozionale"
       },
       {
-        "id": "religion",
-        "value": "religiosa"
+        "id": "didascalic",
+        "value": "didascalica"
       },
       {
-        "id": "prayer",
-        "value": "preghiera"
+        "id": "documentary",
+        "value": "documentaria"
+      },
+      {
+        "id": "exegetic",
+        "value": "esegetica"
+      },
+      {
+        "id": "exhortative",
+        "value": "esortativa"
       },
       {
         "id": "ex-voto",
         "value": "ex voto"
       },
       {
-        "id": "love",
-        "value": "amore"
+        "id": "signature",
+        "value": "firma"
       },
       {
-        "id": "speaking",
-        "value": "parlanti"
-      },
-      {
-        "id": "taunt",
-        "value": "insulto"
+        "id": "funerary",
+        "value": "funeraria"
       },
       {
         "id": "curse",
         "value": "imprecazione"
       },
       {
+        "id": "infamous",
+        "value": "infamante"
+      },
+      {
+        "id": "initials",
+        "value": "iniziali nome persona"
+      },
+      {
+        "id": "taunt",
+        "value": "insulto"
+      },
+      {
+        "id": "invocation",
+        "value": "invocativa"
+      },
+      {
+        "id": "build-stamp",
+        "value": "marchio edile"
+      },
+      {
+        "id": "name",
+        "value": "nome"
+      },
+      {
         "id": "toponym",
         "value": "nome di luogo"
       },
       {
+        "id": "speaking",
+        "value": "parlanti"
+      },
+      {
+        "id": "political",
+        "value": "politica"
+      },
+      {
+        "id": "poetry",
+        "value": "poesia"
+      },
+      {
+        "id": "prose",
+        "value": "prosa"
+      },
+      {
+        "id": "prostitution",
+        "value": "prostituzione"
+      },
+      {
+        "id": "prayer",
+        "value": "preghiera"
+      },
+      {
+        "id": "religious",
+        "value": "religiosa"
+      },
+      {
         "id": "greeting",
-        "value": "saluti"
+        "value": "saluto"
+      },
+      {
+        "id": "signaling",
+        "value": "segnaletica"
+      },
+      {
+        "id": "acronym",
+        "value": "sigla"
+      },
+      {
+        "id": "sport",
+        "value": "sport"
+      },
+      {
+        "id": "-",
+        "value": "non definibile"
+      }
+    ]
+  },
+  {
+    "id": "categories_fig@en",
+    "entries": [
+      {
+        "id": "unint-drawing",
+        "value": "disegno non interpretabile"
+      },
+      {
+        "id": "clothing",
+        "value": "abbigliamento"
+      },
+      {
+        "id": "animal",
+        "value": "animale"
+      },
+      {
+        "id": "architecture",
+        "value": "architettura"
+      },
+      {
+        "id": "weapon",
+        "value": "arma"
+      },
+      {
+        "id": "armor",
+        "value": "armatura"
+      },
+      {
+        "id": "flag",
+        "value": "bandiera"
+      },
+      {
+        "id": "bust",
+        "value": "busto"
+      },
+      {
+        "id": "cross",
+        "value": "croce"
+      },
+      {
+        "id": "heart",
+        "value": "cuore"
+      },
+      {
+        "id": "erotic",
+        "value": "erotico"
+      },
+      {
+        "id": "human-figure",
+        "value": "figura umana"
+      },
+      {
+        "id": "geometric",
+        "value": "geometrico"
+      },
+      {
+        "id": "game",
+        "value": "gioco"
+      },
+      {
+        "id": "ship",
+        "value": "imbarcazione"
+      },
+      {
+        "id": "language",
+        "value": "lingua"
+      },
+      {
+        "id": "landscape",
+        "value": "paesaggio"
+      },
+      {
+        "id": "plant",
+        "value": "pianta"
+      },
+      {
+        "id": "zodiac-symbol",
+        "value": "simbolo zodiacale"
+      },
+      {
+        "id": "coat-of-arms",
+        "value": "stemma"
+      },
+      {
+        "id": "face",
+        "value": "volto"
+      }
+    ]
+  },
+  {
+    "id": "categories_lng@en",
+    "entries": [
+      {
+        "id": "lng",
+        "value": "lingua"
+      },
+      {
+        "id": "lng.arm",
+        "value": "lingua: armeno"
+      },
+      {
+        "id": "lng.chi",
+        "value": "lingua: cinese"
+      },
+      {
+        "id": "lng.eng",
+        "value": "lingua: inglese"
+      },
+      {
+        "id": "lng.dut",
+        "value": "lingua: olandese"
+      },
+      {
+        "id": "lng.fre",
+        "value": "lingua: francese"
+      },
+      {
+        "id": "lng.ger",
+        "value": "lingua: tedesco"
+      },
+      {
+        "id": "lng.grc",
+        "value": "lingua: greco antico"
+      },
+      {
+        "id": "lng.gre",
+        "value": "lingua: greco moderno"
+      },
+      {
+        "id": "lng.ita",
+        "value": "lingua: italiano"
+      },
+      {
+        "id": "lng.jpn",
+        "value": "lingua: giapponese"
+      },
+      {
+        "id": "lng.lat",
+        "value": "lingua: latino"
+      },
+      {
+        "id": "i639",
+        "value": "lingua (ISO639)"
+      },
+      {
+        "id": "i639.ara",
+        "value": "lingua (ISO639): arabo"
+      },
+      {
+        "id": "i639.deu",
+        "value": "lingua (ISO639): tedesco"
+      },
+      {
+        "id": "i639.ell",
+        "value": "lingua (ISO639): greco moderno"
+      },
+      {
+        "id": "i639.eng",
+        "value": "lingua (ISO639): inglese"
+      },
+      {
+        "id": "i639.fra",
+        "value": "lingua (ISO639): francese"
+      },
+      {
+        "id": "i639.grc",
+        "value": "lingua (ISO639): greco antico"
+      },
+      {
+        "id": "i639.ita",
+        "value": "lingua (ISO639): italiano"
+      },
+      {
+        "id": "i639.jpn",
+        "value": "lingua (ISO639): giapponese"
+      },
+      {
+        "id": "i639.lat",
+        "value": "lingua (ISO639): latino"
+      },
+      {
+        "id": "glg.-",
+        "value": "glottolog"
+      },
+      {
+        "id": "glg.anci1242",
+        "value": "glottolog: greco ionico-attico"
+      },
+      {
+        "id": "glg.arme1259",
+        "value": "glottolog: armeno"
+      },
+      {
+        "id": "glg.ital1282",
+        "value": "glottolog: italiano"
+      },
+      {
+        "id": "glg.lati1261",
+        "value": "glottolog: latino"
+      },
+      {
+        "id": "glg.lite1248",
+        "value": "glottolog: cinese classico"
+      },
+      {
+        "id": "glg.medi1251",
+        "value": "glottolog: greco medievale"
+      },
+      {
+        "id": "glg.mode1248",
+        "value": "glottolog: greco moderno"
+      },
+      {
+        "id": "glg.nucl1643",
+        "value": "glottolog: giapponese"
+      },
+      {
+        "id": "glg.stan1290",
+        "value": "glottolog: inglese standard"
+      },
+      {
+        "id": "glg.stan1293",
+        "value": "glottolog: inglese"
+      },
+      {
+        "id": "glg.stan1295",
+        "value": "glottolog: inglese standard"
+      },
+      {
+        "id": "glg.vene1258",
+        "value": "glottolog: veneziano"
       }
     ]
   },
   {
     "id": "comment-categories@en",
-    "targetId": "categories_topic"
+    "targetId": "categories_cnt"
   },
   {
     "id": "epi-ligature-types@en",
@@ -310,275 +653,510 @@
     ]
   },
   {
-    "id": "grf-damnatio-types@en",
+    "id": "district-name-piece-types@en",
     "entries": [
       {
-        "id": "-",
-        "value": "---"
+        "id": "p*",
+        "value": "provincia"
       },
       {
-        "id": "absent",
-        "value": "non presente"
+        "id": "p.al",
+        "value": "Alessandria"
       },
       {
-        "id": "partial",
-        "value": "parziale"
+        "id": "p.an",
+        "value": "Ancona"
       },
       {
-        "id": "complete",
-        "value": "totale"
-      }
-    ]
-  },
-  {
-    "id": "grf-fig-features@en",
-    "entries": [
-      {
-        "id": "a",
-        "value": "alpha"
+        "id": "p.aq",
+        "value": "L'Aquila"
       },
       {
-        "id": "b",
-        "value": "beta"
+        "id": "p.ar",
+        "value": "Arezzo"
       },
       {
-        "id": "g",
-        "value": "gamma"
-      }
-    ]
-  },
-  {
-    "id": "grf-fig-frame-types@en",
-    "entries": [
-      {
-        "id": "-",
-        "value": "---"
+        "id": "p.at",
+        "value": "Asti"
       },
       {
-        "id": "square",
-        "value": "square"
+        "id": "p.av",
+        "value": "Avellino"
       },
       {
-        "id": "rect",
-        "value": "rectangular"
+        "id": "p.ba",
+        "value": "Bari"
       },
       {
-        "id": "oval",
-        "value": "oval"
+        "id": "p.bg",
+        "value": "Bergamo"
       },
       {
-        "id": "round",
-        "value": "round"
+        "id": "p.bi",
+        "value": "Biella"
       },
       {
-        "id": "heart",
-        "value": "heart"
+        "id": "p.bl",
+        "value": "Belluno"
       },
       {
-        "id": "cross",
-        "value": "cross"
+        "id": "p.bn",
+        "value": "Benevento"
       },
       {
-        "id": "flag",
-        "value": "flag"
+        "id": "p.bo",
+        "value": "Bologna"
       },
       {
-        "id": "cartouche",
-        "value": "cartouche"
+        "id": "p.br",
+        "value": "Brindisi"
       },
       {
-        "id": "signboard",
-        "value": "signboard"
+        "id": "p.bs",
+        "value": "Brescia"
       },
       {
-        "id": "cloud",
-        "value": "cloud"
-      }
-    ]
-  },
-  {
-    "id": "grf-figurative-types@en",
-    "entries": [
-      {
-        "id": "anatomical",
-        "value": "parti anatomiche"
+        "id": "p.bt",
+        "value": "Barletta-Andria-Trani"
       },
       {
-        "id": "face",
-        "value": "volti"
+        "id": "p.bz",
+        "value": "Bolzano/Bozen"
       },
       {
-        "id": "bust",
-        "value": "busto"
+        "id": "p.ca",
+        "value": "Cagliari"
       },
       {
-        "id": "human-fig",
-        "value": "figura umana"
+        "id": "p.cb",
+        "value": "Campobasso"
       },
       {
-        "id": "erotic",
-        "value": "erotici"
+        "id": "p.ce",
+        "value": "Caserta"
       },
       {
-        "id": "cross",
-        "value": "croce"
+        "id": "p.ch",
+        "value": "Chieti"
       },
       {
-        "id": "heart",
-        "value": "cuore"
+        "id": "p.ci",
+        "value": "Carbonia-Iglesias"
       },
       {
-        "id": "architecture",
-        "value": "architetture"
+        "id": "p.cl",
+        "value": "Caltanissetta"
       },
       {
-        "id": "landscape",
-        "value": "paesaggi"
+        "id": "p.cn",
+        "value": "Cuneo"
       },
       {
-        "id": "geometric",
-        "value": "geometrico"
+        "id": "p.co",
+        "value": "Como"
       },
       {
-        "id": "ship",
-        "value": "imbarcazioni"
+        "id": "p.cr",
+        "value": "Cremona"
       },
       {
-        "id": "plant",
-        "value": "piante"
+        "id": "p.cs",
+        "value": "Cosenza"
       },
       {
-        "id": "game",
-        "value": "gioco"
+        "id": "p.ct",
+        "value": "Catania"
       },
       {
-        "id": "weapon",
-        "value": "arma"
+        "id": "p.cz",
+        "value": "Catanzaro"
       },
       {
-        "id": "armor",
-        "value": "armatura"
+        "id": "p.en",
+        "value": "Enna"
       },
       {
-        "id": "coat-of-arms",
-        "value": "stemma"
+        "id": "p.fc",
+        "value": "Forli-Cesena"
       },
       {
-        "id": "flag",
-        "value": "bandiera"
+        "id": "p.fe",
+        "value": "Ferrara"
       },
       {
-        "id": "animal",
-        "value": "animale"
+        "id": "p.fi",
+        "value": "Firenze"
       },
       {
-        "id": "zodiac",
-        "value": "simbolo zodiaco"
+        "id": "p.fg",
+        "value": "Foggia"
       },
       {
-        "id": "sharpening",
-        "value": "grafitto da affilitura"
-      }
-    ]
-  },
-  {
-    "id": "grf-periods@en",
-    "entries": [
-      {
-        "id": "roman",
-        "value": "età romana"
+        "id": "p.fm",
+        "value": "Fermo"
       },
       {
-        "id": "medieval",
-        "value": "età medioevale"
+        "id": "p.fr",
+        "value": "Frosinone"
       },
       {
-        "id": "modern",
-        "value": "età moderna"
+        "id": "p.ge",
+        "value": "Genova"
       },
       {
-        "id": "contemporary",
-        "value": "età contemporanea"
-      }
-    ]
-  },
-  {
-    "id": "grf-place-languages@en",
-    "entries": [
-      {
-        "id": "ita",
-        "value": "italiano"
-      }
-    ]
-  },
-  {
-    "id": "grf-place-piece-types@en",
-    "entries": [
-      {
-        "id": "a*",
-        "value": "area"
+        "id": "p.go",
+        "value": "Gorizia"
       },
       {
-        "id": "s*",
-        "value": "sestriere"
+        "id": "p.gr",
+        "value": "Grosseto"
       },
       {
-        "id": "s.cr",
-        "value": "Cannaregio"
+        "id": "p.im",
+        "value": "Imperia"
       },
       {
-        "id": "s.cs",
+        "id": "p.is",
+        "value": "Isernia"
+      },
+      {
+        "id": "p.kr",
+        "value": "Crotone"
+      },
+      {
+        "id": "p.lc",
+        "value": "Lecco"
+      },
+      {
+        "id": "p.le",
+        "value": "Lecce"
+      },
+      {
+        "id": "p.li",
+        "value": "Livorno"
+      },
+      {
+        "id": "p.lo",
+        "value": "Lodi"
+      },
+      {
+        "id": "p.lt",
+        "value": "Latina"
+      },
+      {
+        "id": "p.lu",
+        "value": "Lucca"
+      },
+      {
+        "id": "p.mb",
+        "value": "Monza e della Brianza"
+      },
+      {
+        "id": "p.mc",
+        "value": "Macerata"
+      },
+      {
+        "id": "p.me",
+        "value": "Messina"
+      },
+      {
+        "id": "p.mi",
+        "value": "Milano"
+      },
+      {
+        "id": "p.mn",
+        "value": "Mantova"
+      },
+      {
+        "id": "p.mo",
+        "value": "Modena"
+      },
+      {
+        "id": "p.ms",
+        "value": "Massa-Carrara"
+      },
+      {
+        "id": "p.mt",
+        "value": "Matera"
+      },
+      {
+        "id": "p.na",
+        "value": "Napoli"
+      },
+      {
+        "id": "p.no",
+        "value": "Novara"
+      },
+      {
+        "id": "p.nu",
+        "value": "Nuoro"
+      },
+      {
+        "id": "p.og",
+        "value": "Ogliastra"
+      },
+      {
+        "id": "p.or",
+        "value": "Oristano"
+      },
+      {
+        "id": "p.ot",
+        "value": "Olbia-Tempio"
+      },
+      {
+        "id": "p.pa",
+        "value": "Palermo"
+      },
+      {
+        "id": "p.pc",
+        "value": "Piacenza"
+      },
+      {
+        "id": "p.pd",
+        "value": "Padova"
+      },
+      {
+        "id": "p.pe",
+        "value": "Pescara"
+      },
+      {
+        "id": "p.pg",
+        "value": "Perugia"
+      },
+      {
+        "id": "p.pi",
+        "value": "Pisa"
+      },
+      {
+        "id": "p.pn",
+        "value": "Pordenone"
+      },
+      {
+        "id": "p.po",
+        "value": "Prato"
+      },
+      {
+        "id": "p.pu",
+        "value": "Pesaro e Urbino"
+      },
+      {
+        "id": "p.pv",
+        "value": "Pavia"
+      },
+      {
+        "id": "p.pz",
+        "value": "Potenza"
+      },
+      {
+        "id": "p.ra",
+        "value": "Ravenna"
+      },
+      {
+        "id": "p.rc",
+        "value": "Reggio di Calabria"
+      },
+      {
+        "id": "p.re",
+        "value": "Reggio nell'Emilia"
+      },
+      {
+        "id": "p.ri",
+        "value": "Rieti"
+      },
+      {
+        "id": "p.rn",
+        "value": "Rimini"
+      },
+      {
+        "id": "p.ro",
+        "value": "Rovigo"
+      },
+      {
+        "id": "p.rg",
+        "value": "Ragusa"
+      },
+      {
+        "id": "p.rm",
+        "value": "Roma"
+      },
+      {
+        "id": "p.sa",
+        "value": "Salerno"
+      },
+      {
+        "id": "p.si",
+        "value": "Siena"
+      },
+      {
+        "id": "p.so",
+        "value": "Sondrio"
+      },
+      {
+        "id": "p.sp",
+        "value": "La Spezia"
+      },
+      {
+        "id": "p.sr",
+        "value": "Siracusa"
+      },
+      {
+        "id": "p.ss",
+        "value": "Sassari"
+      },
+      {
+        "id": "p.sv",
+        "value": "Savona"
+      },
+      {
+        "id": "p.ta",
+        "value": "Taranto"
+      },
+      {
+        "id": "p.te",
+        "value": "Teramo"
+      },
+      {
+        "id": "p.tn",
+        "value": "Trento"
+      },
+      {
+        "id": "p.to",
+        "value": "Torino"
+      },
+      {
+        "id": "p.tp",
+        "value": "Trapani"
+      },
+      {
+        "id": "p.tr",
+        "value": "Terni"
+      },
+      {
+        "id": "p.ts",
+        "value": "Trieste"
+      },
+      {
+        "id": "p.tv",
+        "value": "Treviso"
+      },
+      {
+        "id": "p.ud",
+        "value": "Udine"
+      },
+      {
+        "id": "p.va",
+        "value": "Varese"
+      },
+      {
+        "id": "p.vb",
+        "value": "Verbano-Cusio-Ossola"
+      },
+      {
+        "id": "p.vc",
+        "value": "Vercelli"
+      },
+      {
+        "id": "p.ve",
+        "value": "Venezia"
+      },
+      {
+        "id": "p.vi",
+        "value": "Vicenza"
+      },
+      {
+        "id": "p.vr",
+        "value": "Verona"
+      },
+      {
+        "id": "p.vs",
+        "value": "Medio Campidano"
+      },
+      {
+        "id": "p.vt",
+        "value": "Viterbo"
+      },
+      {
+        "id": "p.vv",
+        "value": "Vibo Valentia"
+      },
+      {
+        "id": "c*",
+        "value": "città"
+      },
+      {
+        "id": "e*",
+        "value": "centro"
+      },
+      {
+        "id": "e.cr",
+        "value": "Cannareggio"
+      },
+      {
+        "id": "e.cs",
         "value": "Castello"
       },
       {
-        "id": "s.dd",
+        "id": "e.dd",
         "value": "Dorsoduro"
       },
       {
-        "id": "s.sm",
+        "id": "e.sm",
         "value": "San Marco"
       },
       {
-        "id": "s.sp",
+        "id": "e.sp",
         "value": "San Polo"
       },
       {
-        "id": "s.sc",
+        "id": "e.sc",
         "value": "Santa Croce"
       },
       {
         "id": "l*",
-        "value": "località"
+        "value": "localizzazione"
+      },
+      {
+        "id": "s*",
+        "value": "struttura"
       },
       {
         "id": "_order",
-        "value": "a s l"
+        "value": "p c e l s"
       }
     ]
   },
   {
-    "id": "grf-states@en",
+    "id": "epi-support-count-types@en",
     "entries": [
       {
-        "id": "s1",
-        "value": "leggibile"
-      },
-      {
-        "id": "s0",
-        "value": "scomparso"
+        "id": "rows",
+        "value": "righe"
       }
     ]
   },
   {
-    "id": "grf-support-functions@en",
+    "id": "epi-support-features@en",
     "entries": [
       {
-        "id": "public",
-        "value": "pubblica"
+        "id": "ruling",
+        "value": "rigatura"
       },
+      {
+        "id": "preparation",
+        "value": "preparazione del supporto"
+      }
+    ]
+  },
+  {
+    "id": "epi-support-functions@en",
+    "entries": [
       {
         "id": "private",
         "value": "privata"
+      },
+      {
+        "id": "public",
+        "value": "pubblica"
       },
       {
         "id": "religious",
@@ -587,15 +1165,19 @@
     ]
   },
   {
-    "id": "grf-support-materials@en",
+    "id": "epi-support-materials@en",
     "entries": [
       {
         "id": "concrete",
         "value": "cemento"
       },
       {
-        "id": "plaster",
-        "value": "intonaco"
+        "id": "pottery",
+        "value": "ceramica"
+      },
+      {
+        "id": "brick",
+        "value": "laterizio"
       },
       {
         "id": "wood",
@@ -603,11 +1185,7 @@
       },
       {
         "id": "stone",
-        "value": "litico"
-      },
-      {
-        "id": "brick",
-        "value": "mattone"
+        "value": "materiale litico"
       },
       {
         "id": "metal",
@@ -620,35 +1198,55 @@
     ]
   },
   {
-    "id": "grf-support-object-types@en",
+    "id": "epi-support-types@en",
     "entries": [
       {
         "id": "house",
         "value": "abitazione"
       },
       {
-        "id": "church",
-        "value": "chiesa"
+        "id": "library",
+        "value": "biblioteca"
+      },
+      {
+        "id": "barracks",
+        "value": "caserma"
+      },
+      {
+        "id": "castle",
+        "value": "castello"
       },
       {
         "id": "cloister",
         "value": "chiostro"
       },
       {
-        "id": "condominium",
-        "value": "condominio"
-      },
-      {
         "id": "colonnade",
         "value": "colonnato"
       },
       {
-        "id": "monastery",
+        "id": "convent",
         "value": "convento"
+      },
+      {
+        "id": "worship-building",
+        "value": "edificio di culto"
       },
       {
         "id": "warehouse",
         "value": "magazzino"
+      },
+      {
+        "id": "monastery",
+        "value": "monastero"
+      },
+      {
+        "id": "museum",
+        "value": "museo"
+      },
+      {
+        "id": "hospice",
+        "value": "ospizio"
       },
       {
         "id": "palace",
@@ -667,29 +1265,65 @@
         "value": "prigione"
       },
       {
-        "id": "statue",
-        "value": "statua"
+        "id": "stable",
+        "value": "scuderia"
+      },
+      {
+        "id": "school",
+        "value": "scuola"
+      },
+      {
+        "id": "seminary",
+        "value": "seminario"
+      },
+      {
+        "id": "barn",
+        "value": "stalla"
       },
       {
         "id": "street",
         "value": "strada"
+      },
+      {
+        "id": "tower",
+        "value": "torre"
+      },
+      {
+        "id": "public-office",
+        "value": "ufficio pubblico"
+      },
+      {
+        "id": "-",
+        "value": "n.d."
       }
     ]
   },
   {
-    "id": "grf-support-types@en",
+    "id": "epi-support-object-types@en",
     "entries": [
+      {
+        "id": "church-furniture",
+        "value": "arredo ecclesiastico"
+      },
       {
         "id": "balustrade",
         "value": "balaustra"
+      },
+      {
+        "id": "column",
+        "value": "colonna"
+      },
+      {
+        "id": "frame",
+        "value": "cornice"
       },
       {
         "id": "sill",
         "value": "davanzale"
       },
       {
-        "id": "column",
-        "value": "colonna"
+        "id": "window",
+        "value": "finestra"
       },
       {
         "id": "step",
@@ -697,11 +1331,7 @@
       },
       {
         "id": "tombstone",
-        "value": "lapide"
-      },
-      {
-        "id": "church-furniture",
-        "value": "mobilio ecclesiastico"
+        "value": "lapide (graffito su)"
       },
       {
         "id": "wall",
@@ -710,6 +1340,10 @@
       {
         "id": "bench",
         "value": "panchina"
+      },
+      {
+        "id": "street-paving",
+        "value": "pavimentazione stradale"
       },
       {
         "id": "floor",
@@ -728,16 +1362,12 @@
         "value": "pozzo"
       },
       {
-        "id": "statue",
-        "value": "statua"
-      },
-      {
         "id": "jamb",
         "value": "stipite"
       },
       {
-        "id": "street",
-        "value": "strada"
+        "id": "furniture",
+        "value": "suppellettile"
       },
       {
         "id": "vault",
@@ -746,126 +1376,8 @@
     ]
   },
   {
-    "id": "grf-techniques@en",
+    "id": "epi-writing-casings@en",
     "entries": [
-      {
-        "id": "-",
-        "value": "---"
-      },
-      {
-        "id": "preparation-drawing",
-        "value": "preparazione disegno"
-      },
-      {
-        "id": "preparation-support",
-        "value": "preparazione supporto"
-      },
-      {
-        "id": "scratch",
-        "value": "sgraffio"
-      },
-      {
-        "id": "engraving",
-        "value": "incisione"
-      },
-      {
-        "id": "carving",
-        "value": "intaglio"
-      },
-      {
-        "id": "drawing",
-        "value": "disegno"
-      },
-      {
-        "id": "punching",
-        "value": "punzonatura"
-      },
-      {
-        "id": "relief",
-        "value": "rilievo"
-      }
-    ]
-  },
-  {
-    "id": "grf-tools@en",
-    "entries": [
-      {
-        "id": "-",
-        "entries": "---"
-      },
-      {
-        "id": "nail",
-        "value": "chiodo"
-      },
-      {
-        "id": "gradine",
-        "value": "gradina"
-      },
-      {
-        "id": "chisel",
-        "value": "scalpello"
-      },
-      {
-        "id": "gouge",
-        "value": "sgorbia"
-      },
-      {
-        "id": "saw",
-        "value": "sega"
-      },
-      {
-        "id": "bush-hammer",
-        "value": "bocciarda"
-      },
-      {
-        "id": "charcoal",
-        "value": "carboncino"
-      },
-      {
-        "id": "sepia",
-        "value": "seppia"
-      },
-      {
-        "id": "graphite",
-        "value": "grafite"
-      },
-      {
-        "id": "lead-pencil",
-        "value": "matita di piombo"
-      },
-      {
-        "id": "candlesmoke",
-        "value": "fumo di candela"
-      },
-      {
-        "id": "ink",
-        "value": "inchiostro"
-      },
-      {
-        "id": "paint",
-        "value": "vernice"
-      },
-      {
-        "id": "blade",
-        "value": "lama (affilatura)"
-      },
-      {
-        "id": "curved-blade",
-        "value": "lama curva"
-      },
-      {
-        "id": "straight-blade",
-        "value": "lama dritta"
-      }
-    ]
-  },
-  {
-    "id": "grf-writing-casing@en",
-    "entries": [
-      {
-        "id": "cursive",
-        "value": "corsiva"
-      },
       {
         "id": "upper",
         "value": "maiuscola"
@@ -880,304 +1392,122 @@
       },
       {
         "id": "-",
-        "value": "---"
+        "value": "n.d."
       }
     ]
   },
   {
-    "id": "grf-writing-prevalent-casing@en",
+    "id": "epi-writing-features@en",
     "entries": [
       {
-        "id": "-",
-        "value": "---"
-      },
-      {
-        "id": "upper",
-        "value": "maiuscolo"
-      },
-      {
-        "id": "lower",
-        "value": "minuscolo"
-      }
-    ]
-  },
-  {
-    "id": "grf-writing-count-ids@en",
-    "entries": [
-      {
-        "id": "row",
-        "value": "righe"
-      }
-    ]
-  },
-  {
-    "id": "grf-writing-glottologs@en",
-    "entries": [
-      {
-        "id": "ital1282",
-        "value": "italiano"
-      },
-      {
-        "id": "vene1257",
-        "value": "veneziano"
-      },
-      {
-        "id": "anci1242",
-        "value": "greco antico"
-      },
-      {
-        "id": "medi1251",
-        "value": "greco medievale"
-      },
-      {
-        "id": "mode1248",
-        "value": "greco moderno"
-      },
-      {
-        "id": "inglese",
-        "value": "stan1293"
-      },
-      {
-        "id": "olde1238",
-        "value": "Old English"
-      },
-      {
-        "id": "midd1317",
-        "value": "Middle English"
-      },
-      {
-        "id": "oldn1244",
-        "value": "Old Norse"
-      },
-      {
-        "id": "olde1239",
-        "value": "Older Runic"
-      },
-      {
-        "id": "clas1249",
-        "value": "armeno classico"
-      },
-      {
-        "id": "arme1241",
-        "value": "armeno"
-      },
-      {
-        "id": "uk1253",
-        "value": "ucraino"
-      },
-      {
-        "id": "oldr1238",
-        "value": "antico russo"
-      },
-      {
-        "id": "russ1263",
-        "value": "russo"
-      },
-      {
-        "id": "prus1238",
-        "value": "antico prussiano"
-      },
-      {
-        "id": "old11238",
-        "value": "latino antico"
-      },
-      {
-        "id": "lati1261",
-        "value": "latino"
-      },
-      {
-        "id": "late1252",
-        "value": "latino tardo"
-      },
-      {
-        "id": "medi1250",
-        "value": "latino medievale"
-      },
-      {
-        "id": "anci1244",
-        "value": "ebraico antico"
-      },
-      {
-        "id": "hebr1245",
-        "value": "ebraico moderno"
-      },
-      {
-        "id": "oldp1256",
-        "value": "polacco antico"
-      },
-      {
-        "id": "poli1260",
-        "value": "polacco"
-      },
-      {
-        "id": "nuc11643",
-        "value": "giapponese"
-      },
-      {
-        "id": "mand1415",
-        "value": "mandarino"
-      },
-      {
-        "id": "lite1248",
-        "value": "cinese classico"
-      },
-      {
-        "id": "arab1395",
-        "value": "arabo"
-      },
-      {
-        "id": "-",
-        "value": "---"
-      }
-    ]
-  },
-  {
-    "id": "grf-writing-languages@en",
-    "entries": [
-      {
-        "id": "ara",
-        "value": "arabo"
-      },
-      {
-        "id": "arm",
-        "value": "armeno"
-      },
-      {
-        "id": "chi",
-        "value": "cinese"
-      },
-      {
-        "id": "dut",
-        "value": "olandese"
-      },
-      {
-        "id": "ita",
-        "value": "italiano"
-      },
-      {
-        "id": "lat",
-        "value": "latino"
-      },
-      {
-        "id": "jpn",
-        "value": "giapponese"
-      },
-      {
-        "id": "ita",
-        "value": "italiano"
-      },
-      {
-        "id": "grc",
-        "value": "greco ant."
-      },
-      {
-        "id": "gre",
-        "value": "greco mod."
-      },
-      {
-        "id": "ger",
-        "value": "tedesco"
-      },
-      {
-        "id": "fre",
-        "value": "francese"
-      },
-      {
-        "id": "eng",
-        "value": "inglese"
-      },
-      {
-        "id": "art",
-        "value": "artificiale"
-      },
-      {
-        "id": "-",
-        "value": "---"
-      }
-    ]
-  },
-  {
-    "id": "grf-writing-letter-features@en",
-    "entries": [
-      {
-        "id": "monogram",
-        "value": "monogramma"
-      },
-      {
-        "id": "letter",
-        "value": "lettere singole"
-      },
-      {
-        "id": "letter-unclear",
-        "value": "lettere non interpretabili"
-      },
-      {
-        "id": "drawing-unclear",
-        "value": "disegno non interpretabile"
-      }
-    ]
-  },
-  {
-    "id": "grf-writing-metres@en",
-    "entries": [
-      {
-        "id": "-",
-        "value": "---"
-      },
-      {
-        "id": "s7",
-        "value": "settenario"
-      },
-      {
-        "id": "s8",
-        "value": "ottonario"
-      }
-    ]
-  },
-  {
-    "id": "grf-writing-scripts@en",
-    "entries": [
-      {
-        "id": "-",
-        "value": "---"
-      },
-      {
-        "id": "gothic",
-        "value": "gotica"
-      },
-      {
-        "id": "chancery",
-        "value": "cancelleresca"
-      }
-    ]
-  },
-  {
-    "id": "grf-writing-script-features@en",
-    "entries": [
-      {
-        "id": "upper",
-        "value": "maiuscolo prevalente"
-      },
-      {
-        "id": "lower",
-        "value": "minuscolo prevalente"
-      },
-      {
-        "id": "punctuation",
-        "value": "interpunzione"
+        "id": "abbreviation",
+        "value": "abbreviazioni"
       },
       {
         "id": "ligature",
         "value": "nessi e legamenti"
       },
       {
-        "id": "abbreviation",
-        "value": "abbreviazioni"
+        "id": "included-letters",
+        "value": "lettere incluse"
+      },
+      {
+        "id": "overlapping-letters",
+        "value": "lettere sovrapposte"
+      },
+      {
+        "id": "punctuation",
+        "value": "punteggiatura"
+      },
+      {
+        "id": "punctuation-marks",
+        "value": "segni di interpunzione"
       }
     ]
   },
   {
-    "id": "grf-writing-systems@en",
+    "id": "epi-writing-scripts@en",
+    "entries": [
+      {
+        "id": "chancery",
+        "value": "cancelleresca"
+      },
+      {
+        "id": "epigraphic-capital",
+        "value": "capitale epigrafica"
+      },
+      {
+        "id": "capital-book",
+        "value": "capitale libraria"
+      },
+      {
+        "id": "capital-romanesque",
+        "value": "capitale romanica"
+      },
+      {
+        "id": "carolingian",
+        "value": "carolina"
+      },
+      {
+        "id": "cursive-new",
+        "value": "corsiva nuova"
+      },
+      {
+        "id": "curial",
+        "value": "curiale"
+      },
+      {
+        "id": "gothic",
+        "value": "gotica"
+      },
+      {
+        "id": "insular",
+        "value": "insulare"
+      },
+      {
+        "id": "italic",
+        "value": "italica"
+      },
+      {
+        "id": "merchant",
+        "value": "mercantesca"
+      },
+      {
+        "id": "merovingian",
+        "value": "merovingica"
+      },
+      {
+        "id": "minuscule-diplomatic",
+        "value": "minuscola diplomatica"
+      },
+      {
+        "id": "uncial",
+        "value": "onciale"
+      },
+      {
+        "id": "semiuncial",
+        "value": "semionciale"
+      },
+      {
+        "id": "humanistic",
+        "value": "umanistica"
+      },
+      {
+        "id": "visigothic",
+        "value": "visigotica"
+      },
+      {
+        "id": "other",
+        "value": "altro"
+      },
+      {
+        "id": "-",
+        "value": "-"
+      }
+    ]
+  },
+  {
+    "id": "epi-writing-systems@en",
     "entries": [
       {
         "id": "-",
@@ -1230,23 +1560,92 @@
     ]
   },
   {
-    "id": "grf-writing-types@en",
+    "id": "epi-technique-tools@en",
     "entries": [
       {
-        "id": "-",
-        "value": "---"
+        "id": "bush-hammer",
+        "value": "bocciarda"
       },
       {
-        "id": "upper",
-        "value": "maiuscolo"
+        "id": "charcoal",
+        "value": "carboncino"
       },
       {
-        "id": "lower",
-        "value": "minuscolo"
+        "id": "candlesmoke",
+        "value": "fumo di candela"
       },
       {
-        "id": "italic",
-        "value": "corsivo"
+        "id": "gradine",
+        "value": "gradina"
+      },
+      {
+        "id": "graphite",
+        "value": "grafite"
+      },
+      {
+        "id": "ink",
+        "value": "inchiostro"
+      },
+      {
+        "id": "lead-pencil",
+        "value": "matita di piombo"
+      },
+      {
+        "id": "chisel",
+        "value": "scalpello"
+      },
+      {
+        "id": "saw",
+        "value": "sega"
+      },
+      {
+        "id": "gouge",
+        "value": "sgorbia"
+      },
+      {
+        "id": "sharp-tool",
+        "value": "strumento accuminato"
+      },
+      {
+        "id": "paint",
+        "value": "vernice"
+      },
+      {
+        "id": "blade",
+        "value": "lama (affilatura)"
+      }
+    ]
+  },
+  {
+    "id": "epi-technique-types@en",
+    "entries": [
+      {
+        "id": "groove",
+        "value": "solco"
+      },
+      {
+        "id": "relief",
+        "value": "a rilievo"
+      },
+      {
+        "id": "drawing",
+        "value": "disegno"
+      },
+      {
+        "id": "scratch",
+        "value": "graffio"
+      },
+      {
+        "id": "engraving",
+        "value": "incisione"
+      },
+      {
+        "id": "carving",
+        "value": "intaglio"
+      },
+      {
+        "id": "punching",
+        "value": "punzonatura"
       }
     ]
   },
@@ -1284,6 +1683,39 @@
       {
         "id": "spa",
         "value": "spagnolo"
+      }
+    ]
+  },
+  {
+    "id": "physical-states@en",
+    "entries": [
+      {
+        "id": "missing",
+        "value": "disperso"
+      },
+      {
+        "id": "fragment",
+        "value": "frammento"
+      },
+      {
+        "id": "contiguous-fragment",
+        "value": "frammento contiguo"
+      },
+      {
+        "id": "isolated-fragment",
+        "value": "frammento isolato"
+      },
+      {
+        "id": "intact",
+        "value": "integro"
+      },
+      {
+        "id": "mutilated",
+        "value": "mutilo"
+      },
+      {
+        "id": "reused",
+        "value": "reimpiego"
       }
     ]
   },

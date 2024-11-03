@@ -1,6 +1,6 @@
 ﻿using Cadmus.Import.Proteus;
 using Cadmus.Refs.Bricks;
-using Cadmus.Vela.Parts;
+using Cadmus.General.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -12,26 +12,24 @@ namespace Cadmus.Vela.Import;
 
 /// <summary>
 /// VeLA column area, sestiere and denominazione entry region parser. This
-/// targets a <see cref="GrfLocalizationPart"/>.
+/// targets a <see cref="DistrictLocationPart"/> for many columns building up
+/// a district-based location. Some of these columns have closed value sets,
+/// from the corresponding thesaurus, while others are free.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.vela.col-area")]
-public sealed class ColAreaEntryRegionParser : EntryRegionParser,
+public sealed class ColAreaEntryRegionParser(
+    ILogger<ColAreaEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColAreaEntryRegionParser>? _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColAreaEntryRegionParser"/>
-    /// class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public ColAreaEntryRegionParser(
-        ILogger<ColAreaEntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-    }
+    private const string COL_PROVINCIA = "col-provincia";
+    private const string COL_CITTA = "col-città";
+    private const string COL_CENTER = "col-centri/localita'";
+    private const string COL_CENTER_ALIAS = "col-centri/località";
+    private const string COL_LOCATION = "col-localizzazione";
+    private const string COL_STRUTTURA = "col-denominazione_struttura";
+    private readonly ILogger<ColAreaEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -51,9 +49,12 @@ public sealed class ColAreaEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-area" ||
-            regions[regionIndex].Tag == "col-sestiere" ||
-            regions[regionIndex].Tag == "col-denominazione";
+        return regions[regionIndex].Tag == COL_PROVINCIA ||
+            regions[regionIndex].Tag == COL_CITTA ||
+            regions[regionIndex].Tag == COL_CENTER ||
+            regions[regionIndex].Tag == COL_CENTER_ALIAS ||
+            regions[regionIndex].Tag == COL_LOCATION ||
+            regions[regionIndex].Tag == COL_STRUTTURA;
     }
 
     /// <summary>
@@ -94,18 +95,31 @@ public sealed class ColAreaEntryRegionParser : EntryRegionParser,
             return regionIndex + 1;
         }
 
-        GrfLocalizationPart part =
-            ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
+        DistrictLocationPart part =
+            ctx.EnsurePartForCurrentItem<DistrictLocationPart>();
         part.Place ??= new ProperName();
+
+        bool hasFreeValue = region.Tag == COL_CITTA ||
+            region.Tag == COL_CENTER ||
+            region.Tag == COL_STRUTTURA;
+
         part.Place.Pieces!.Add(new ProperNamePiece
         {
             Type = region.Tag switch
             {
-                "col-sestiere" => "sestiere",
-                "col-denominazione" => "location",
-                _ => "area",
+                COL_PROVINCIA => "p*",
+                COL_CITTA => "c*",
+                COL_CENTER => "e*",
+                COL_CENTER_ALIAS => "e*",
+                COL_LOCATION => "l*",
+                COL_STRUTTURA => "s*",
+                _ => throw new InvalidOperationException(
+                    $"Unexpected \"{value}\" in region {region.Tag}")
             },
-            Value = value
+            Value = hasFreeValue
+                ? value
+                : VelaHelper.GetThesaurusId(ctx, region,
+                    VelaHelper.T_DISTRICT_NAME_PIECE_TYPES, value, _logger)
         });
 
         return regionIndex + 1;

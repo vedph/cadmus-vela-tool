@@ -22,6 +22,8 @@ internal static partial class VelaHelper
     public const int F_NOT_INTERPRETABLE = 32;
 
     // thesauri IDs
+    public const string T_DISTRICT_NAME_PIECE_TYPES = "district-name-piece-types@en";
+
     public const string T_SUPPORT_FUNCTIONS = "grf-support-functions@en";
     public const string T_STATES_TYPES = "grf-states@en";
     public const string T_GRF_SUPPORT_MATERIALS = "grf-support-materials@en";

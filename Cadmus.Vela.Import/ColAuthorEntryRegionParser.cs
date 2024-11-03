@@ -84,9 +84,7 @@ public sealed class ColAuthorEntryRegionParser(
             MetadataPart part = ctx.EnsurePartForCurrentItem<MetadataPart>();
 
             // split authors by comma (using hashset to avoid duplicates)
-            HashSet<string> authors = new(
-                value.Split(',', StringSplitOptions.RemoveEmptyEntries)
-                .Select(s => s.Trim()));
+            HashSet<string> authors = new(VelaHelper.GetValueList(value, false));
 
             // add each author
             foreach (string author in authors.Where(a => a.Length > 0))
