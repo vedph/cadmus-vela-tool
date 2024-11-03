@@ -1,5 +1,5 @@
 ﻿using Cadmus.Import.Proteus;
-using Cadmus.Vela.Parts;
+using Cadmus.Epigraphy.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -11,26 +11,17 @@ namespace Cadmus.Vela.Import;
 
 /// <summary>
 /// VeLA column interno/esterno entry region parser. This targets
-/// <see cref="GrfLocalizationPart.Indoor"/>.
+/// <see cref="EpiSupportPart.Indoor"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.vela.col-interno/esterno")]
-public sealed class ColIndoorEntryRegionParser : EntryRegionParser,
+public sealed class ColIndoorEntryRegionParser(
+    ILogger<ColIndoorEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColIndoorEntryRegionParser>? _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColIndoorEntryRegionParser"/>
-    /// class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public ColIndoorEntryRegionParser(
-        ILogger<ColIndoorEntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-    }
+    private const string COL_INTERNOESTERNO = "col-interno/esterno";
+    private readonly ILogger<ColIndoorEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -50,7 +41,7 @@ public sealed class ColIndoorEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-interno/esterno";
+        return regions[regionIndex].Tag == COL_INTERNOESTERNO;
     }
 
     /// <summary>
@@ -87,8 +78,8 @@ public sealed class ColIndoorEntryRegionParser : EntryRegionParser,
 
         if (VelaHelper.GetBooleanValue(txt.Value))
         {
-            GrfLocalizationPart part =
-                ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
+            EpiSupportPart part =
+                ctx.EnsurePartForCurrentItem<EpiSupportPart>();
             part.Indoor = true;
         }
 
