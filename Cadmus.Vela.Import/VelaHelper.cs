@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// Helper class for VeLA.
+/// Helper class for VeLA importer.
 /// </summary>
 internal static partial class VelaHelper
 {
@@ -18,7 +18,7 @@ internal static partial class VelaHelper
     ];
 
     // flag values
-    public const int F_IMPORTED = 1;
+    public const int F_IMPORTED = 2;
     public const int F_NOT_INTERPRETABLE = 32;
 
     // thesauri IDs
@@ -40,7 +40,9 @@ internal static partial class VelaHelper
     private static partial Regex WsRegex();
 
     /// <summary>
-    /// Filters a cell value.
+    /// Filters a cell value. This trims it, normalizes whitespaces to a single
+    /// space, and optionally lowercases it. If the resulting value represents
+    /// an empty value, null is returned.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <param name="lowercase">True to lowercase the result.</param>

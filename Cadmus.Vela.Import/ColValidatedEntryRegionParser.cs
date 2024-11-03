@@ -1,29 +1,26 @@
-﻿using Cadmus.General.Parts;
-using Cadmus.Import.Proteus;
+﻿using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column author entry region parser. This targets the metadata part.
-/// The author column contains 1 or more authors, separated by comma. Each
-/// author is added as an author entry to the metadata part of the current item.
+/// VeLA column convalida entry region parser. This targets a single flag of
+/// the item.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
-/// <param name="logger">The logger.</param>
-[Tag("entry-region-parser.vela.col-autore")]
-public sealed class ColAuthorEntryRegionParser(
-    ILogger<ColAuthorEntryRegionParser>? logger = null) : EntryRegionParser,
+/// <seealso cref="IEntryRegionParser" />
+[Tag("entry-region-parser.vela.col-convalida")]
+public sealed class ColValidatedEntryRegionParser(
+    ILogger<ColValidatedEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private const string COL_AUTHOR = "autore";
-    private readonly ILogger<ColAuthorEntryRegionParser>? _logger = logger;
+    private const string COL_VALIDATED = "col-convalida";
+    private readonly ILogger<ColValidatedEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -43,7 +40,7 @@ public sealed class ColAuthorEntryRegionParser(
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == COL_AUTHOR;
+        return regions[regionIndex].Tag == COL_VALIDATED;
     }
 
     /// <summary>
@@ -68,36 +65,19 @@ public sealed class ColAuthorEntryRegionParser(
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("author column without any item at region {Region}",
-                region);
+            _logger?.LogError(
+                "convalida column without any item at region {Region}", region);
             throw new InvalidOperationException(
-                "author column without any item at region " + region);
+                "convalida column without any item at region " + region);
         }
 
-        // get the text entry value
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? value = VelaHelper.FilterValue(txt.Value, false);
-
-        if (!string.IsNullOrEmpty(value))
+        if (VelaHelper.GetBooleanValue(txt.Value))
         {
-            MetadataPart part = ctx.EnsurePartForCurrentItem<MetadataPart>();
-
-            // split authors by comma (using hashset to avoid duplicates)
-            HashSet<string> authors = new(
-                value.Split(',', StringSplitOptions.RemoveEmptyEntries)
-                .Select(s => s.Trim()));
-
-            // add each author
-            foreach (string author in authors.Where(a => a.Length > 0))
-            {
-                part.Metadata.Add(new Metadatum
-                {
-                    Name = "author",
-                    Value = author,
-                });
-            }
+            ctx.CurrentItem.Flags |= 0x10;
         }
+
         return regionIndex + 1;
     }
 }

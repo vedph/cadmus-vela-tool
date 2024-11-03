@@ -1,29 +1,26 @@
-﻿using Cadmus.General.Parts;
-using Cadmus.Import.Proteus;
+﻿using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column author entry region parser. This targets the metadata part.
-/// The author column contains 1 or more authors, separated by comma. Each
-/// author is added as an author entry to the metadata part of the current item.
+/// VeLA column stato entry region parser. This targets the editorial state
+/// of the record as defined by item's flags.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
-/// <param name="logger">The logger.</param>
-[Tag("entry-region-parser.vela.col-autore")]
-public sealed class ColAuthorEntryRegionParser(
-    ILogger<ColAuthorEntryRegionParser>? logger = null) : EntryRegionParser,
+/// <seealso cref="IEntryRegionParser" />
+[Tag("entry-region-parser.vela.col-stato")]
+public sealed class ColEdStateEntryRegionParser(
+    ILogger<ColEdStateEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private const string COL_AUTHOR = "autore";
-    private readonly ILogger<ColAuthorEntryRegionParser>? _logger = logger;
+    private const string COL_STATE = "col-stato";
+    private readonly ILogger<ColEdStateEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -43,7 +40,7 @@ public sealed class ColAuthorEntryRegionParser(
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == COL_AUTHOR;
+        return regions[regionIndex].Tag == COL_STATE;
     }
 
     /// <summary>
@@ -68,36 +65,37 @@ public sealed class ColAuthorEntryRegionParser(
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("author column without any item at region {Region}",
+            _logger?.LogError("stato column without any item at region {Region}",
                 region);
             throw new InvalidOperationException(
-                "author column without any item at region " + region);
+                "stato column without any item at region " + region);
         }
 
-        // get the text entry value
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? value = VelaHelper.FilterValue(txt.Value, false);
+        string? value = VelaHelper.FilterValue(txt.Value, true);
 
-        if (!string.IsNullOrEmpty(value))
+        switch (value)
         {
-            MetadataPart part = ctx.EnsurePartForCurrentItem<MetadataPart>();
-
-            // split authors by comma (using hashset to avoid duplicates)
-            HashSet<string> authors = new(
-                value.Split(',', StringSplitOptions.RemoveEmptyEntries)
-                .Select(s => s.Trim()));
-
-            // add each author
-            foreach (string author in authors.Where(a => a.Length > 0))
-            {
-                part.Metadata.Add(new Metadatum
-                {
-                    Name = "author",
-                    Value = author,
-                });
-            }
+            case "in lavorazione":
+                ctx.CurrentItem.Flags |= 0x01;
+                break;
+            case "importata":
+                ctx.CurrentItem.Flags |= 0x02;
+                break;
+            case "lavorata":
+                ctx.CurrentItem.Flags |= 0x04;
+                break;
+            case "rilevata":
+                ctx.CurrentItem.Flags |= 0x08;
+                break;
+            // this is usually found in another column but to be more robust
+            // we also check for it here
+            case "convalidata":
+                ctx.CurrentItem.Flags |= 0x10;
+                break;
         }
+
         return regionIndex + 1;
     }
 }
