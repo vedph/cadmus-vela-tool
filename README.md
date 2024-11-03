@@ -344,6 +344,8 @@ part.ObjectType = id;
 
 ## History
 
+- 2024-11-03: ⚠️ refactoring for new models.
+- 2024-10-29: updated packages.
 - 2024-10-21: added IMAI flag.
 
 ### 1.0.5
