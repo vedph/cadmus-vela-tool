@@ -1,5 +1,5 @@
-﻿using Cadmus.Epigraphy.Parts;
-using Cadmus.Import.Proteus;
+﻿using Cadmus.Import.Proteus;
+using Cadmus.Epigraphy.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -10,18 +10,18 @@ using System.Collections.Generic;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column funzione_originaria entry region parser. This targets
-/// <see cref="EpiSupportPart.OriginalFn"/>.
+/// VeLA column tipologia_attuale entry region parser. This targets
+/// <see cref="EpiSupportPart.CurrentType"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-funzione_originaria")]
-public sealed class ColOriginalFnEntryRegionParser(
-    ILogger<ColOriginalFnEntryRegionParser>? logger = null) : EntryRegionParser,
+[Tag("entry-region-parser.vela.col-tipologia_attuale")]
+public sealed class ColCurrentTypeEntryRegionParser(
+    ILogger<ColCurrentTypeEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private const string COL_FUNZIONE_ORIGINARIA = "col-funzione_originaria";
-    private readonly ILogger<ColOriginalFnEntryRegionParser>? _logger = logger;
+    private const string COL_TIPOLOGIA_ATTUALE = "col-tipologia_attuale";
+    private readonly ILogger<ColCurrentTypeEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -41,7 +41,7 @@ public sealed class ColOriginalFnEntryRegionParser(
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == COL_FUNZIONE_ORIGINARIA;
+        return regions[regionIndex].Tag == COL_TIPOLOGIA_ATTUALE;
     }
 
     /// <summary>
@@ -66,10 +66,10 @@ public sealed class ColOriginalFnEntryRegionParser(
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("funzione_originaria column without any item " +
+            _logger?.LogError("tipologia_attuale column without any item " +
                 "at region {Region}", region);
             throw new InvalidOperationException(
-                "funzione_originaria column without any item at region " +
+                "tipologia_attuale column without any item at region " +
                 region);
         }
 
@@ -80,11 +80,11 @@ public sealed class ColOriginalFnEntryRegionParser(
         if (string.IsNullOrEmpty(value)) return regionIndex + 1;
 
         string id = VelaHelper.GetThesaurusId(ctx, region,
-            VelaHelper.T_EPI_SUPPORT_FUNCTIONS, value, _logger);
+            VelaHelper.T_EPI_SUPPORT_TYPES, value, _logger);
 
         EpiSupportPart part =
             ctx.EnsurePartForCurrentItem<EpiSupportPart>();
-        part.OriginalFn = id;
+        part.CurrentType = id;
 
         return regionIndex + 1;
     }
