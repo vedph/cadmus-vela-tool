@@ -17,21 +17,11 @@ namespace Cadmus.Vela.Import;
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.vela.col-terminus_ante")]
-public sealed class ColTerminusAnteEntryRegionParser : EntryRegionParser,
+public sealed class ColTerminusAnteEntryRegionParser(
+    ILogger<ColTerminusAnteEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColTerminusAnteEntryRegionParser>? _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the
-    /// <see cref="ColTerminusAnteEntryRegionParser"/> class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public ColTerminusAnteEntryRegionParser(
-        ILogger<ColTerminusAnteEntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-    }
+    private readonly ILogger<ColTerminusAnteEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified

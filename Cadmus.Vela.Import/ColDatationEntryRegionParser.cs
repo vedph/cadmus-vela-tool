@@ -11,27 +11,17 @@ using System.Collections.Generic;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column cronologia entry region parser. This targets
+/// VeLA column data entry region parser. This targets
 /// <see cref="HistoricalDatePart"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-cronologia")]
-public sealed class ColDatationEntryRegionParser : EntryRegionParser,
+[Tag("entry-region-parser.vela.col-data")]
+public sealed class ColDatationEntryRegionParser(
+    ILogger<ColDatationEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColDatationEntryRegionParser>? _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the
-    /// <see cref="ColDatationEntryRegionParser"/> class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public ColDatationEntryRegionParser(
-        ILogger<ColDatationEntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-    }
+    private readonly ILogger<ColDatationEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -51,7 +41,7 @@ public sealed class ColDatationEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-cronologia";
+        return regions[regionIndex].Tag == "col-data";
     }
 
     /// <summary>

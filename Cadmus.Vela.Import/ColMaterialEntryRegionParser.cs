@@ -1,5 +1,5 @@
 ﻿using Cadmus.Import.Proteus;
-using Cadmus.Vela.Parts;
+using Cadmus.Epigraphy.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -11,26 +11,17 @@ namespace Cadmus.Vela.Import;
 
 /// <summary>
 /// VeLA material column entry region parser. This targets
-/// <see cref="GrfSupportPart.Material"/>.
+/// <see cref="EpiSupportPart.Material"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.vela.col-materiale")]
-public sealed class ColMatTypeEntryRegionParser : EntryRegionParser,
+public sealed class ColMaterialEntryRegionParser(
+    ILogger<ColMaterialEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColMatTypeEntryRegionParser>? _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColMatTypeEntryRegionParser"/>
-    /// class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public ColMatTypeEntryRegionParser(
-        ILogger<ColMatTypeEntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-    }
+    private const string COL_MATERIALE = "col-materiale";
+    private readonly ILogger<ColMaterialEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -50,7 +41,7 @@ public sealed class ColMatTypeEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-materiale";
+        return regions[regionIndex].Tag == COL_MATERIALE;
     }
 
     /// <summary>
@@ -88,21 +79,15 @@ public sealed class ColMatTypeEntryRegionParser : EntryRegionParser,
         if (!string.IsNullOrEmpty(txt.Value))
         {
             string? value = VelaHelper.FilterValue(txt.Value, true);
-            string? id = value != null
-                ? ctx.ThesaurusEntryMap!.GetEntryId(
-                    VelaHelper.T_GRF_SUPPORT_MATERIALS, value)
-                : null;
-
-            if (id == null)
+            if (value != null)
             {
-                _logger?.LogError("Unknown value for materiale: \"{Value}\" " +
-                    "at region {Region}", value, region);
-                id = value;
-            }
+                string id = VelaHelper.GetThesaurusId(ctx, region,
+                    VelaHelper.T_EPI_SUPPORT_MATERIALS, value, _logger);
 
-            GrfSupportPart part =
-                ctx.EnsurePartForCurrentItem<GrfSupportPart>();
-            part.Material = id;
+                EpiSupportPart part =
+                    ctx.EnsurePartForCurrentItem<EpiSupportPart>();
+                part.Material = id;
+            }
         }
 
         return regionIndex + 1;
