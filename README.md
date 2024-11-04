@@ -230,7 +230,7 @@ Template for region parser:
 ```cs
 using Cadmus.Import.Proteus;
 using Cadmus.Refs.Bricks;
-using Cadmus.Vela.Parts;
+using Cadmus.General.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -311,27 +311,6 @@ public sealed class Col__NAME__EntryRegionParser(
         return regionIndex + 1;
     }
 }
-```
-
-Variant for thesaurus entry value:
-
-```cs
-string? value = VelaHelper.FilterValue(txt.Value);
-string? id = value != null
-    ? ctx.ThesaurusEntryMap!.GetEntryId(
-        VelaHelper.T_SUPPORT_OBJECT_TYPES, value)
-    : null;
-
-if (id == null)
-{
-    _logger?.LogError("Unknown value for tipologia_struttura: \"{value}\" " +
-        "at region {region}", value, region);
-    id = value;
-}
-
-GrfLocalizationPart part =
-    ctx.EnsurePartForCurrentItem<GrfLocalizationPart>();
-part.ObjectType = id;
 ```
 
 ## History

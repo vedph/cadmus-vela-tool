@@ -309,7 +309,7 @@
       },
       {
         "id": "initials",
-        "value": "iniziali nome persona"
+        "value": "iniziali nome"
       },
       {
         "id": "taunt",
@@ -474,144 +474,40 @@
     "id": "categories_lng@en",
     "entries": [
       {
-        "id": "lng",
-        "value": "lingua"
+        "id": "ar",
+        "value": "arabo"
       },
       {
-        "id": "lng.arm",
-        "value": "lingua: armeno"
-      },
-      {
-        "id": "lng.chi",
-        "value": "lingua: cinese"
-      },
-      {
-        "id": "lng.eng",
-        "value": "lingua: inglese"
-      },
-      {
-        "id": "lng.dut",
-        "value": "lingua: olandese"
-      },
-      {
-        "id": "lng.fre",
+        "id": "fr",
         "value": "lingua: francese"
       },
       {
-        "id": "lng.ger",
-        "value": "lingua: tedesco"
+        "id": "ja",
+        "value": "giapponese"
       },
       {
-        "id": "lng.grc",
-        "value": "lingua: greco antico"
+        "id": "el",
+        "value": "greco moderno"
       },
       {
-        "id": "lng.gre",
-        "value": "lingua: greco moderno"
+        "id": "grc",
+        "value": "greco antico"
       },
       {
-        "id": "lng.ita",
-        "value": "lingua: italiano"
+        "id": "en",
+        "value": "inglese"
       },
       {
-        "id": "lng.jpn",
-        "value": "lingua: giapponese"
+        "id": "it",
+        "value": "italiano"
       },
       {
-        "id": "lng.lat",
-        "value": "lingua: latino"
+        "id": "la",
+        "value": "latino"
       },
       {
-        "id": "i639",
-        "value": "lingua (ISO639)"
-      },
-      {
-        "id": "i639.ara",
-        "value": "lingua (ISO639): arabo"
-      },
-      {
-        "id": "i639.deu",
-        "value": "lingua (ISO639): tedesco"
-      },
-      {
-        "id": "i639.ell",
-        "value": "lingua (ISO639): greco moderno"
-      },
-      {
-        "id": "i639.eng",
-        "value": "lingua (ISO639): inglese"
-      },
-      {
-        "id": "i639.fra",
-        "value": "lingua (ISO639): francese"
-      },
-      {
-        "id": "i639.grc",
-        "value": "lingua (ISO639): greco antico"
-      },
-      {
-        "id": "i639.ita",
-        "value": "lingua (ISO639): italiano"
-      },
-      {
-        "id": "i639.jpn",
-        "value": "lingua (ISO639): giapponese"
-      },
-      {
-        "id": "i639.lat",
-        "value": "lingua (ISO639): latino"
-      },
-      {
-        "id": "glg.-",
-        "value": "glottolog"
-      },
-      {
-        "id": "glg.anci1242",
-        "value": "glottolog: greco ionico-attico"
-      },
-      {
-        "id": "glg.arme1259",
-        "value": "glottolog: armeno"
-      },
-      {
-        "id": "glg.ital1282",
-        "value": "glottolog: italiano"
-      },
-      {
-        "id": "glg.lati1261",
-        "value": "glottolog: latino"
-      },
-      {
-        "id": "glg.lite1248",
-        "value": "glottolog: cinese classico"
-      },
-      {
-        "id": "glg.medi1251",
-        "value": "glottolog: greco medievale"
-      },
-      {
-        "id": "glg.mode1248",
-        "value": "glottolog: greco moderno"
-      },
-      {
-        "id": "glg.nucl1643",
-        "value": "glottolog: giapponese"
-      },
-      {
-        "id": "glg.stan1290",
-        "value": "glottolog: inglese standard"
-      },
-      {
-        "id": "glg.stan1293",
-        "value": "glottolog: inglese"
-      },
-      {
-        "id": "glg.stan1295",
-        "value": "glottolog: inglese standard"
-      },
-      {
-        "id": "glg.vene1258",
-        "value": "glottolog: veneziano"
+        "id": "de",
+        "value": "tedesco"
       }
     ]
   },
