@@ -232,23 +232,23 @@
         "value": "cifra"
       },
       {
-        "id": "digit.ara",
+        "id": "digit.ar",
         "value": "cifra: araba"
       },
       {
-        "id": "digit.arm",
+        "id": "digit.hy",
         "value": "cifra: armena"
       },
       {
-        "id": "digit.cyr",
+        "id": "digit.ru",
         "value": "cifra: cirillica"
       },
       {
-        "id": "digit.glg",
+        "id": "digit.sla",
         "value": "cifra: glagolitica"
       },
       {
-        "id": "digit.rom",
+        "id": "digit.la",
         "value": "cifra: romana"
       },
       {
