@@ -246,22 +246,12 @@ namespace Cadmus.Vela.Import;
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.vela.col-__TAG__")]
-public sealed class Col__NAME__EntryRegionParser : EntryRegionParser,
+public sealed class Col__NAME__EntryRegionParser(
+    ILogger<Col__NAME__EntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
     private const string COL___TAG__ = "col-__TAG__";
-    private readonly ILogger<Col__NAME__EntryRegionParser>? _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Col__NAME__EntryRegionParser"/>
-    /// class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public Col__NAME__EntryRegionParser(
-        ILogger<Col__NAME__EntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-    }
+    private readonly ILogger<Col__NAME__EntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified

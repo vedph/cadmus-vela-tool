@@ -22,6 +22,7 @@ internal static partial class VelaHelper
     public const int F_NOT_INTERPRETABLE = 32;
 
     // thesauri IDs
+    public const string T_CATEGORIES_FN = "categories_fn@en";
     public const string T_DISTRICT_NAME_PIECE_TYPES = "district-name-piece-types@en";
     public const string T_EPI_SUPPORT_FUNCTIONS = "epi-support-functions@en";
     public const string T_EPI_SUPPORT_OBJECT_TYPES = "epi-support-object-types@en";
