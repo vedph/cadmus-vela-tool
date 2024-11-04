@@ -134,12 +134,14 @@ public sealed class ColSizeEntryRegionParser(
                 switch (region.Tag)
                 {
                     case COL_MISURE_CAMPO:
+                        part.HasField = true;
                         part.FieldSize = size;
                         break;
                     case COL_MISURE_SUPPORTO:
                         part.SupportSize = size;
                         break;
                     case COL_MISURE_SPECCHIO:
+                        part.HasMirror = true;
                         part.MirrorSize = size;
                         break;
                 }
