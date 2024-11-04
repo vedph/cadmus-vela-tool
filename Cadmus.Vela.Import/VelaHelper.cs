@@ -104,7 +104,7 @@ internal static partial class VelaHelper
     }
 
     /// <summary>
-    /// Gets the nullable boolean value corresponding to the specified cell
+    /// Gets the boolean value corresponding to the specified cell
     /// string value.
     /// </summary>
     /// <param name="value">The value.</param>
@@ -119,6 +119,18 @@ internal static partial class VelaHelper
             "no" => false,
             _ => false
         };
+    }
+
+    /// <summary>
+    /// Gets the int value corresponding to the specified cell string value.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <returns>Integer.</returns>
+    public static int GetIntValue(string? value)
+    {
+        if (string.IsNullOrEmpty(value)) return 0;
+        value = FilterValue(value, true);
+        return int.TryParse(value, out int n) ? n : 0;
     }
 
     /// <summary>
