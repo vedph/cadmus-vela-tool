@@ -1,5 +1,5 @@
 ﻿using Cadmus.Import.Proteus;
-using Cadmus.Vela.Parts;
+using Cadmus.General.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -10,51 +10,26 @@ using System.Collections.Generic;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column figurative types columns entry region parser. This targets
-/// <see cref="GrfFigurativePart.Types"/>.
+/// VeLA column figurativo children entries region parser. This targets
+/// <see cref="CategoriesPart"/> with role <c>fig</c>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-fig-types")]
-public sealed class ColFigTypesEntryRegionParser : EntryRegionParser,
+[Tag("entry-region-parser.vela.col-figurativo")]
+public sealed class ColFigurativeEntryRegionParser(
+    ILogger<ColFigurativeEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColFigTypesEntryRegionParser>? _logger;
-    private readonly Dictionary<string, string> _tags;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColFigTypesEntryRegionParser"/>
-    /// class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public ColFigTypesEntryRegionParser(
-        ILogger<ColFigTypesEntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-        _tags = new Dictionary<string, string>
-        {
-            ["col-parti_anatomiche"] = "anatomical",
-            ["col-volti"] = "face",
-            ["col-busto"] = "bust",
-            ["col-figura_umana"] = "human-fig",
-            ["col-erotici"] = "erotic",
-            ["col-croce"] = "cross",
-            ["col-cuore"] = "heart",
-            ["col-architettura"] = "architecture",
-            ["col-paesaggi"] = "landscape",
-            ["col-geometrico"] = "geometric",
-            ["col-imbarcazioni"] = "ship",
-            ["col-piante"] = "plant",
-            ["col-gioco"] = "game",
-            ["col-arma"] = "weapon",
-            ["col-armatura"] = "armor",
-            ["col-stemma"] = "coat-of-arms",
-            ["col-bandiera"] = "flag",
-            ["col-animale"] = "animal",
-            ["col-simbolo_zodiaco"] = "zodiac",
-            ["col-graffito_da_affilitura"] = "sharpening"
-        };
-    }
+    private readonly ILogger<ColFigurativeEntryRegionParser>? _logger = logger;
+    private readonly HashSet<string> _colNames =
+    [
+        "col-disegno_non_interpretabile", "col-abbigliamento", "col-animale",
+        "col-architettura", "col-arma", "col-armatura", "col-bandiera",
+        "col-busto", "col-croce", "col-cuore", "col-erotico", "col-figura_umana",
+        "col-geometrico", "col-gioco", "col-imbarcazione", "col-lingua",
+        "col-paesaggio", "col-pianta", "col-simbolo_zodiacale", "col-sistema",
+        "col-volto"
+    ];
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -74,7 +49,7 @@ public sealed class ColFigTypesEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return _tags.ContainsKey(regions[regionIndex].Tag ?? "");
+        return _colNames.Contains(regions[regionIndex].Tag ?? "");
     }
 
     /// <summary>

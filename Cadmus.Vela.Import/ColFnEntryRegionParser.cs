@@ -81,20 +81,15 @@ public sealed class ColFnEntryRegionParser(
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? value = VelaHelper.FilterValue(txt.Value, false);
 
-        if (value == null)
-        {
-            _logger?.LogError("{Tag} column without " +
-                "any value at region {Region}", region.Tag, region);
-            return regionIndex + 1;
-        }
-        else
+        if (VelaHelper.GetBooleanValue(txt.Value))
         {
             CategoriesPart part =
                 ctx.EnsurePartForCurrentItem<CategoriesPart>("fn");
+
             string id = VelaHelper.GetThesaurusId(ctx, region,
-                VelaHelper.T_CATEGORIES_FN, value, _logger);
+                VelaHelper.T_CATEGORIES_FN, region.Tag!, _logger);
+
             part.Categories.Add(id);
         }
 

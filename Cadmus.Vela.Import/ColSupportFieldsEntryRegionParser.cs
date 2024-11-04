@@ -80,10 +80,15 @@ public sealed class ColSupportFieldsEntryRegionParser(
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? value = VelaHelper.FilterValue(txt.Value, false);
-        if (!string.IsNullOrEmpty(value))
+
+        EpiSupportPart part = ctx.EnsurePartForCurrentItem<EpiSupportPart>();
+
+        if (region.Tag == "col-tipo_di_cornice")
         {
-            EpiSupportPart part = ctx.EnsurePartForCurrentItem<EpiSupportPart>();
+            part.Frame = VelaHelper.FilterValue(txt.Value, false);
+        }
+        else if (VelaHelper.GetBooleanValue(txt.Value))
+        {
 
             switch (region.Tag)
             {
@@ -95,9 +100,6 @@ public sealed class ColSupportFieldsEntryRegionParser(
                     break;
                 case "col-cornice":
                     part.HasFrame = true;
-                    break;
-                case "col-tipo_di_cornice":
-                    part.Frame = value;
                     break;
                 case "col-campo":
                     part.HasField = true;

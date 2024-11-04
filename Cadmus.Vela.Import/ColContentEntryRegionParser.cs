@@ -43,8 +43,8 @@ public sealed class ColContentEntryRegionParser(
     // value (e.g. "inizialie\i nome persona" => "iniziali nome")
     private readonly Dictionary<string, string> _colValueMap = new()
     {
-        ["iniziali\\e nome persona"] = "iniziali nome",
-        ["funzione non definibile"] = "non definibile"
+        ["col-iniziali\\e_nome_persona"] = "iniziali nome",
+        ["col-funzione_non_definibile"] = "non definibile"
     };
 
     /// <summary>
@@ -98,50 +98,51 @@ public sealed class ColContentEntryRegionParser(
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? value = VelaHelper.FilterValue(txt.Value, false);
-        if (value != null)
-        {
-            string col = _colValueMap.TryGetValue(region.Tag!, out string? v)
-                ? v : region.Tag!;
-            string id;
 
-            if (col == "cifra")
+        string id = "";
+        string col = _colValueMap.TryGetValue(region.Tag!, out string? v)
+            ? v : region.Tag!;
+
+        if (col == "cifra")
+        {
+            string? value = VelaHelper.FilterValue(txt.Value, true);
+            switch (value)
             {
-                switch (value)
-                {
-                    case "araba":
-                        id = "digit.ar";
-                        break;
-                    case "armena":
-                        id = "digit.hy";
-                        break;
-                    case "cirillica":
-                        id = "digit.ru";
-                        break;
-                    case "glagolitica":
-                        id = "digit.sla";
-                        break;
-                    case "romana":
-                        id = "digit.la";
-                        break;
-                    default:
-                        id = "";
-                        Logger?.LogError("Unknown cifra value: " +
-                            "{Value} in region {Region}", value, region);
-                        break;
-                }
+                case "araba":
+                    id = "digit.ar";
+                    break;
+                case "armena":
+                    id = "digit.hy";
+                    break;
+                case "cirillica":
+                    id = "digit.ru";
+                    break;
+                case "glagolitica":
+                    id = "digit.sla";
+                    break;
+                case "romana":
+                    id = "digit.la";
+                    break;
+                default:
+                    Logger?.LogError("Unknown cifra value: " +
+                        "{Value} in region {Region}", value, region);
+                    break;
             }
-            else
+        }
+        else
+        {
+            if (VelaHelper.GetBooleanValue(txt.Value))
             {
                 id = VelaHelper.GetThesaurusId(ctx, region,
                     VelaHelper.T_CATEGORIES_CNT, col, _logger);
             }
-            if (id.Length > 0)
-            {
-                CategoriesPart part =
-                    ctx.EnsurePartForCurrentItem<CategoriesPart>("cnt");
-                part.Categories.Add(id);
-            }
+        }
+
+        if (id.Length > 0)
+        {
+            CategoriesPart part =
+                ctx.EnsurePartForCurrentItem<CategoriesPart>("cnt");
+            part.Categories.Add(id);
         }
 
         return regionIndex + 1;
