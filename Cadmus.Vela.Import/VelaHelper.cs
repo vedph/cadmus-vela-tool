@@ -29,8 +29,8 @@ internal static partial class VelaHelper
     public const string T_EPI_SUPPORT_MATERIALS = "epi-support-materials@en";
     public const string T_EPI_SUPPORT_OBJECT_TYPES = "epi-support-object-types@en";
     public const string T_EPI_SUPPORT_TYPES = "epi-support-types@en";
+    public const string T_PHYSICAL_STATES = "physical-states@en";
 
-    public const string T_STATES_TYPES = "grf-states@en";
     public const string T_GRF_SUPPORT_OBJECT_TYPES = "grf-support-object-types@en";
     public const string T_GRF_SUPPORT_TYPES = "grf-support-types@en";
     public const string T_GRF_PERIODS = "grf-periods@en";
@@ -126,7 +126,7 @@ internal static partial class VelaHelper
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>Value or null if empty or invalid.</returns>
-    public static DateTime? GetDateValue(string? value)
+    public static DateOnly? GetDateValue(string? value)
     {
         if (string.IsNullOrEmpty(value)) return null;
 
@@ -137,7 +137,7 @@ internal static partial class VelaHelper
             int.TryParse(value.AsSpan(3, 2), out int month) &&
             int.TryParse(value.AsSpan(6, 4), out int year))
         {
-            return new DateTime(year, month, day, 0, 0, 0, DateTimeKind.Utc);
+            return new DateOnly(year, month, day);
         }
 
         return null;

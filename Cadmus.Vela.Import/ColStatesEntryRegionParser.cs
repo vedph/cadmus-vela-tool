@@ -1,5 +1,5 @@
 ﻿using Cadmus.Import.Proteus;
-using Cadmus.Vela.Parts;
+using Cadmus.General.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -7,35 +7,26 @@ using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cadmus.Mat.Bricks;
 
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column states entry region parser. This targets <see cref="GrfStatesPart"/>.
+/// VeLA column states entry region parser. This targets
+/// <see cref="PhysicalStatesPart"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.vela.col-states")]
-public sealed class ColStatesEntryRegionParser : EntryRegionParser,
+public sealed class ColStatesEntryRegionParser(
+    ILogger<ColStatesEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private const string COL_STATE = "stato";
-    private const string COL_NOTE = "osservazioni_sullo_stato_di_conservazione";
-    private const string COL_DATE1 = "data_primo_rilievo";
-    private const string COL_DATE2 = "data_ultima_ricognizione";
+    private const string COL_STATE = "col-stato_di_conservazione";
+    private const string COL_DATE1 = "col-data_prima_ricognizione";
+    private const string COL_DATE2 = "col-data_ultima_ricognizione";
 
-    private readonly ILogger<ColStatesEntryRegionParser>? _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColStatesEntryRegionParser"/>
-    /// class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public ColStatesEntryRegionParser(
-        ILogger<ColStatesEntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-    }
+    private readonly ILogger<ColStatesEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -56,7 +47,6 @@ public sealed class ColStatesEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(regions);
 
         return regions[regionIndex].Tag == COL_STATE ||
-               regions[regionIndex].Tag == COL_NOTE ||
                regions[regionIndex].Tag == COL_DATE1 ||
                regions[regionIndex].Tag == COL_DATE2;
     }
@@ -95,35 +85,27 @@ public sealed class ColStatesEntryRegionParser : EntryRegionParser,
 
         if (!string.IsNullOrEmpty(value))
         {
-            GrfStatesPart part = ctx.EnsurePartForCurrentItem<GrfStatesPart>();
+            PhysicalStatesPart part =
+                ctx.EnsurePartForCurrentItem<PhysicalStatesPart>();
 
-            GrfState? state = part.States.LastOrDefault();
+            // target part's last state
+            PhysicalState? state = part.States.LastOrDefault();
             if (state == null)
             {
                 state = new();
                 part.States.Add(state);
             }
 
-            DateTime? dt;
+            DateOnly? dt;
             switch (region.Tag)
             {
                 case COL_STATE:
                     string? type = VelaHelper.FilterValue(txt.Value, true);
-                    string? id = type != null
-                        ? ctx.ThesaurusEntryMap!.GetEntryId(
-                            VelaHelper.T_STATES_TYPES, type)
-                        : null;
-                    if (id == null)
+                    if (type != null)
                     {
-                        _logger?.LogError("Unknown value for stato: \"{Value}\" " +
-                            "at region {Region}", value, region);
-                        id = type;
+                        state.Type = VelaHelper.GetThesaurusId(ctx, region,
+                            VelaHelper.T_PHYSICAL_STATES, type, _logger);
                     }
-                    state.Type = id;
-                    break;
-
-                case COL_NOTE:
-                    state.Note = value;
                     break;
 
                 case COL_DATE1:
