@@ -110,8 +110,11 @@ public sealed class ColWritingEntryRegionParser(
                     VelaHelper.T_EPI_WRITING_SCRIPTS, value, _logger);
                 break;
             default:
-                part.Features.Add(VelaHelper.GetThesaurusId(ctx, region,
-                    VelaHelper.T_EPI_WRITING_FEATURES, value, _logger));
+                if (VelaHelper.GetBooleanValue(txt.Value))
+                {
+                    part.Features.Add(VelaHelper.GetThesaurusId(ctx, region,
+                        VelaHelper.T_EPI_WRITING_FEATURES, value, _logger));
+                }
                 break;
         }
 

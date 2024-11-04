@@ -84,6 +84,7 @@ public sealed class ColLayoutEntryRegionParser(
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
         string? value = VelaHelper.FilterValue(txt.Value, false);
+
         if (!string.IsNullOrEmpty(value))
         {
             EpiSupportPart part = ctx.EnsurePartForCurrentItem<EpiSupportPart>();
@@ -91,7 +92,8 @@ public sealed class ColLayoutEntryRegionParser(
             switch (region.Tag)
             {
                 case COL_RIGATURA:
-                    part.Features.Add("ruling");
+                    if (VelaHelper.GetBooleanValue(txt.Value))
+                        part.Features.Add("ruling");
                     break;
                 case COL_NUMERO_RIGHE:
                     part.Counts.Add(new DecoratedCount
@@ -104,7 +106,8 @@ public sealed class ColLayoutEntryRegionParser(
                     part.Note = value;
                     break;
                 case COL_PREPARAZIONE:
-                    part.Features.Add("preparation");
+                    if (VelaHelper.GetBooleanValue(txt.Value))
+                        part.Features.Add("preparation");
                     break;
             }
         }
