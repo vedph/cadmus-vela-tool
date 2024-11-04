@@ -10,8 +10,8 @@ using System.Collections.Generic;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column contenuto entry region parser. This targets its children entries,
-/// mapping them into thesaurus entries of a <see cref="CategoriesPart"/>
+/// VeLA column contenuto + cifra entry region parser. This targets children
+/// entries, mapping them into thesaurus entries of a <see cref="CategoriesPart"/>
 /// with role=<c>cnt</c>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
@@ -35,7 +35,7 @@ public sealed class ColContentEntryRegionParser(
             "col-parlante", "col-politica", "col-poesia", "col-prosa",
             "col-prostituzione", "col-preghiera", "col-religiosa", "col-saluto",
             "col-segnaletica", "col-sigla", "col-sport",
-            "col-funzione_non_definibile"
+            "col-funzione_non_definibile", "cifra"
         ];
 
     // this is a direct mapping between column name and thesaurus values,
@@ -103,13 +103,45 @@ public sealed class ColContentEntryRegionParser(
         {
             string col = _colValueMap.TryGetValue(region.Tag!, out string? v)
                 ? v : region.Tag!;
+            string id;
 
-            string id = VelaHelper.GetThesaurusId(ctx, region,
-                VelaHelper.T_CATEGORIES_CNT, col, _logger);
-
-            CategoriesPart part =
-                ctx.EnsurePartForCurrentItem<CategoriesPart>("cnt");
-            part.Categories.Add(id);
+            if (col == "cifra")
+            {
+                switch (value)
+                {
+                    case "araba":
+                        id = "digit.ar";
+                        break;
+                    case "armena":
+                        id = "digit.hy";
+                        break;
+                    case "cirillica":
+                        id = "digit.ru";
+                        break;
+                    case "glagolitica":
+                        id = "digit.sla";
+                        break;
+                    case "romana":
+                        id = "digit.la";
+                        break;
+                    default:
+                        id = "";
+                        Logger?.LogError("Unknown cifra value: " +
+                            "{Value} in region {Region}", value, region);
+                        break;
+                }
+            }
+            else
+            {
+                id = VelaHelper.GetThesaurusId(ctx, region,
+                    VelaHelper.T_CATEGORIES_CNT, col, _logger);
+            }
+            if (id.Length > 0)
+            {
+                CategoriesPart part =
+                    ctx.EnsurePartForCurrentItem<CategoriesPart>("cnt");
+                part.Categories.Add(id);
+            }
         }
 
         return regionIndex + 1;
