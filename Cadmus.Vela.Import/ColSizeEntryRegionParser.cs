@@ -1,6 +1,6 @@
 ﻿using Cadmus.Import.Proteus;
 using Cadmus.Mat.Bricks;
-using Cadmus.Vela.Parts;
+using Cadmus.Epigraphy.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -12,27 +12,22 @@ using System.Globalization;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column misure entry region parser. This targets
-/// <see cref="GrfFramePart.Size"/>.
+/// VeLA column misure (campo), misure_supporto and misure_specchio entry
+/// region parser. This targets <see cref="EpiSupportPart.FieldSize"/>,
+/// <see cref="EpiSupportPart.SupportSize"/>,
+/// <see cref="EpiSupportPart.MirrorSize"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.vela.col-misure")]
-public sealed class ColSizeEntryRegionParser : EntryRegionParser,
+public sealed class ColSizeEntryRegionParser(
+    ILogger<ColSizeEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColSizeEntryRegionParser>? _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColSizeEntryRegionParser"/>
-    /// class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public ColSizeEntryRegionParser(
-        ILogger<ColSizeEntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-    }
+    private const string COL_MISURE_CAMPO = "col-misure";
+    private const string COL_MISURE_SUPPORTO = "col-misure_supporto";
+    private const string COL_MISURE_SPECCHIO = "col-misure_specchio";
+    private readonly ILogger<ColSizeEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -52,7 +47,9 @@ public sealed class ColSizeEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-misure";
+        return regions[regionIndex].Tag == COL_MISURE_CAMPO ||
+            regions[regionIndex].Tag == COL_MISURE_SPECCHIO ||
+            regions[regionIndex].Tag == COL_MISURE_SUPPORTO;
     }
 
     private PhysicalSize? ParseSize(string value)
@@ -131,8 +128,21 @@ public sealed class ColSizeEntryRegionParser : EntryRegionParser,
             }
             else
             {
-                GrfFramePart part = ctx.EnsurePartForCurrentItem<GrfFramePart>();
-                part.Size = size;
+                EpiSupportPart part =
+                    ctx.EnsurePartForCurrentItem<EpiSupportPart>();
+
+                switch (region.Tag)
+                {
+                    case COL_MISURE_CAMPO:
+                        part.FieldSize = size;
+                        break;
+                    case COL_MISURE_SUPPORTO:
+                        part.SupportSize = size;
+                        break;
+                    case COL_MISURE_SPECCHIO:
+                        part.MirrorSize = size;
+                        break;
+                }
             }
         }
 
