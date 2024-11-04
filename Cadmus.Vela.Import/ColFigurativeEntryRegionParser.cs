@@ -85,10 +85,12 @@ public sealed class ColFigurativeEntryRegionParser(
 
         if (VelaHelper.GetBooleanValue(txt.Value))
         {
-            // ID from thesaurus grf_figurative_types
-            GrfFigurativePart part =
-                ctx.EnsurePartForCurrentItem<GrfFigurativePart>();
-            part.Types.Add(_tags[region.Tag!]);
+            CategoriesPart part = ctx.EnsurePartForCurrentItem<CategoriesPart>("fig");
+            string id = VelaHelper.GetThesaurusId(ctx, region,
+                VelaHelper.T_CATEGORIES_FIG, region.Tag!, _logger);
+
+            part.Categories.Add(id);
+            _logger?.LogInformation("{Tag} added to categories", region.Tag);
         }
 
         return regionIndex + 1;
