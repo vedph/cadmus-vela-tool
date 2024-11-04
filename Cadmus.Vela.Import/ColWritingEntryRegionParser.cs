@@ -1,63 +1,47 @@
 ﻿using Cadmus.Import.Proteus;
-using Cadmus.Vela.Parts;
+using Cadmus.Epigraphy.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA entry region parser for columns numero_righe, alfabeto,
-/// lingua_(iso-639-3), codice_glottologico, tipologia_scrittura,
-/// tipologia_grafica, rubricatura, maiuscolo\minuscolo_prevalente,
-/// sistema_interpuntivo, nessi_e_legamenti, rigatura, abbreviazioni,
-/// monogrammi, lettera_singola, lettere_non_interpretabili. This targets
-/// <see cref="GrfWritingPart"/>.
+/// VeLA entry region parser for columns scrittura,
+/// tipologia_grafica_caratteri_latini, and children of segni_grafici_particolari.
+/// This targets <see cref="EpiWritingPart"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.vela.col-writing")]
-public sealed class ColWritingEntryRegionParser : EntryRegionParser,
+public sealed class ColWritingEntryRegionParser(
+    ILogger<ColWritingEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColWritingEntryRegionParser>? _logger;
-    private readonly HashSet<string> _tags =
-        [
-            "col-numero_righe",
-            "col-alfabeto",
-            "col-lingua_(iso-639-3)",
-            "col-codice_glottologico",
-            "col-tipologia_scrittura",
-            "col-tipologia_grafica",
-            // extracted into GrfWritingPart
-            "col-rubricatura",
-            // script features
-            "col-maiuscolo\\minuscolo_prevalente",
-            "col-sistema_interpuntivo",
-            "col-nessi_e_legamenti",
-            "col-rigatura",
-            "col-abbreviazioni",
-            // letter features
-            "col-monogrammi",
-            "col-lettera_singola",
-            "col-lettere_non_interpretabili",
-            "col-disegno_non_interpretabile"
-        ];
+    private const string COL_SCRITTURA = "col-scrittura";
+    private const string COL_TIPOLOGIA_GRAFICA = "col-tipologia_grafica_caratteri_latini";
+    private const string COL_ABBREVIAZIONI = "col-abbreviazioni";
+    private const string COL_NESSI = "col-nessi_e_legamenti";
+    private const string COL_LETTERE_INCLUSE = "col-lettere_incluse";
+    private const string COL_LETTERE_SOVVRAPPOSTE = "col-lettere_sovrapposte";
+    private const string COL_PUNTEGGIATURA = "col-punteggiatura";
+    private const string COL_SEGNI_INTERPUNZIONE = "col-segni_di_interpunzione";
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColWritingEntryRegionParser"/>
-    /// class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public ColWritingEntryRegionParser(
-        ILogger<ColWritingEntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-    }
+    private readonly ILogger<ColWritingEntryRegionParser>? _logger = logger;
+    private readonly HashSet<string> _colNames =
+        [
+            COL_SCRITTURA,
+            COL_TIPOLOGIA_GRAFICA,
+            COL_ABBREVIAZIONI,
+            COL_NESSI,
+            COL_LETTERE_INCLUSE,
+            COL_LETTERE_SOVVRAPPOSTE,
+            COL_PUNTEGGIATURA,
+            COL_SEGNI_INTERPUNZIONE
+        ];
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -77,7 +61,7 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return _tags.Contains(regions[regionIndex].Tag ?? "");
+        return _colNames.Contains(regions[regionIndex].Tag ?? "");
     }
 
     /// <summary>
@@ -111,168 +95,23 @@ public sealed class ColWritingEntryRegionParser : EntryRegionParser,
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
         string? value = VelaHelper.FilterValue(txt.Value, true);
-
         if (string.IsNullOrEmpty(value)) return regionIndex + 1;
 
-        GrfWritingPart? part;
-        string? id;
+        EpiWritingPart part = ctx.EnsurePartForCurrentItem<EpiWritingPart>();
 
         switch (region.Tag)
         {
-            case "col-numero_righe":
-                part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                if (!int.TryParse(value, CultureInfo.InvariantCulture, out int rows))
-                {
-                    _logger?.LogError("Invalid value for {Tag} at " +
-                        "{Region}: \"{Value}\"", region.Tag, region, value);
-                    break;
-                }
-                part.Counts.Add(new()
-                {
-                    Id = "row",
-                    Value = rows
-                });
+            case COL_SCRITTURA:
+                part.Casing = VelaHelper.GetThesaurusId(ctx, region,
+                    VelaHelper.T_EPI_WRITING_CASINGS, value, _logger);
                 break;
-
-            case "col-alfabeto":
-                id = VelaHelper.GetThesaurusId(ctx, region,
-                    VelaHelper.T_GRF_WRITING_SYSTEMS, value, _logger);
-                part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                part.System = id;
+            case COL_TIPOLOGIA_GRAFICA:
+                part.Script = VelaHelper.GetThesaurusId(ctx, region,
+                    VelaHelper.T_EPI_WRITING_SCRIPTS, value, _logger);
                 break;
-
-            case "col-lingua_(iso-639-3)":
-                // this is an ID, not a human-friendly value
-                part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                if (!part.Languages.Contains(value))
-                    part.Languages.Add(value);
-                break;
-
-            case "col-codice_glottologico":
-                // this is an ID, not a human-friendly value
-                part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                if (!part.GlottologCodes.Contains(value))
-                    part.GlottologCodes.Add(value);
-                break;
-
-            case "col-tipologia_scrittura":
-                // multiple scripts are separated by comma
-                IList<string> tokens = VelaHelper.GetValueList(value, true);
-                if (tokens.Count > 0)
-                {
-                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-
-                    foreach (string token in tokens)
-                    {
-                        id = VelaHelper.GetThesaurusId(ctx, region,
-                            VelaHelper.T_GRF_WRITING_SCRIPTS, token, _logger);
-                        if (!part.Scripts.Contains(id)) part.Scripts.Add(id);
-                    }
-                }
-                break;
-
-            case "col-tipologia_grafica":
-                id = VelaHelper.GetThesaurusId(ctx, region,
-                    VelaHelper.T_GRF_WRITING_CASING, value, _logger);
-                part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                part.Casing = id;
-                break;
-
-            case "col-rubricatura":
-                if (VelaHelper.GetBooleanValue(value))
-                {
-                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                    part.HasRubrics = true;
-                }
-                break;
-
-            // script features
-            case "col-maiuscolo\\minuscolo_prevalente":
-                switch (value)
-                {
-                    case "maiuscolo prevalente":
-                        part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                        part.ScriptFeatures.Add("upper");
-                        break;
-                    case "minuscolo prevalente":
-                        part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                        part.ScriptFeatures.Add("lower");
-                        break;
-                    default:
-                        _logger?.LogError(
-                            "Invalid value for {Tag} at {Region}: {Value}",
-                            region.Tag, region, value);
-                        part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                        part.ScriptFeatures.Add(value);
-                        break;
-                }
-                break;
-
-            case "col-sistema_interpuntivo":
-                if (VelaHelper.GetBooleanValue(value))
-                {
-                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                    part.ScriptFeatures.Add("punctuation");
-                }
-                break;
-
-            case "col-nessi_e_legamenti":
-                if (VelaHelper.GetBooleanValue(value))
-                {
-                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                    part.ScriptFeatures.Add("ligature");
-                }
-                break;
-
-            case "col-rigatura":
-                if (VelaHelper.GetBooleanValue(value))
-                {
-                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                    part.HasRuling = true;
-                }
-                break;
-
-            case "col-abbreviazioni":
-                if (VelaHelper.GetBooleanValue(value))
-                {
-                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                    part.ScriptFeatures.Add("abbreviation");
-                }
-                break;
-
-            // letter features
-            case "col-monogrammi":
-                if (VelaHelper.GetBooleanValue(value))
-                {
-                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                    part.LetterFeatures.Add("monogram");
-                }
-                break;
-
-            case "col-lettera_singola":
-                if (VelaHelper.GetBooleanValue(value))
-                {
-                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                    part.LetterFeatures.Add("letter");
-                }
-                break;
-
-            case "col-lettere_non_interpretabili":
-                if (VelaHelper.GetBooleanValue(value))
-                {
-                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                    part.LetterFeatures.Add("letter-unclear");
-                    ctx.CurrentItem.Flags |= VelaHelper.F_NOT_INTERPRETABLE;
-                }
-                break;
-
-            case "col-disegno_non_interpretabile":
-                if (VelaHelper.GetBooleanValue(value))
-                {
-                    part = ctx.EnsurePartForCurrentItem<GrfWritingPart>();
-                    part.LetterFeatures.Add("drawing-unclear");
-                    ctx.CurrentItem.Flags |= VelaHelper.F_NOT_INTERPRETABLE;
-                }
+            default:
+                part.Features.Add(VelaHelper.GetThesaurusId(ctx, region,
+                    VelaHelper.T_EPI_WRITING_FEATURES, value, _logger));
                 break;
         }
 

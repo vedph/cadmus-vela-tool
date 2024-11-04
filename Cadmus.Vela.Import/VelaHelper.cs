@@ -31,6 +31,9 @@ internal static partial class VelaHelper
     public const string T_EPI_SUPPORT_TYPES = "epi-support-types@en";
     public const string T_EPI_TECHNIQUE_TYPES = "epi-technique-types@en";
     public const string T_EPI_TECHNIQUE_TOOLS = "epi-technique-tools@en";
+    public const string T_EPI_WRITING_CASINGS = "epi-writing-casings@en";
+    public const string T_EPI_WRITING_FEATURES = "epi-writing-features@en";
+    public const string T_EPI_WRITING_SCRIPTS = "epi-writing-scripts@en";
     public const string T_PHYSICAL_STATES = "physical-states@en";
 
     public const string T_GRF_SUPPORT_OBJECT_TYPES = "grf-support-object-types@en";
@@ -39,7 +42,6 @@ internal static partial class VelaHelper
     public const string T_GRF_WRITING_CASING = "grf-writing-casing@en";
     public const string T_GRF_WRITING_GLOTTOLOGS = "grf-writing-glottologs@en";
     public const string T_GRF_WRITING_LANGUAGES = "grf-writing-languages@en";
-    public const string T_GRF_WRITING_SCRIPTS = "grf-writing-scripts@en";
     public const string T_GRF_WRITING_SYSTEMS = "grf-writing-systems@en";
 
     [GeneratedRegex(@"\s+")]
