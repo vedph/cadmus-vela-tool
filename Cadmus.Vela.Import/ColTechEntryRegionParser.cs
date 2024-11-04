@@ -1,5 +1,5 @@
 ﻿using Cadmus.Import.Proteus;
-using Cadmus.Vela.Parts;
+using Cadmus.Epigraphy.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -11,58 +11,19 @@ namespace Cadmus.Vela.Import;
 
 /// <summary>
 /// VeLA entry region parser for columns tecnica_di_esecuzione and
-/// strumento_di_esecuzione. This targets <see cref="GrfTechniquePart"/>.
+/// strumento_di_esecuzione. This targets <see cref="EpiTechniquePart.Techniques"/>
+/// and <see cref="EpiTechniquePart.Tools"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.vela.col-tech")]
-public sealed class ColTechEntryRegionParser : EntryRegionParser,
+public sealed class ColTechEntryRegionParser(
+    ILogger<ColTechEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColTechEntryRegionParser>? _logger;
-    private readonly Dictionary<string, string> _techTags;
-    private readonly Dictionary<string, string> _toolTags;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColTechEntryRegionParser"/>
-    /// class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public ColTechEntryRegionParser(
-        ILogger<ColTechEntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-        _techTags = new Dictionary<string, string>
-        {
-            ["col-presenza_di_disegno_preparatorio"] = "preparation-drawing",
-            ["col-presenza_di_preparazione_del_supporto"] = "preparation-support",
-            ["col-graffio"] = "scratch",
-            ["col-incisione"] = "engraving",
-            ["col-intaglio"] = "carving",
-            ["col-disegno"] = "drawing",
-            ["col-punzonatura"] = "punching",
-            ["col-a_rilievo"] = "relief",
-        };
-        _toolTags = new Dictionary<string, string>
-        {
-            ["col-chiodo"] = "nail",
-            ["col-gradina"] = "gradine",
-            ["col-scalpello"] = "chisel",
-            ["col-sgorbia"] = "gouge",
-            ["col-sega"] = "saw",
-            ["col-bocciarda"] = "bush-hammer",
-            ["col-carboncino"] = "charcoal",
-            ["col-seppia"] = "sepia",
-            ["col-grafite"] = "graphite",
-            ["col-matita_di_piombo"] = "lead-pencil",
-            ["col-fumo_di_candela"] = "candlesmoke",
-            ["col-inchiostro"] = "ink",
-            ["col-vernice"] = "paint",
-            ["col-lama_(affilatura)"] = "blade",
-            // this has custom logic
-            ["col-tipo_di_lama"] = ""
-        };
-    }
+    private const string COL_TECNICA = "col-tecnica_di_esecuzione";
+    private const string COL_STRUMENTO = "col-strumento_di_esecuzione";
+    private readonly ILogger<ColTechEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -82,8 +43,8 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return _techTags.ContainsKey(regions[regionIndex].Tag ?? "") ||
-               _toolTags.ContainsKey(regions[regionIndex].Tag ?? "");
+        return regions[regionIndex].Tag == COL_TECNICA ||
+               regions[regionIndex].Tag == COL_STRUMENTO;
     }
 
     /// <summary>
@@ -121,40 +82,21 @@ public sealed class ColTechEntryRegionParser : EntryRegionParser,
 
         if (!string.IsNullOrEmpty(value))
         {
-            GrfTechniquePart part =
-                ctx.EnsurePartForCurrentItem<GrfTechniquePart>();
+            EpiTechniquePart part =
+                ctx.EnsurePartForCurrentItem<EpiTechniquePart>();
 
-            // techniques
-            if (_techTags.TryGetValue(region.Tag!, out string? id))
+            switch (region.Tag)
             {
-                if (VelaHelper.GetBooleanValue(value))
+                case COL_TECNICA:
+                    string id = VelaHelper.GetThesaurusId(ctx, region,
+                        VelaHelper.T_EPI_TECHNIQUE_TYPES, value, _logger);
                     part.Techniques.Add(id);
-            }
-            // tools
-            else
-            {
-                if (region.Tag == "col-tipo_di_lama")
-                {
-                    // non empty values are only "lama curva" or "lama dritta"
-                    switch (value)
-                    {
-                        case "lama curva":
-                            part.Tools.Add("curved-blade");
-                            break;
-                        case "lama dritta":
-                            part.Tools.Add("straight-blade");
-                            break;
-                        default:
-                            part.Tools.Add(value);
-                            _logger?.LogError("Unknown blade type: {Value} " +
-                                "at region {Region}", value, region);
-                            break;
-                    }
-                }
-                else if (VelaHelper.GetBooleanValue(value))
-                {
-                    part.Tools.Add(_toolTags[region.Tag!]);
-                }
+                    break;
+                case COL_STRUMENTO:
+                    id = VelaHelper.GetThesaurusId(ctx, region,
+                        VelaHelper.T_EPI_TECHNIQUE_TOOLS, value, _logger);
+                    part.Tools.Add(id);
+                    break;
             }
         }
 

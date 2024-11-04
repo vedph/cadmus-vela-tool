@@ -29,13 +29,13 @@ internal static partial class VelaHelper
     public const string T_EPI_SUPPORT_MATERIALS = "epi-support-materials@en";
     public const string T_EPI_SUPPORT_OBJECT_TYPES = "epi-support-object-types@en";
     public const string T_EPI_SUPPORT_TYPES = "epi-support-types@en";
+    public const string T_EPI_TECHNIQUE_TYPES = "epi-technique-types@en";
+    public const string T_EPI_TECHNIQUE_TOOLS = "epi-technique-tools@en";
     public const string T_PHYSICAL_STATES = "physical-states@en";
 
     public const string T_GRF_SUPPORT_OBJECT_TYPES = "grf-support-object-types@en";
     public const string T_GRF_SUPPORT_TYPES = "grf-support-types@en";
     public const string T_GRF_PERIODS = "grf-periods@en";
-    public const string T_GRF_TECHNIQUES = "grf-techniques@en";
-    public const string T_GRF_TOOLS = "grf-tools@en";
     public const string T_GRF_WRITING_CASING = "grf-writing-casing@en";
     public const string T_GRF_WRITING_GLOTTOLOGS = "grf-writing-glottologs@en";
     public const string T_GRF_WRITING_LANGUAGES = "grf-writing-languages@en";
