@@ -46,76 +46,79 @@
       "id": "entry-region-parser.vela.col-id"
     },
     {
-      "id": "entry-region-parser.vela.col-area"
+      "id": "entry-region-parser.vela.col-autore"
     },
     {
-      "id": "entry-region-parser.vela.col-autore"
+      "id": "entry-region-parser.vela.col-contenuto"
     },
     {
       "id": "entry-region-parser.vela.col-funzione_attuale"
     },
     {
-      "id": "entry-region-parser.vela.col-funzione_originaria"
-    },
-    {
-      "id": "entry-region-parser.vela.col-tipologia_struttura"
-    },
-    {
-      "id": "entry-region-parser.vela.col-interno/esterno"
-    },
-    {
-      "id": "entry-region-parser.vela.col-supporto"
-    },
-    {
-      "id": "entry-region-parser.vela.col-materiale"
-    },
-    {
-      "id": "entry-region-parser.vela.col-eta"
-    },
-    {
-      "id": "entry-region-parser.vela.col-terminus_post"
-    },
-    {
-      "id": "entry-region-parser.vela.col-terminus_ante"
-    },
-    {
-      "id": "entry-region-parser.vela.col-cronologia"
-    },
-    {
-      "id": "entry-region-parser.vela.col-features"
-    },
-    {
-      "id": "entry-region-parser.vela.col-fig"
-    },
-    {
-      "id": "entry-region-parser.vela.col-misure"
-    },
-    {
-      "id": "entry-region-parser.vela.col-writing"
-    },
-    {
-      "id": "entry-region-parser.vela.col-disegno_non_interpretabile"
-    },
-    {
-      "id": "entry-region-parser.vela.col-tech"
-    },
-    {
-      "id": "entry-region-parser.vela.col-fig-types"
-    },
-    {
-      "id": "entry-region-parser.vela.col-arg-types"
-    },
-    {
-      "id": "entry-region-parser.vela.col-commento"
+      "id": "entry-region-parser.vela.col-tipologia_attuale"
     },
     {
       "id": "entry-region-parser.vela.col-presenza_di_damnatio"
     },
     {
+      "id": "entry-region-parser.vela.col-data"
+    },
+    {
+      "id": "entry-region-parser.vela.col-edizione"
+    },
+    {
+      "id": "entry-region-parser.vela.col-stato"
+    },
+    {
+      "id": "entry-region-parser.vela.col-figurativo"
+    },
+    {
+      "id": "entry-region-parser.vela.col-funzione"
+    },
+    {
+      "id": "entry-region-parser.vela.col-interno/esterno"
+    },
+    {
+      "id": "entry-region-parser.vela.col-impaginazione"
+    },
+    {
+      "id": "entry-region-parser.vela.col-materiale"
+    },
+    {
+      "id": "entry-region-parser.vela.col-funzione_originaria"
+    },
+    {
+      "id": "entry-region-parser.vela.col-tipologia_originaria_della_struttura"
+    },
+    {
       "id": "entry-region-parser.vela.col-segmento_progetto"
     },
     {
+      "id": "entry-region-parser.vela.col-misure"
+    },
+    {
       "id": "entry-region-parser.vela.col-states"
+    },
+    {
+      "id": "entry-region-parser.vela.col-supporto"
+    },
+    {
+      "id": "entry-region-parser.vela.col-supporto-fields"
+    },
+    {
+      "id": "entry-region-parser.vela.col-tech"
+    },
+    {
+      "id": "entry-region-parser.vela.col-terminus_ante"
+    },
+    {
+      "id": "entry-region-parser.vela.col-terminus_post"
+    },
+    {
+      "id": "entry-region-parser.vela.col-convalida"
+    },
+    {
+      "id": "entry-region-parser.vela.col-writing"
     }
   ],
   "entrySetContextPatchers": [

@@ -315,6 +315,8 @@ public sealed class Col__NAME__EntryRegionParser(
 
 ## History
 
+### 2.0.0
+
 - 2024-11-03: ⚠️ refactoring for new models.
 - 2024-10-29: updated packages.
 - 2024-10-21: added IMAI flag.
