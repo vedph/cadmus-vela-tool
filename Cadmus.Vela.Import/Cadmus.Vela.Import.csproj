@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Version>2.0.0</Version>
-		<FileVersion>2.0.0</FileVersion>
-		<AssemblyVersion>2.0.0</AssemblyVersion>
+		<Version>3.0.0</Version>
+		<FileVersion>3.0.0</FileVersion>
+		<AssemblyVersion>3.0.0</AssemblyVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Cadmus.Epigraphy.Parts" Version="4.0.1" />
-		<PackageReference Include="Cadmus.General.Parts" Version="6.1.4" />
-		<PackageReference Include="Cadmus.Import.Proteus" Version="4.0.17" />
-		<PackageReference Include="Cadmus.Philology.Parts" Version="8.2.1" />
+		<PackageReference Include="Cadmus.Epigraphy.Parts" Version="5.0.0" />
+		<PackageReference Include="Cadmus.General.Parts" Version="7.0.0" />
+		<PackageReference Include="Cadmus.Import.Proteus" Version="5.0.0" />
+		<PackageReference Include="Cadmus.Philology.Parts" Version="9.0.0" />
 	</ItemGroup>
 </Project>

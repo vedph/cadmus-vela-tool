@@ -2,13 +2,13 @@
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<RootNamespace>Cadmus.Vela.Cli</RootNamespace>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Version>2.0.0</Version>
-		<FileVersion>2.0.0</FileVersion>
-		<AssemblyVersion>2.0.0</AssemblyVersion>
+		<Version>3.0.0</Version>
+		<FileVersion>3.0.0</FileVersion>
+		<AssemblyVersion>3.0.0</AssemblyVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -38,10 +38,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Cadmus.Import.Proteus" Version="4.0.17" />
-		<PackageReference Include="Fusi.Microsoft.Extensions.Configuration.InMemoryJson" Version="3.0.1" />
-		<PackageReference Include="Proteus.Entries" Version="5.0.16" />
-		<PackageReference Include="Proteus.Extras" Version="5.0.16" />
+		<PackageReference Include="Cadmus.Import.Proteus" Version="5.0.0" />
+		<PackageReference Include="Fusi.Microsoft.Extensions.Configuration.InMemoryJson" Version="4.0.0" />
+		<PackageReference Include="Proteus.Entries" Version="6.0.0" />
+		<PackageReference Include="Proteus.Extras" Version="6.0.0" />
 		<PackageReference Include="Serilog" Version="4.1.0" />
 		<PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />
 		<PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />

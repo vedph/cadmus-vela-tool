@@ -315,6 +315,10 @@ public sealed class Col__NAME__EntryRegionParser(
 
 ## History
 
+### 3.0.0
+
+- 2024-11-19: ⚠️ upgraded to .NET 9.
+
 ### 2.0.0
 
 - 2024-11-03: ⚠️ refactoring for new models.
