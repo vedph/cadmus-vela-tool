@@ -6,6 +6,7 @@ using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Primitives;
 
 namespace Cadmus.Vela.Import;
 
@@ -87,8 +88,17 @@ public sealed class ColFnEntryRegionParser(
             CategoriesPart part =
                 ctx.EnsurePartForCurrentItem<CategoriesPart>("fn");
 
+            string value = region.Tag switch
+            {
+                COL_TESTO => "testo",
+                COL_MONOGRAMMA => "monogramma",
+                COL_LETTERA_SINGOLA => "lettera singola",
+                COL_LETTERE_NON_INT => "lettere non interpretabili",
+                _ => region.Tag!
+            };
+
             string id = VelaHelper.GetThesaurusId(ctx, region,
-                VelaHelper.T_CATEGORIES_FN, region.Tag!, _logger);
+                VelaHelper.T_CATEGORIES_FN, value, _logger);
 
             part.Categories.Add(id);
         }

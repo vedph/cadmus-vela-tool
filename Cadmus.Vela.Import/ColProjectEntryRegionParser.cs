@@ -101,7 +101,7 @@ public sealed class ColProjectEntryRegionParser : EntryRegionParser,
                 break;
             default:
                 _logger?.LogError(
-                    "Invalid segmento_progetto value at region {Region}: {Value}",
+                    "Invalid segmento_progetto value at region {Region}: \"{Value}\"",
                     region, value);
                 break;
         }
