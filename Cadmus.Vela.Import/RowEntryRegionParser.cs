@@ -17,20 +17,17 @@ namespace Cadmus.Vela.Import;
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
+/// <remarks>
+/// Initializes a new instance of the <see cref="RowEntryRegionParser"/>
+/// class.
+/// </remarks>
+/// <param name="logger">The logger.</param>
 [Tag("entry-region-parser.vela.row")]
-public sealed class RowEntryRegionParser : EntryRegionParser, IEntryRegionParser
+public sealed class RowEntryRegionParser(
+    ILogger<RowEntryRegionParser>? logger = null) :
+    EntryRegionParser, IEntryRegionParser
 {
-    private readonly ILogger<RowEntryRegionParser>? _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="RowEntryRegionParser"/>
-    /// class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public RowEntryRegionParser(ILogger<RowEntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-    }
+    private readonly ILogger<RowEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -105,6 +102,7 @@ public sealed class RowEntryRegionParser : EntryRegionParser, IEntryRegionParser
             Flags = VelaHelper.F_IMPORTED
         };
         CadmusEntrySetContext ctx = (CadmusEntrySetContext)set.Context;
+        ctx.Items.Clear();
         ctx.Items.Add(item);
 
         return regionIndex + 1;

@@ -22,11 +22,11 @@ Additionally, a log file is created (in the same folder of the CLI tool) includi
 
 The Markdown report provides details about data extraction and mapping for each item imported. Each row in the source Excel file (except of course the top legend row) is an item. In the report, items are numbered starting from 1.
 
-#### Item 1
+#### Items 1-4
 
-Item `ESMD_1000` contains:
+All these items share the same data, except for their ID.
 
-- id: ESMD_1000
+- id: from ESMD_1000 to ESMD_1002
 - stato: in lavorazione
 - segmento progetto: VeLA Monastica
 - provincia: Venezia
@@ -58,3 +58,11 @@ The parts are:
      - currentFn: private.
      - originalType: worship-building.
      - currentType: accommodation.
+
+#### Item 5
+
+Item ESMD_1003 is equal to the previous ones, except for the addition of an author (Frambusto Giulia).
+
+#### Item 6
+
+TODO
