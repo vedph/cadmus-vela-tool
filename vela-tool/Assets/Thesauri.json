@@ -1085,7 +1085,7 @@
       },
       {
         "id": "stone",
-        "value": "materiale litico"
+        "value": "litico"
       },
       {
         "id": "metal",
@@ -1115,6 +1115,10 @@
       {
         "id": "castle",
         "value": "castello"
+      },
+      {
+        "id": "church",
+        "value": "chiesa"
       },
       {
         "id": "cloister",
