@@ -1,5 +1,5 @@
 ﻿using Cadmus.Import.Proteus;
-using Cadmus.Epigraphy.Parts;
+using Cadmus.General.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -10,18 +10,18 @@ using System.Collections.Generic;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column tipologia_attuale entry region parser. This targets
-/// <see cref="EpiSupportPart.CurrentType"/>.
+/// VeLA column cronologia entry region parser. This targets
+/// <see cref="MetadataPart"/> era.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-tipologia_attuale")]
-public sealed class ColCurrentTypeEntryRegionParser(
-    ILogger<ColCurrentTypeEntryRegionParser>? logger = null) : EntryRegionParser,
+[Tag("entry-region-parser.vela.col-cronologia")]
+public sealed class ColEraEntryRegionParser(
+    ILogger<ColEraEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private const string COL_TIPOLOGIA_ATTUALE = "col-tipologia_attuale_struttura";
-    private readonly ILogger<ColCurrentTypeEntryRegionParser>? _logger = logger;
+    private const string COL_CRONOLOGIA = "col-cronologia";
+    private readonly ILogger<ColEraEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -41,7 +41,7 @@ public sealed class ColCurrentTypeEntryRegionParser(
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == COL_TIPOLOGIA_ATTUALE;
+        return regions[regionIndex].Tag == COL_CRONOLOGIA;
     }
 
     /// <summary>
@@ -66,25 +66,25 @@ public sealed class ColCurrentTypeEntryRegionParser(
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("tipologia_attuale column without any item " +
-                "at region {Region}", region);
-            throw new InvalidOperationException(
-                "tipologia_attuale column without any item at region " +
+            _logger?.LogError("cronologia column without any item at region {Region}",
                 region);
+            throw new InvalidOperationException(
+                "cronologia column without any item at region " + region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
         string? value = VelaHelper.FilterValue(txt.Value, true);
 
-        if (string.IsNullOrEmpty(value)) return regionIndex + 1;
-
-        string id = VelaHelper.GetThesaurusId(ctx, region,
-            VelaHelper.T_EPI_SUPPORT_TYPES, value, _logger);
-
-        EpiSupportPart part =
-            ctx.EnsurePartForCurrentItem<EpiSupportPart>();
-        part.CurrentType = id;
+        if (!string.IsNullOrEmpty(value))
+        {
+            MetadataPart part = ctx.EnsurePartForCurrentItem<MetadataPart>();
+            part.Metadata.Add(new Metadatum
+            {
+                Name = "era",
+                Value = value
+            });
+        }
 
         return regionIndex + 1;
     }

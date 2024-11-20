@@ -1,6 +1,7 @@
 ﻿using Cadmus.General.Parts;
 using Cadmus.Import.Proteus;
 using Fusi.Antiquity.Chronology;
+using Fusi.Tools;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -11,7 +12,7 @@ using System.Collections.Generic;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column data entry region parser. This targets
+/// VeLA columns data and secolo entry region parser. This targets
 /// <see cref="HistoricalDatePart"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
@@ -21,6 +22,8 @@ public sealed class ColDatationEntryRegionParser(
     ILogger<ColDatationEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
+    private const string COL_DATA = "col-data";
+    private const string COL_SECOLO = "col-secolo";
     private readonly ILogger<ColDatationEntryRegionParser>? _logger = logger;
 
     /// <summary>
@@ -41,7 +44,8 @@ public sealed class ColDatationEntryRegionParser(
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == "col-data";
+        return regions[regionIndex].Tag == COL_DATA ||
+               regions[regionIndex].Tag == COL_SECOLO;
     }
 
     /// <summary>
@@ -67,10 +71,10 @@ public sealed class ColDatationEntryRegionParser(
         if (ctx.CurrentItem == null)
         {
             _logger?.LogError(
-                "cronologia column without any item at region {Region}",
-                region);
+                "{Tag} column without any item at region {Region}",
+                region.Tag![4..], region);
             throw new InvalidOperationException(
-                "cronologia column without any item at region " +
+                $"{region.Tag![4..]} column without any item at region " +
                 region);
         }
 
@@ -79,18 +83,58 @@ public sealed class ColDatationEntryRegionParser(
 
         if (!string.IsNullOrEmpty(txt.Value))
         {
-            string? value = VelaHelper.FilterValue(txt.Value, false)
-                ?.Replace(" SECOLO", "");
-
-            // cronologia is just a copy of terminus ante/post if they are present,
-            // so in this case just ignore it
-            HistoricalDatePart part =
-                ctx.EnsurePartForCurrentItem<HistoricalDatePart>();
-
-            if (part.Date is null ||
-                part.Date.GetDateType() == HistoricalDateType.Undefined)
+            HistoricalDatePart part;
+            string? value;
+            switch (region.Tag)
             {
-                part.Date = HistoricalDate.Parse(value);
+                // data is a year and comes before secolo and termini ante/post
+                case COL_DATA:
+                    value = VelaHelper.FilterValue(txt.Value, false);
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        if (!int.TryParse(value, out int year))
+                        {
+                            Logger?.LogError(
+                                "Invalid year \"{Value}\" at region {Region}",
+                                value, region);
+                        }
+                        else
+                        {
+                            part = ctx.EnsurePartForCurrentItem<HistoricalDatePart>();
+                            part.Date = new HistoricalDate
+                            {
+                                A = new Datation
+                                {
+                                    Value = year
+                                }
+                            };
+                        }
+                    }
+                    break;
+                // secolo is a century and comes after data - we assume that
+                // it is either data or secolo, not both; if both, data wins
+                case COL_SECOLO:
+                    // R secolo
+                    value = VelaHelper.FilterValue(txt.Value, true)
+                        ?.Replace(" secolo", "").ToUpperInvariant();
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        int n = RomanNumber.FromRoman(value);
+                        part = ctx.EnsurePartForCurrentItem<HistoricalDatePart>();
+                        if (part.Date is null ||
+                            part.Date.GetDateType() == HistoricalDateType.Undefined)
+                        {
+                            part.Date = new HistoricalDate
+                            {
+                                A = new Datation
+                                {
+                                    Value = n,
+                                    IsCentury = true
+                                }
+                            };
+                        }
+                    }
+                    break;
             }
         }
 

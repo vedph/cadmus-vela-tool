@@ -20,7 +20,8 @@ public sealed class ColOriginalFnEntryRegionParser(
     ILogger<ColOriginalFnEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private const string COL_FUNZIONE_ORIGINARIA = "col-funzione_originaria";
+    private const string COL_FUNZIONE_ORIGINARIA =
+        "col-funzione_originaria_della_struttura";
     private readonly ILogger<ColOriginalFnEntryRegionParser>? _logger = logger;
 
     /// <summary>

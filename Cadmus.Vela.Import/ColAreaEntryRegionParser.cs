@@ -24,7 +24,7 @@ public sealed class ColAreaEntryRegionParser(
     IEntryRegionParser
 {
     private const string COL_PROVINCIA = "col-provincia";
-    private const string COL_CITTA = "col-città";
+    private const string COL_CITTA = "col-citta'";
     private const string COL_CENTER = "col-centri/localita'";
     private const string COL_CENTER_ALIAS = "col-centri/località";
     private const string COL_LOCATION = "col-localizzazione";

@@ -58,6 +58,9 @@
       "id": "entry-region-parser.vela.col-tipologia_attuale"
     },
     {
+      "id": "entry-region-parser.vela.col-cronologia"
+    },
+    {
       "id": "entry-region-parser.vela.col-data"
     },
     {
