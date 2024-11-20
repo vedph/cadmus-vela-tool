@@ -18,47 +18,27 @@ This dump creates a detailed Markdown report with all the data extracted and rem
 
 Additionally, a log file is created (in the same folder of the CLI tool) including the list of all the issues found during import. You should carefully check this log to ensure that no errors are present.
 
-### Log
-
-When running the dump, the log contains these error types (in many instances):
-
-- `[ERR] Invalid segmento_progetto value at region 17.0-19.0=col-segmento_progetto: ""`: this means that the column named "segmento_progetto" has an invalid (here empty) value. In fact, this is a required field while the source is missing a value here. We have 20 instances of this error.
-- `[ERR] Unknown value for col-funzione_originaria: "chiesa" at region 29.0-31.0=col-funzione_originaria`: an unknown value implies that we are expecting a value from a known set of values (a thesaurus). In fact, here we are expecting one of the values from the functions thesaurus, named `epi-support-functions`, like "public" or "religious". Instead, we get a value ("church") from another set (corresponding to the thesaurus of structure types, named `epi-support-types`). Clearly, this is a human error where the operator has placed the value in the wrong column. We have 3 instances of this error.
-
-So, here you should edit the source Excel file, and fix the errors:
-
-- add the missing values in column "segmento progetto";
-- move "chiesa" from the wrong to the right column.
-
-If you then re-run the validation, you should no longer see any errors. So, this is an incremental process: validate, fix, and repeat until everything is correct.
-
 ### Report
 
 The Markdown report provides details about data extraction and mapping for each item imported. Each row in the source Excel file (except of course the top legend row) is an item. In the report, items are numbered starting from 1.
 
 #### Item 1
 
-Item `CASTELLO_05-0001` contains:
+Item `ESMD_1000` contains:
 
-- id: CASTELLO_05-0001 ✔️
-- area: Castello_5
-- sestiere: Castello
-- denominazione: Chiesa di San Martino
-- funzione originaria: Chiesa
-- funzione attuale: religiosa
-- tipologia struttura: Chiesa
+- id: ESMD_1000
+- stato: in lavorazione
+- segmento progetto: VeLA Monastica
+- provincia: Venezia
+- citta': Venezia
+- centri/localita': Cannareggio
+- localizzazione: Fondamenta Daniele Canal
+- denominazione struttura: Chiesa Santa Maria dei Servi
+- funzione originaria: religiosa
+- tipologia originaria: edificio di culto
+- funzione attuale: privata
+- tipologia attuale: struttura ricettiva
 - interno/esterno: esterno
-- supporto: muro
-- materiale: litico ✔️
-- terminus post: 1781
-- cronologia: 1781
-- testo: si
-- numeri: si
-- misure: 16X15 ✔️
-- numero righe: 2 ✔️
-- alfabeto: latino
-- lingua: ITA
-- tipologia grafica: maiuscolo
 
 This is mapped to a single item with 4 parts. The relevant item's metadata are:
 
