@@ -75,7 +75,7 @@ public sealed class ColValidatedEntryRegionParser(
             set.Entries[region.Range.Start.Entry + 1];
         if (VelaHelper.GetBooleanValue(txt.Value))
         {
-            ctx.CurrentItem.Flags |= 0x10;
+            ctx.CurrentItem.Flags |= 16;
         }
 
         return regionIndex + 1;

@@ -90,10 +90,10 @@ public sealed class ColContentEntryRegionParser(
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("__TAG__ column without any item at region {Region}",
+            _logger?.LogError("content column without any item at region {Region}",
                 region);
             throw new InvalidOperationException(
-                "__TAG__ column without any item at region " + region);
+                "content column without any item at region " + region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)

@@ -73,21 +73,19 @@ public sealed class ColEdStateEntryRegionParser(
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
-        string? value = VelaHelper.FilterValue(txt.Value, true);
-
-        switch (value)
+        switch (VelaHelper.FilterValue(txt.Value, true))
         {
             case "in lavorazione":
-                ctx.CurrentItem.Flags |= 0x01;
+                ctx.CurrentItem.Flags |= 1;
                 break;
             case "importata":
-                ctx.CurrentItem.Flags |= 0x02;
+                ctx.CurrentItem.Flags |= 2;
                 break;
             case "lavorata":
-                ctx.CurrentItem.Flags |= 0x04;
+                ctx.CurrentItem.Flags |= 4;
                 break;
             case "rilevata":
-                ctx.CurrentItem.Flags |= 0x08;
+                ctx.CurrentItem.Flags |= 8;
                 break;
             // this is usually found in another column but to be more robust
             // we also check for it here

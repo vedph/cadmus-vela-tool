@@ -40,14 +40,17 @@ Item `ESMD_1000` contains:
 - tipologia attuale: struttura ricettiva
 - interno/esterno: esterno
 
-This is mapped to a single item with 4 parts. The relevant item's metadata are:
+This is mapped to a single item with 3 parts. The relevant item's metadata are:
 
-- title: equal to the ID.
-- flags: 2 = imported. All the imported items get marked with this flag, so you can later check them in the editor.
+- title: equal to the ID column value.
+- flags (hex 0083):
+  - 0x0001: in lavorazione.
+  - 0x0002: imported. All the imported items get marked with this flag, so you can later check them in the editor.
+  - 0x0080: urbana.
 
 The parts are:
 
-1. metadata: `id` = `CASTELLO_05-0001`.
+1. metadata: `id` = `ESMD_1000`.
 2. support:
      - material: stone.
      - originalFn: "chiesa" (this is an error from the original source, correctly reported by the log: see above).

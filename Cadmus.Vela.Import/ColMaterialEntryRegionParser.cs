@@ -10,17 +10,17 @@ using System.Collections.Generic;
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA material column entry region parser. This targets
+/// VeLA materia column entry region parser. This targets
 /// <see cref="EpiSupportPart.Material"/>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-materiale")]
+[Tag("entry-region-parser.vela.col-materia")]
 public sealed class ColMaterialEntryRegionParser(
     ILogger<ColMaterialEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private const string COL_MATERIALE = "col-materiale";
+    private const string COL_MATERIALE = "col-materia";
     private readonly ILogger<ColMaterialEntryRegionParser>? _logger = logger;
 
     /// <summary>
@@ -76,18 +76,21 @@ public sealed class ColMaterialEntryRegionParser(
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
 
+        EpiSupportPart part =
+            ctx.EnsurePartForCurrentItem<EpiSupportPart>();
+
         if (!string.IsNullOrEmpty(txt.Value))
         {
             string? value = VelaHelper.FilterValue(txt.Value, true);
             if (value != null)
             {
-                string id = VelaHelper.GetThesaurusId(ctx, region,
+                part.Material = VelaHelper.GetThesaurusId(ctx, region,
                     VelaHelper.T_EPI_SUPPORT_MATERIALS, value, _logger);
-
-                EpiSupportPart part =
-                    ctx.EnsurePartForCurrentItem<EpiSupportPart>();
-                part.Material = id;
             }
+        }
+        else
+        {
+            part.Material = "-";
         }
 
         return regionIndex + 1;
