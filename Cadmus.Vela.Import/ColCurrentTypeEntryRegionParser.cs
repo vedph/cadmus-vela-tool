@@ -77,14 +77,15 @@ public sealed class ColCurrentTypeEntryRegionParser(
             set.Entries[region.Range.Start.Entry + 1];
         string? value = VelaHelper.FilterValue(txt.Value, true);
 
-        if (string.IsNullOrEmpty(value)) return regionIndex + 1;
+        if (!string.IsNullOrEmpty(value))
+        {
+            string id = VelaHelper.GetThesaurusId(ctx, region,
+                VelaHelper.T_EPI_SUPPORT_TYPES, value, _logger);
 
-        string id = VelaHelper.GetThesaurusId(ctx, region,
-            VelaHelper.T_EPI_SUPPORT_TYPES, value, _logger);
-
-        EpiSupportPart part =
-            ctx.EnsurePartForCurrentItem<EpiSupportPart>();
-        part.CurrentType = id;
+            EpiSupportPart part =
+                ctx.EnsurePartForCurrentItem<EpiSupportPart>();
+            part.CurrentType = id;
+        }
 
         return regionIndex + 1;
     }

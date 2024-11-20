@@ -91,7 +91,7 @@ Item ESMD_1003 is equal to the previous ones, except for the addition of an auth
 - misure supporto: 38x43
 - stato di conservazione: mutilo
 - damnatio: si
-- campo: aperto
+- campo: aperto??
 - solco: V??
 - incisione: si
 - scalpello: si
@@ -121,6 +121,7 @@ The parts are:
       - originalFn: religious
       - currentFn: private
       - originalType: worship-building
+      - currentType: accommodation
       - objectType: tombstone
       - support size: 38x43 cm.
       - counts: rows=4
