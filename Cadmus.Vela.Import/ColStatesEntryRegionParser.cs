@@ -92,7 +92,10 @@ public sealed class ColStatesEntryRegionParser(
             PhysicalState? state = part.States.LastOrDefault();
             if (state == null)
             {
-                state = new();
+                state = new()
+                {
+                    Type = "-"
+                };
                 part.States.Add(state);
             }
 
@@ -101,11 +104,10 @@ public sealed class ColStatesEntryRegionParser(
             {
                 case COL_STATE:
                     string? type = VelaHelper.FilterValue(txt.Value, true);
-                    if (type != null)
-                    {
-                        state.Type = VelaHelper.GetThesaurusId(ctx, region,
+                    state.Type = string.IsNullOrEmpty(type)
+                        ? "-"
+                        : VelaHelper.GetThesaurusId(ctx, region,
                             VelaHelper.T_PHYSICAL_STATES, type, _logger);
-                    }
                     break;
 
                 case COL_DATE1:
@@ -122,8 +124,12 @@ public sealed class ColStatesEntryRegionParser(
                     break;
 
                 case COL_DATE2:
-                    // date2 is a new state after the first one
-                    state = new();
+                    // date2 is a new state after the first one: inherit the type
+                    state = new()
+                    {
+                        Type = part.States.Count > 0
+                            ? part.States[0].Type : "-"
+                    };
                     part.States.Add(state);
 
                     dt = VelaHelper.GetDateValue(value);

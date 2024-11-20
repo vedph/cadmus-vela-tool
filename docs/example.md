@@ -126,3 +126,11 @@ The parts are:
       - counts: rows=4
       - features: preparation
       - hasDamnatio: true
+4. categories:fn: text, unint
+5. categories:cnt: -
+6. historical date: XV AD
+7. physical states: mutilated, at two dates.
+8. writing:
+      - script: gothic
+      - casing: upper
+9. note:txt: text from edizione.
