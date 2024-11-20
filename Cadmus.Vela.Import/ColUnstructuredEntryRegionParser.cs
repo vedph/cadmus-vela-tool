@@ -16,15 +16,14 @@ namespace Cadmus.Vela.Import;
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-edizione")]
-public sealed class ColEditionEntryRegionParser(
-    ILogger<ColEditionEntryRegionParser>? logger = null) : EntryRegionParser,
+[Tag("entry-region-parser.vela.col-unstructured")]
+public sealed class ColUnstructuredEntryRegionParser(
+    ILogger<ColUnstructuredEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private const string COL_EDIZIONE = "col-edizione";
     private const string COL_COMMENTO = "col-commento";
     private const string COL_BIBLIOGRAFIA = "col-bibliografia";
-    private readonly ILogger<ColEditionEntryRegionParser>? _logger = logger;
+    private readonly ILogger<ColUnstructuredEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -44,9 +43,8 @@ public sealed class ColEditionEntryRegionParser(
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == COL_EDIZIONE ||
-            regions[regionIndex].Tag == COL_COMMENTO ||
-            regions[regionIndex].Tag == COL_BIBLIOGRAFIA;
+        return regions[regionIndex].Tag == COL_COMMENTO ||
+               regions[regionIndex].Tag == COL_BIBLIOGRAFIA;
     }
 
     /// <summary>
@@ -86,13 +84,6 @@ public sealed class ColEditionEntryRegionParser(
 
             switch (region.Tag)
             {
-                case COL_EDIZIONE:
-                    part.Metadata.Add(new Metadatum
-                    {
-                        Name = "_edition",
-                        Value = value
-                    });
-                    break;
                 case COL_COMMENTO:
                     part.Metadata.Add(new Metadatum
                     {

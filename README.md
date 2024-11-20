@@ -315,6 +315,8 @@ public sealed class Col__NAME__EntryRegionParser(
 
 ## History
 
+- 2024-11-20: added text entry region parser.
+
 ### 3.0.0
 
 - 2024-11-19: ⚠️ upgraded to .NET 9.

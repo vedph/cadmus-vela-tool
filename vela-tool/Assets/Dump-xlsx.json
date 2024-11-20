@@ -115,6 +115,9 @@
       "id": "entry-region-parser.vela.col-convalida"
     },
     {
+      "id": "entry-region-parser.vela.col-unstructured"
+    },
+    {
       "id": "entry-region-parser.vela.col-writing"
     }
   ],
