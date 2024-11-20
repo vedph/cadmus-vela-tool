@@ -76,8 +76,11 @@ public sealed class ColTextEntryRegionParser(
             set.Entries[region.Range.Start.Entry + 1];
         string? value = VelaHelper.FilterValue(txt.Value, false);
 
-        NotePart part = ctx.EnsurePartForCurrentItem<NotePart>("txt");
-        part.Text = value;
+        if (!string.IsNullOrEmpty(value))
+        {
+            NotePart part = ctx.EnsurePartForCurrentItem<NotePart>("txt");
+            part.Text = value;
+        }
 
         return regionIndex + 1;
     }
