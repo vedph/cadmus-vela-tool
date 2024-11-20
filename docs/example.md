@@ -40,6 +40,7 @@ The Markdown report provides details about data extraction and mapping for each 
 
 Item `CASTELLO_05-0001` contains:
 
+- id: CASTELLO_05-0001 ✔️
 - area: Castello_5
 - sestiere: Castello
 - denominazione: Chiesa di San Martino
@@ -48,12 +49,30 @@ Item `CASTELLO_05-0001` contains:
 - tipologia struttura: Chiesa
 - interno/esterno: esterno
 - supporto: muro
-- materiale: litico
+- materiale: litico ✔️
 - terminus post: 1781
 - cronologia: 1781
 - testo: si
 - numeri: si
-- misure: 16X15
-- numero righe: 2
+- misure: 16X15 ✔️
+- numero righe: 2 ✔️
 - alfabeto: latino
 - lingua: ITA
+- tipologia grafica: maiuscolo
+
+This is mapped to a single item with 4 parts. The relevant item's metadata are:
+
+- title: equal to the ID.
+- flags: 2 = imported. All the imported items get marked with this flag, so you can later check them in the editor.
+
+The parts are:
+
+1. metadata: `id` = `CASTELLO_05-0001`.
+2. support:
+     - material: stone.
+     - originalFn: "chiesa" (this is an error from the original source, correctly reported by the log: see above).
+     - currentFn: religious.
+     - objectType: wall.
+     - hasField: true.
+     - fieldSize: w=16 cm, h=15 cm.
+     - counts: rows=2.
