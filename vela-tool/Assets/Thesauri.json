@@ -1072,6 +1072,10 @@
         "value": "ceramica"
       },
       {
+        "id": "plaster",
+        "value": "intonaco"
+      },
+      {
         "id": "brick",
         "value": "laterizio"
       },
