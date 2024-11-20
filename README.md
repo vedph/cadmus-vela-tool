@@ -315,7 +315,7 @@ public sealed class Col__NAME__EntryRegionParser(
 
 ## History
 
-- 2024-11-20: added text entry region parser.
+- 2024-11-20: added text entry and in situ region parsers.
 
 ### 3.0.0
 
