@@ -61,7 +61,7 @@ The parts are:
 
 #### Item 5
 
-Item ESMD_1003 is equal to the previous ones, except for the addition of an author (Frambusto Giulia).
+Item ESMD_1003 is equal to the previous ones, except for the addition of an author (Frambusto Giulia). This is correctly found in metadata.
 
 #### Item 6
 

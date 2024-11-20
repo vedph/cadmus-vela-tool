@@ -22,7 +22,7 @@ public sealed class ColAuthorEntryRegionParser(
     ILogger<ColAuthorEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private const string COL_AUTHOR = "autore";
+    private const string COL_AUTHOR = "col-autore";
     private readonly ILogger<ColAuthorEntryRegionParser>? _logger = logger;
 
     /// <summary>

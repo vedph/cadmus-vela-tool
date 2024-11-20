@@ -74,7 +74,7 @@ internal static partial class VelaHelper
     {
         if (string.IsNullOrEmpty(value)) return Array.Empty<string>();
 
-        return (from v in value.Split(" ", StringSplitOptions.RemoveEmptyEntries)
+        return (from v in value.Split(",", StringSplitOptions.RemoveEmptyEntries)
                 select FilterValue(v, lowercase) into v
                 where !string.IsNullOrEmpty(v)
                 select v).ToList();
