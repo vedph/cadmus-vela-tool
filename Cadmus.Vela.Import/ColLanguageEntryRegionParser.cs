@@ -1,4 +1,5 @@
 ﻿using Cadmus.Import.Proteus;
+using Cadmus.Refs.Bricks;
 using Cadmus.General.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
@@ -6,30 +7,25 @@ using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Cadmus.Vela.Import;
 
 /// <summary>
-/// VeLA column figurativo children entries region parser. This targets
-/// <see cref="CategoriesPart"/> with role <c>fig</c>.
+/// VeLA column language entry region parser. This targets <see cref="CategoriesPart"/>
+/// with role <c>lng</c>.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.vela.col-figurativo")]
-public sealed class ColFigurativeEntryRegionParser(
-    ILogger<ColFigurativeEntryRegionParser>? logger = null) : EntryRegionParser,
+[Tag("entry-region-parser.vela.col-language")]
+public sealed class ColLanguageEntryRegionParser(
+    ILogger<ColLanguageEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColFigurativeEntryRegionParser>? _logger = logger;
-    private readonly HashSet<string> _colNames =
-    [
-        "col-disegno_non_interpretabile", "col-abbigliamento", "col-animale",
-        "col-architettura", "col-arma", "col-armatura", "col-bandiera",
-        "col-busto", "col-croce", "col-cuore", "col-erotico", "col-figura_umana",
-        "col-geometrico", "col-gioco", "col-imbarcazione", "col-lingua",
-        "col-paesaggio", "col-pianta", "col-simbolo_zodiaco", "col-stemma",
-        "col-volto"
-    ];
+    private const string COL_LINGUA = "col-lingua";
+    private readonly ILogger<ColLanguageEntryRegionParser>? _logger = logger;
+    static private readonly Regex _isoRegex = new(@"^[a-z]{3}$",
+        RegexOptions.Compiled);
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -49,7 +45,7 @@ public sealed class ColFigurativeEntryRegionParser(
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return _colNames.Contains(regions[regionIndex].Tag ?? "");
+        return regions[regionIndex].Tag == COL_LINGUA;
     }
 
     /// <summary>
@@ -74,23 +70,27 @@ public sealed class ColFigurativeEntryRegionParser(
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("{Tag} column without any item at region {Region}",
-                region.Tag, region);
+            _logger?.LogError("lingua column without any item at region {Region}",
+                region);
             throw new InvalidOperationException(
-                $"{region.Tag} column without any item at region {region}");
+                "lingua column without any item at region " + region);
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
             set.Entries[region.Range.Start.Entry + 1];
+        string? value = VelaHelper.FilterValue(txt.Value, true);
 
-        if (VelaHelper.GetBooleanValue(txt.Value))
+        if (!string.IsNullOrEmpty(value))
         {
-            CategoriesPart part = ctx.EnsurePartForCurrentItem<CategoriesPart>("fig");
-            string id = VelaHelper.GetThesaurusId(ctx, region,
-                VelaHelper.T_CATEGORIES_FIG, region.Tag![4..], _logger);
+            if (!_isoRegex.IsMatch(value))
+            {
+                _logger?.LogError("Invalid language code \"{Value}\" at {Region}",
+                    value, region);
+            }
 
-            part.Categories.Add(id);
-            _logger?.LogInformation("{Tag} added to categories", region.Tag);
+            CategoriesPart part =
+                ctx.EnsurePartForCurrentItem<CategoriesPart>("lng");
+            part.Categories.Add(value);
         }
 
         return regionIndex + 1;

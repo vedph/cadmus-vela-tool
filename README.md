@@ -9,6 +9,13 @@
       - [Markdown](#markdown)
     - [Examining Log](#examining-log)
   - [Code Template](#code-template)
+  - [History](#history)
+    - [3.0.0](#300)
+    - [2.0.0](#200)
+    - [1.0.5](#105)
+    - [1.0.4](#104)
+    - [1.0.3](#103)
+    - [1.0.2](#102)
 
 ⚠️ IMPORTANT : ensure that the local copy of the thesaurus is up-to-date with [the one used by the API](https://github.com/vedph/cadmus-vela-api/blob/master/CadmusVelaApi/wwwroot/seed-profile.json)!
 
@@ -32,6 +39,8 @@ To validate the Excel files:
 4. create a working folder for your data files and place into it (a) the Excel files you want to validate and (b) the [JSON profile for Markdown output](https://github.com/vedph/cadmus-vela-tool/blob/master/vela-tool/Assets/Dump-md.json).
 5. for each Excel file, update its input and output file names in the above JSON profile (under `entryReader/options/inputFile` and `entrySetExporters/options/outputDirectory`), and run the validation with `./vela-tool import <PATH_TO_YOUR_JSON_PROFILE>`.
 6. [examine the log file](#examining-log) generated in the folder where you unpacked the tool.
+
+>For a real-world validation example, please refer to [this page](docs/example.md).
 
 ## Usage
 
@@ -315,7 +324,7 @@ public sealed class Col__NAME__EntryRegionParser(
 
 ## History
 
-- 2024-11-20: added text entry and in situ region parsers.
+- 2024-11-20: added text entry, in situ and language region parsers.
 
 ### 3.0.0
 
