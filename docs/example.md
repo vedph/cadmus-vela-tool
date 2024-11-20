@@ -103,4 +103,26 @@ Item ESMD_1003 is equal to the previous ones, except for the addition of an auth
 - data prima ricognizione: 23/05/2024
 - data ultima ricognizione: 23/05/2024
 - edizione: `(1) <<...>> V <<...>> IIII (2) <<...>>s magistri (3) <<...>>p condaci<<...>> (4) <<...>> suox eredum`
-TODO
+
+This is mapped to a single item with 9 parts. The relevant item's metadata are:
+
+- title: equal to the ID column value.
+- flags (hex 0083):
+  - 0x0001: in lavorazione.
+  - 0x0002: imported. All the imported items get marked with this flag, so you can later check them in the editor.
+  - 0x0080: monastica.
+
+The parts are:
+
+1. metadata: `id` = `ESMD_1000`, `author`=`Masiero Francesco`, `author`=`Frambusto Giulia`, `era`=`età medioevale`.
+2. district location: Venezia, Venezia, Cannareggio, Fondamenta Daniele Canal, Chiesa Santa Maria dei Servi.
+3. support:
+      - material: stone
+      - originalFn: religious
+      - currentFn: private
+      - originalType: worship-building
+      - objectType: tombstone
+      - support size: 38x43 cm.
+      - counts: rows=4
+      - features: preparation
+      - hasDamnatio: true
