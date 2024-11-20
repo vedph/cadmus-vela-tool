@@ -65,4 +65,42 @@ Item ESMD_1003 is equal to the previous ones, except for the addition of an auth
 
 #### Item 6
 
+- id: ESMD_1004
+- stato: in lavorazione
+- autore: Masiero Francesco, Frambusto Giulia
+- segmento progetto: VeLA Monastica
+- provincia: Venezia
+- citta': Venezia
+- centri/localita': Cannareggio
+- localizzazione: Fondamenta Daniele Canal
+- denominazione struttura: Chiesa Santa Maria dei Servi
+- funzione originaria: religiosa
+- tipologia originaria: edificio di culto
+- funzione attuale: privata
+- tipologia attuale: struttura ricettiva
+- interno/esterno: esterno
+- supporto: Lapide (graffito su)
+- testo: si
+- lettere non interpretabili: si
+- lingua: LAT
+- funzione non definibile: si
+- cifra: romana
+- cronologia: età medioevale
+- secolo: xv secolo
+- materia: materiale litico
+- misure supporto: 38x43
+- stato di conservazione: mutilo
+- damnatio: si
+- campo: aperto
+- solco: V??
+- incisione: si
+- scalpello: si
+- impaginazione del testo: piena pagina??
+- numero righe: 4
+- presenza di preparazione: si
+- scrittura: maiuscola
+- tipologia grafica: gotica
+- data prima ricognizione: 23/05/2024
+- data ultima ricognizione: 23/05/2024
+- edizione: `(1) <<...>> V <<...>> IIII (2) <<...>>s magistri (3) <<...>>p condaci<<...>> (4) <<...>> suox eredum`
 TODO
