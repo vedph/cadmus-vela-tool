@@ -1157,6 +1157,10 @@
         "value": "ospizio"
       },
       {
+        "id": "hospital",
+        "value": "ospedale"
+      },
+      {
         "id": "palace",
         "value": "palazzo"
       },
@@ -1517,6 +1521,10 @@
       {
         "id": "sharp-tool",
         "value": "strumento accuminato"
+      },
+      {
+        "id": "drill",
+        "value": "trapano"
       },
       {
         "id": "paint",
