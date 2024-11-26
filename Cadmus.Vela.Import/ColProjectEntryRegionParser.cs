@@ -13,23 +13,19 @@ namespace Cadmus.Vela.Import;
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
+/// <remarks>
+/// Initializes a new instance of the <see cref="ColProjectEntryRegionParser"/>
+/// class.
+/// </remarks>
+/// <param name="logger">The logger.</param>
 [Tag("entry-region-parser.vela.col-segmento_progetto")]
-public sealed class ColProjectEntryRegionParser : EntryRegionParser,
+public sealed class ColProjectEntryRegionParser(
+    ILogger<ColProjectEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
     private const string COL_SEGMENTO_PROGETTO = "col-segmento_progetto";
-    private readonly ILogger<ColProjectEntryRegionParser>? _logger;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColProjectEntryRegionParser"/>
-    /// class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public ColProjectEntryRegionParser(
-        ILogger<ColProjectEntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-    }
+    private readonly ILogger<ColProjectEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -88,6 +84,7 @@ public sealed class ColProjectEntryRegionParser : EntryRegionParser,
         switch (value)
         {
             case "vela urbana":
+            case "vela":
                 ctx.CurrentItem.Flags |= 64;
                 break;
             case "vela monastica":

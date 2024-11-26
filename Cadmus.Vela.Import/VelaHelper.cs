@@ -171,8 +171,7 @@ internal static partial class VelaHelper
         ArgumentNullException.ThrowIfNull(thesaurusId);
         ArgumentNullException.ThrowIfNull(value);
 
-        string? id = context.ThesaurusEntryMap!.GetEntryId(thesaurusId,
-            value.ToLowerInvariant());
+        string? id = context.ThesaurusEntryMap!.GetEntryId(thesaurusId, value);
 
         if (id == null)
         {

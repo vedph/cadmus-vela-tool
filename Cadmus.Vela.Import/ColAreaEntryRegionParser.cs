@@ -101,6 +101,7 @@ public sealed class ColAreaEntryRegionParser(
 
         bool hasFreeValue = region.Tag == COL_CITTA ||
             region.Tag == COL_CENTER ||
+            region.Tag == COL_LOCATION ||
             region.Tag == COL_STRUTTURA;
 
         part.Place.Pieces!.Add(new ProperNamePiece

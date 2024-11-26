@@ -55,6 +55,8 @@ public sealed class ColSizeEntryRegionParser(
     private PhysicalSize? ParseSize(string value)
     {
         // parse width + height from value like "10x20.5" (cm)
+        if (value.EndsWith("cm", StringComparison.OrdinalIgnoreCase))
+            value = value[..^2].TrimEnd();
         int i = value.IndexOf('x');
         if (i == -1) return null;
 

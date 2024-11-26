@@ -134,7 +134,7 @@ public sealed class ColContentEntryRegionParser(
             if (VelaHelper.GetBooleanValue(txt.Value))
             {
                 id = VelaHelper.GetThesaurusId(ctx, region,
-                    VelaHelper.T_CATEGORIES_CNT, col, _logger);
+                    VelaHelper.T_CATEGORIES_CNT, col[4..], _logger);
             }
         }
 
