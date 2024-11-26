@@ -23,28 +23,28 @@ public sealed class ColContentEntryRegionParser(
 {
     private readonly ILogger<ColContentEntryRegionParser>? _logger = logger;
     private readonly HashSet<string> _colNames =
-        [
-            "col-amore", "col-augurale", "col-autentica_di_reliquie",
-            "col-bollo laterizio", "col-calendario", "col-celebrativa",
-            "col-citazione", "col-commemorativa", "col-consacrazione",
-            "col-dedicatoria", "col-devozionale", "col-didascalica",
-            "col-documentaria", "col-esegetica", "col-esortativa", "col-ex_voto",
-            "col-firma", "col-funeraria", "col-imprecazione", "col-infamante",
-            "col-iniziale\\i_nome_persona", "col-insulto", "col-invocativa",
-            "col-marchio_edile", "col-nome", "col-nome di luogo",
-            "col-parlante", "col-politica", "col-poesia", "col-prosa",
-            "col-prostituzione", "col-preghiera", "col-religiosa", "col-saluto",
-            "col-segnaletica", "col-sigla", "col-sport",
-            "col-funzione_non_definibile", "cifra"
-        ];
+    [
+        "col-amore", "col-augurale", "col-autentica_di_reliquie",
+        "col-bollo laterizio", "col-calendario", "col-celebrativa",
+        "col-citazione", "col-commemorativa", "col-consacrazione",
+        "col-dedicatoria", "col-devozionale", "col-didascalica",
+        "col-documentaria", "col-esegetica", "col-esortativa", "col-ex_voto",
+        "col-firma", "col-funeraria", "col-imprecazione", "col-infamante",
+        "col-iniziale\\i_nome_persona", "col-insulto", "col-invocativa",
+        "col-marchio_edile", "col-nome", "col-nome di luogo",
+        "col-parlante", "col-politica", "col-poesia", "col-prosa",
+        "col-prostituzione", "col-preghiera", "col-religiosa", "col-saluto",
+        "col-segnaletica", "col-sigla", "col-sport",
+        "col-funzione_non_definibile", "cifra"
+    ];
 
     // this is a direct mapping between column name and thesaurus values,
     // for those column names which are not equal to the corresponding thesaurus
     // value (e.g. "inizialie\i nome persona" => "iniziali nome")
     private readonly Dictionary<string, string> _colValueMap = new()
     {
-        ["col-iniziali\\e_nome_persona"] = "iniziali nome",
-        ["col-funzione_non_definibile"] = "non definibile"
+        ["col-iniziali\\e_nome_persona"] = "col_iniziali nome",
+        ["col-funzione_non_definibile"] = "col_non definibile"
     };
 
     /// <summary>
@@ -100,8 +100,9 @@ public sealed class ColContentEntryRegionParser(
             set.Entries[region.Range.Start.Entry + 1];
 
         string id = "";
-        string col = _colValueMap.TryGetValue(region.Tag!, out string? v)
-            ? v : region.Tag!;
+        string col = (_colValueMap.TryGetValue(region.Tag!, out string? v)
+            ? v : region.Tag!)
+            .Replace('_', ' ');
 
         if (col == "cifra")
         {

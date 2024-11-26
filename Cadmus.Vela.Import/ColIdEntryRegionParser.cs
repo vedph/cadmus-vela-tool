@@ -15,21 +15,17 @@ namespace Cadmus.Vela.Import;
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
+/// <remarks>
+/// Initializes a new instance of the <see cref="ColIdEntryRegionParser"/>
+/// class.
+/// </remarks>
+/// <param name="logger">The logger.</param>
 [Tag("entry-region-parser.vela.col-id")]
-public sealed class ColIdEntryRegionParser : EntryRegionParser,
+public sealed class ColIdEntryRegionParser(
+    ILogger<ColIdEntryRegionParser>? logger = null) : EntryRegionParser,
     IEntryRegionParser
 {
-    private readonly ILogger<ColIdEntryRegionParser>? _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColIdEntryRegionParser"/>
-    /// class.
-    /// </summary>
-    /// <param name="logger">The logger.</param>
-    public ColIdEntryRegionParser(ILogger<ColIdEntryRegionParser>? logger = null)
-    {
-        _logger = logger;
-    }
+    private readonly ILogger<ColIdEntryRegionParser>? _logger = logger;
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -95,6 +91,8 @@ public sealed class ColIdEntryRegionParser : EntryRegionParser,
             Name = "id",
             Value = id
         });
+
+        _logger?.LogInformation("-- ID: {Id}", id);
 
         return regionIndex + 1;
     }
