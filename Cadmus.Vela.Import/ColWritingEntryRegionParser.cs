@@ -32,16 +32,16 @@ public sealed class ColWritingEntryRegionParser(
 
     private readonly ILogger<ColWritingEntryRegionParser>? _logger = logger;
     private readonly HashSet<string> _colNames =
-        [
-            COL_SCRITTURA,
-            COL_TIPOLOGIA_GRAFICA,
-            COL_ABBREVIAZIONI,
-            COL_NESSI,
-            COL_LETTERE_INCLUSE,
-            COL_LETTERE_SOVVRAPPOSTE,
-            COL_PUNTEGGIATURA,
-            COL_SEGNI_INTERPUNZIONE
-        ];
+    [
+        COL_SCRITTURA,
+        COL_TIPOLOGIA_GRAFICA,
+        COL_ABBREVIAZIONI,
+        COL_NESSI,
+        COL_LETTERE_INCLUSE,
+        COL_LETTERE_SOVVRAPPOSTE,
+        COL_PUNTEGGIATURA,
+        COL_SEGNI_INTERPUNZIONE
+    ];
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -112,8 +112,9 @@ public sealed class ColWritingEntryRegionParser(
             default:
                 if (VelaHelper.GetBooleanValue(txt.Value))
                 {
+                    string col = region.Tag![4..].Replace('_', ' ');
                     part.Features.Add(VelaHelper.GetThesaurusId(ctx, region,
-                        VelaHelper.T_EPI_WRITING_FEATURES, value, _logger));
+                        VelaHelper.T_EPI_WRITING_FEATURES, col, _logger));
                 }
                 break;
         }

@@ -43,7 +43,7 @@ public sealed class ColContentEntryRegionParser(
     // value (e.g. "inizialie\i nome persona" => "iniziali nome")
     private readonly Dictionary<string, string> _colValueMap = new()
     {
-        ["col-iniziali\\e_nome_persona"] = "col_iniziali nome",
+        ["col-iniziale\\i_nome_persona"] = "col_iniziali nome",
         ["col-funzione_non_definibile"] = "col_non definibile"
     };
 
@@ -100,6 +100,9 @@ public sealed class ColContentEntryRegionParser(
             set.Entries[region.Range.Start.Entry + 1];
 
         string id = "";
+
+        // get column name, if required from mapping, and replacing underscores
+        // with spaces so that we can match the corresponding thesaurus value
         string col = (_colValueMap.TryGetValue(region.Tag!, out string? v)
             ? v : region.Tag!)
             .Replace('_', ' ');
