@@ -83,18 +83,20 @@ public sealed class ColProjectEntryRegionParser(
 
         switch (value)
         {
-            case "vela urbana":
             case "vela":
                 ctx.CurrentItem.Flags |= 64;
                 break;
-            case "vela monastica":
+            case "vela urbana":
                 ctx.CurrentItem.Flags |= 128;
                 break;
-            case "vela palazzo ducale":
+            case "vela monastica":
                 ctx.CurrentItem.Flags |= 256;
                 break;
-            case "imai":
+            case "vela palazzo ducale":
                 ctx.CurrentItem.Flags |= 512;
+                break;
+            case "imai":
+                ctx.CurrentItem.Flags |= 1024;
                 break;
             default:
                 _logger?.LogError(
