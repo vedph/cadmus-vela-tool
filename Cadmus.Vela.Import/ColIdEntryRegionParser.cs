@@ -81,15 +81,17 @@ public sealed class ColIdEntryRegionParser(
         string? id = VelaHelper.FilterValue(txt.Value, false) ??
             throw new InvalidOperationException("no ID column at region " + region);
 
-        // title
-        ctx.CurrentItem.Title = id;
+        // title: we make this uppercase because most times it's uppercase,
+        // while other times it's mixed case, and we want to normalize it.
+        ctx.CurrentItem.Title = id.ToUpperInvariant();
 
         // metadata
         MetadataPart part = ctx.EnsurePartForCurrentItem<MetadataPart>();
         part.Metadata.Add(new Metadatum
         {
+            // ID is always lowercase as it is used in search
             Name = "id",
-            Value = id
+            Value = id.ToLowerInvariant()
         });
 
         _logger?.LogInformation("-- ID: {Id}", id);

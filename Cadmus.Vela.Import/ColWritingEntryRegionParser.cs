@@ -98,6 +98,7 @@ public sealed class ColWritingEntryRegionParser(
         if (string.IsNullOrEmpty(value)) return regionIndex + 1;
 
         EpiWritingPart part = ctx.EnsurePartForCurrentItem<EpiWritingPart>();
+        part.System ??= "-";
 
         switch (region.Tag)
         {
