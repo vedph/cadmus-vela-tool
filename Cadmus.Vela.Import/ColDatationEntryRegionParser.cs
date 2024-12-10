@@ -112,26 +112,58 @@ public sealed class ColDatationEntryRegionParser(
                     }
                     break;
                 // secolo is a century and comes after data - we assume that
-                // it is either data or secolo, not both; if both, data wins
+                // it is either data or secolo, not both; if both, data wins.
+                // This column can also include a range like XV-XVI.
                 case COL_SECOLO:
                     // R secolo
                     value = VelaHelper.FilterValue(txt.Value, true)
                         ?.Replace(" secolo", "").ToUpperInvariant();
                     if (!string.IsNullOrEmpty(value))
                     {
-                        int n = RomanNumber.FromRoman(value);
-                        part = ctx.EnsurePartForCurrentItem<HistoricalDatePart>();
-                        if (part.Date is null ||
-                            part.Date.GetDateType() == HistoricalDateType.Undefined)
+                        // if there is a - it is a range, so split it and
+                        // parse each Roman number, creating an interval date
+                        if (value.Contains('-'))
                         {
+                            string[] parts = value.Split('-');
+                            if (parts.Length != 2)
+                            {
+                                Logger?.LogError(
+                                    "Invalid century range \"{Value}\" at region {Region}",
+                                    value, region);
+                            }
+                            int a = RomanNumber.FromRoman(parts[0].Trim());
+                            int b = RomanNumber.FromRoman(parts[1].Trim());
+                            part = ctx.EnsurePartForCurrentItem<HistoricalDatePart>();
                             part.Date = new HistoricalDate
                             {
                                 A = new Datation
                                 {
-                                    Value = n,
+                                    Value = a,
+                                    IsCentury = true
+                                },
+                                B = new Datation
+                                {
+                                    Value = b,
                                     IsCentury = true
                                 }
                             };
+                        }
+                        else
+                        {
+                            int n = RomanNumber.FromRoman(value);
+                            part = ctx.EnsurePartForCurrentItem<HistoricalDatePart>();
+                            if (part.Date is null ||
+                                part.Date.GetDateType() == HistoricalDateType.Undefined)
+                            {
+                                part.Date = new HistoricalDate
+                                {
+                                    A = new Datation
+                                    {
+                                        Value = n,
+                                        IsCentury = true
+                                    }
+                                };
+                            }
                         }
                     }
                     break;

@@ -40,7 +40,7 @@ To validate the Excel files:
 5. for each Excel file, update its input and output file names in the above JSON profile (under `entryReader/options/inputFile` and `entrySetExporters/options/outputDirectory`), and run the validation with `./vela-tool import <PATH_TO_YOUR_JSON_PROFILE>`.
 6. [examine the log file](#examining-log) generated in the folder where you unpacked the tool.
 
->For a real-world validation example, please refer to [this page](docs/example.md).
+>For a real-world validation example, please refer to [this page](docs/example.md). Also, if you get an error like "The total lengh of a DataValidation list cannot exceed 255 characters", just remove all the validation errors from the Excel file: select all the cells, go to `Data` > `Data Validation`, and `Clear all` the validation rules.
 
 ## Usage
 
@@ -326,6 +326,7 @@ public sealed class Col__NAME__EntryRegionParser(
 
 - 2024-12-10:
   - added `+` as author separator.
+  - allow range in century value like X-XI.
   - updated packages.
 - 2024-11-26: updated flags for project types to allow for another type, "vela" (non urbana).
 - 2024-11-26: fixes to fit changed source formats.
