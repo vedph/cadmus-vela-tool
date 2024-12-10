@@ -24,6 +24,7 @@ public sealed class ColAuthorEntryRegionParser(
 {
     private const string COL_AUTHOR = "col-autore";
     private readonly ILogger<ColAuthorEntryRegionParser>? _logger = logger;
+    private readonly char[] _separators = new[] { ',', '+' };
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -83,8 +84,9 @@ public sealed class ColAuthorEntryRegionParser(
         {
             MetadataPart part = ctx.EnsurePartForCurrentItem<MetadataPart>();
 
-            // split authors by comma (using hashset to avoid duplicates)
-            HashSet<string> authors = new(VelaHelper.GetValueList(value, false));
+            // split authors by comma or + (using hashset to avoid duplicates)
+            HashSet<string> authors = new(VelaHelper.GetValueList(value, false,
+                _separators));
 
             // add each author
             foreach (string author in authors.Where(a => a.Length > 0))

@@ -69,12 +69,17 @@ internal static partial class VelaHelper
     /// </summary>
     /// <param name="value">The value.</param>
     /// <param name="lowercase">True to lowercase the result.</param>
+    /// <param name="separators">The optional separators to use. If not specified,
+    /// comma will be the default.</param>
     /// <returns>List.</returns>
-    public static IList<string> GetValueList(string? value, bool lowercase)
+    public static IList<string> GetValueList(string? value, bool lowercase,
+        char[]? separators = null)
     {
         if (string.IsNullOrEmpty(value)) return Array.Empty<string>();
 
-        return (from v in value.Split(",", StringSplitOptions.RemoveEmptyEntries)
+        separators ??= [','];
+        return (from v in value.Split(separators,
+                    StringSplitOptions.RemoveEmptyEntries)
                 select FilterValue(v, lowercase) into v
                 where !string.IsNullOrEmpty(v)
                 select v).ToList();
