@@ -324,6 +324,7 @@ public sealed class Col__NAME__EntryRegionParser(
 
 ## History
 
+- 2024-12-11: added thesauri entries.
 - 2024-12-10:
   - added `+` as author separator.
   - allow range in century value like X-XI.

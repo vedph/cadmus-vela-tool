@@ -1149,6 +1149,10 @@
         "value": "monastero"
       },
       {
+        "id": "monument",
+        "value": "monumento"
+      },
+      {
         "id": "museum",
         "value": "museo"
       },
@@ -1238,6 +1242,10 @@
         "value": "davanzale"
       },
       {
+        "id": "graffitied-inscription",
+        "value": "epigrafe (graffito su)"
+      },
+      {
         "id": "window",
         "value": "finestra"
       },
@@ -1276,6 +1284,10 @@
       {
         "id": "well",
         "value": "pozzo"
+      },
+      {
+        "id": "statue",
+        "value": "statua"
       },
       {
         "id": "jamb",
