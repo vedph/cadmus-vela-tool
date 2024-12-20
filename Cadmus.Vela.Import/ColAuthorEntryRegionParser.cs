@@ -23,8 +23,10 @@ public sealed class ColAuthorEntryRegionParser(
     IEntryRegionParser
 {
     private const string COL_AUTHOR = "col-autore";
+    private const string COL_DRAWING_AUTHOR = "col-autore-rilievo";
+
     private readonly ILogger<ColAuthorEntryRegionParser>? _logger = logger;
-    private readonly char[] _separators = new[] { ',', '+' };
+    private readonly char[] _separators = [',', '+'];
 
     /// <summary>
     /// Determines whether this parser is applicable to the specified
@@ -44,7 +46,8 @@ public sealed class ColAuthorEntryRegionParser(
         ArgumentNullException.ThrowIfNull(set);
         ArgumentNullException.ThrowIfNull(regions);
 
-        return regions[regionIndex].Tag == COL_AUTHOR;
+        return regions[regionIndex].Tag == COL_AUTHOR ||
+               regions[regionIndex].Tag == COL_DRAWING_AUTHOR;
     }
 
     /// <summary>
@@ -69,10 +72,10 @@ public sealed class ColAuthorEntryRegionParser(
 
         if (ctx.CurrentItem == null)
         {
-            _logger?.LogError("author column without any item at region {Region}",
-                region);
+            _logger?.LogError("{Tag} column without any item at region {Region}",
+                region.Tag, region);
             throw new InvalidOperationException(
-                "author column without any item at region " + region);
+                $"{region.Tag} column without any item at region " + region);
         }
 
         // get the text entry value
@@ -89,11 +92,13 @@ public sealed class ColAuthorEntryRegionParser(
                 _separators));
 
             // add each author
+            string name = region.Tag == COL_DRAWING_AUTHOR
+                ? "drawing-author" : "author";
             foreach (string author in authors.Where(a => a.Length > 0))
             {
                 part.Metadata.Add(new Metadatum
                 {
-                    Name = "author",
+                    Name = name,
                     Value = author,
                 });
             }
