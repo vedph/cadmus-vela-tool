@@ -98,30 +98,36 @@ public sealed class ColAreaEntryRegionParser(
         DistrictLocationPart part =
             ctx.EnsurePartForCurrentItem<DistrictLocationPart>();
         part.Place ??= new ProperName();
+        part.Place.Language = "ita";
 
         bool hasFreeValue = region.Tag == COL_CITTA ||
             region.Tag == COL_CENTER ||
             region.Tag == COL_LOCATION ||
             region.Tag == COL_STRUTTURA;
 
-        part.Place.Pieces!.Add(new ProperNamePiece
-        {
-            Type = region.Tag switch
-            {
-                COL_PROVINCIA => "p*",
-                COL_CITTA => "c*",
-                COL_CENTER => "e*",
-                COL_CENTER_ALIAS => "e*",
-                COL_LOCATION => "l*",
-                COL_STRUTTURA => "s*",
-                _ => throw new InvalidOperationException(
-                    $"Unexpected \"{value}\" in region {region.Tag}")
-            },
-            Value = hasFreeValue
+        string? pieceValue = hasFreeValue
                 ? value
                 : VelaHelper.GetThesaurusId(ctx, region,
-                    VelaHelper.T_DISTRICT_NAME_PIECE_TYPES, value, _logger)
-        });
+                    VelaHelper.T_DISTRICT_NAME_PIECE_TYPES, value, _logger);
+
+        if (!string.IsNullOrEmpty(pieceValue))
+        {
+            part.Place.Pieces!.Add(new ProperNamePiece
+            {
+                Type = region.Tag switch
+                {
+                    COL_PROVINCIA => "p*",
+                    COL_CITTA => "c*",
+                    COL_CENTER => "e*",
+                    COL_CENTER_ALIAS => "e*",
+                    COL_LOCATION => "l*",
+                    COL_STRUTTURA => "s*",
+                    _ => throw new InvalidOperationException(
+                        $"Unexpected \"{value}\" in region {region.Tag}")
+                },
+                Value = pieceValue
+            });
+        }
 
         return regionIndex + 1;
     }

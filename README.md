@@ -324,6 +324,7 @@ public sealed class Col__NAME__EntryRegionParser(
 
 ## History
 
+- 2025-01-05: set language for district location and avoid adding empty piece.
 - 2024-12-20: added drawing author (autore rilievo) column.
 - 2024-12-11: added thesauri entries.
 - 2024-12-10:
