@@ -10,9 +10,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Cadmus.Epigraphy.Parts" Version="5.0.2" />
-		<PackageReference Include="Cadmus.General.Parts" Version="7.0.1" />
-		<PackageReference Include="Cadmus.Import.Proteus" Version="5.0.2" />
-		<PackageReference Include="Cadmus.Philology.Parts" Version="9.0.1" />
+		<PackageReference Include="Cadmus.Epigraphy.Parts" Version="5.0.3" />
+		<PackageReference Include="Cadmus.General.Parts" Version="7.0.2" />
+		<PackageReference Include="Cadmus.Import.Proteus" Version="5.0.3" />
+		<PackageReference Include="Cadmus.Philology.Parts" Version="9.0.2" />
 	</ItemGroup>
 </Project>

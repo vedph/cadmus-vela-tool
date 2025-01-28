@@ -10,12 +10,6 @@
     - [Examining Log](#examining-log)
   - [Code Template](#code-template)
   - [History](#history)
-    - [3.0.0](#300)
-    - [2.0.0](#200)
-    - [1.0.5](#105)
-    - [1.0.4](#104)
-    - [1.0.3](#103)
-    - [1.0.2](#102)
 
 ⚠️ IMPORTANT : ensure that the local copy of the thesaurus is up-to-date with [the one used by the API](https://github.com/vedph/cadmus-vela-api/blob/master/CadmusVelaApi/wwwroot/seed-profile.json)!
 
@@ -324,6 +318,7 @@ public sealed class Col__NAME__EntryRegionParser(
 
 ## History
 
+- 2025-01-28: updated packages.
 - 2025-01-05: set language for district location and avoid adding empty piece.
 - 2024-12-20: added drawing author (autore rilievo) column.
 - 2024-12-11: added thesauri entries.
