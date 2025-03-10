@@ -38,10 +38,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Cadmus.Import.Proteus" Version="5.0.3" />
+		<PackageReference Include="Cadmus.Import.Proteus" Version="6.0.0" />
 		<PackageReference Include="Fusi.Microsoft.Extensions.Configuration.InMemoryJson" Version="4.0.0" />
-		<PackageReference Include="Proteus.Entries" Version="6.0.1" />
-		<PackageReference Include="Proteus.Extras" Version="6.0.1" />
+		<PackageReference Include="Proteus.Entries" Version="6.0.4" />
+		<PackageReference Include="Proteus.Extras" Version="6.0.4" />
 		<PackageReference Include="Serilog" Version="4.2.0" />
 		<PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
 		<PackageReference Include="Serilog.Extensions.Logging" Version="9.0.0" />
