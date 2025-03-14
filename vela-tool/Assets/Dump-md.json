@@ -1,6 +1,6 @@
 {
   "context": {
-    "id": "entry-set-context.cadmus"
+    "id": "it.vedph.entry-set-context.cadmus"
   },
   "entryReader": {
     "id": "entry-reader.xlsx",
@@ -135,12 +135,12 @@
   ],
   "entrySetContextPatchers": [
     {
-      "id": "entry-set-context-patcher.cadmus"
+      "id": "it.vedph.entry-set-context-patcher.cadmus"
     }
   ],
   "entrySetExporters": [
     {
-      "id": "entry-set-exporter.cadmus.md-dump",
+      "id": "it.vedph.entry-set-exporter.cadmus.md-dump",
       "options": {
         "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\vela\\vela-dump\\",
         "noEntries": true,
