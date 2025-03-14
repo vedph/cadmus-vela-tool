@@ -318,7 +318,9 @@ public sealed class Col__NAME__EntryRegionParser(
 
 ## History
 
-- 2025-03-14: updated packages and renamed some identifiers in the JSON profiles to comply with updated Cadmus migration packages.
+- 2025-03-14:
+  - updated packages and renamed some identifiers in the JSON profiles to comply with updated Cadmus migration packages.
+  - tolerate comma for decimals in size parsing.
 - 2025-03-10: updated packages.
 - 2025-01-28: updated packages.
 - 2025-01-05: set language for district location and avoid adding empty piece.
