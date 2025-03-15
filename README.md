@@ -318,6 +318,9 @@ public sealed class Col__NAME__EntryRegionParser(
 
 ## History
 
+### 3.0.1
+
+- 2025-03-15: updated Excel data.
 - 2025-03-14:
   - updated packages and renamed some identifiers in the JSON profiles to comply with updated Cadmus migration packages.
   - tolerate comma for decimals in size parsing.
