@@ -318,6 +318,8 @@ public sealed class Col__NAME__EntryRegionParser(
 
 ## History
 
+- 2025-03-16: updated a thesaurus.
+
 ### 3.0.2
 
 - 2025-03-16:

@@ -1323,6 +1323,10 @@
         "value": "maiuscola e minuscola"
       },
       {
+        "id": "lower-upper",
+        "value": "minuscola e maiuscola"
+      },
+      {
         "id": "lower",
         "value": "minuscola"
       },
