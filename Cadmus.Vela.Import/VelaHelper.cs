@@ -143,11 +143,15 @@ internal static partial class VelaHelper
         if (string.IsNullOrEmpty(value)) return null;
 
         value = FilterValue(value, true);
-        // parse from format DD/MM/YYYY
-        if (value!.Length == 10 &&
-            int.TryParse(value[..2], out int day) &&
-            int.TryParse(value.AsSpan(3, 2), out int month) &&
-            int.TryParse(value.AsSpan(6, 4), out int year))
+        if (string.IsNullOrEmpty(value)) return null;
+
+        // parse from formats like D/MM/YYYY, DD/M/YYYY, etc.
+        // and also tolerate \ for /
+        string[] dateParts = value.Replace('\\', '/').Split('/');
+        if (dateParts.Length == 3 &&
+            int.TryParse(dateParts[0], out int day) &&
+            int.TryParse(dateParts[1], out int month) &&
+            int.TryParse(dateParts[2], out int year))
         {
             return new DateOnly(year, month, day);
         }

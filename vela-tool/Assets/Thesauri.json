@@ -1097,7 +1097,7 @@
       },
       {
         "id": "-",
-        "value": "-"
+        "value": "altro"
       }
     ]
   },
@@ -1214,7 +1214,7 @@
       },
       {
         "id": "-",
-        "value": "n.d."
+        "value": "altro"
       }
     ]
   },
@@ -1256,6 +1256,10 @@
       {
         "id": "tombstone",
         "value": "lapide (graffito su)"
+      },
+      {
+        "id": "slab",
+        "value": "lastra"
       },
       {
         "id": "wall",
@@ -1300,6 +1304,10 @@
       {
         "id": "vault",
         "value": "volta"
+      },
+      {
+        "id": "-",
+        "value": "altro"
       }
     ]
   },
@@ -1320,7 +1328,7 @@
       },
       {
         "id": "-",
-        "value": "n.d."
+        "value": "altro"
       }
     ]
   },
@@ -1425,12 +1433,8 @@
         "value": "visigotica"
       },
       {
-        "id": "other",
-        "value": "altro"
-      },
-      {
         "id": "-",
-        "value": "-"
+        "value": "altro"
       }
     ]
   },
@@ -1651,7 +1655,7 @@
       },
       {
         "id": "-",
-        "value": "-"
+        "value": "altro"
       }
     ]
   },

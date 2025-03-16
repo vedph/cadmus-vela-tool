@@ -318,6 +318,12 @@ public sealed class Col__NAME__EntryRegionParser(
 
 ## History
 
+### 3.0.2
+
+- 2025-03-16:
+  - minor changes to thesauri.
+  - more robust date parser.
+
 ### 3.0.1
 
 - 2025-03-15: updated Excel data.
