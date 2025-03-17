@@ -180,6 +180,7 @@ internal static partial class VelaHelper
         ArgumentNullException.ThrowIfNull(thesaurusId);
         ArgumentNullException.ThrowIfNull(value);
 
+        value = value.Replace('_', ' ');
         string? id = context.ThesaurusEntryMap!.GetEntryId(thesaurusId, value);
 
         if (id == null)

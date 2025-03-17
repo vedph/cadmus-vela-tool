@@ -318,6 +318,9 @@ public sealed class Col__NAME__EntryRegionParser(
 
 ## History
 
+- 2025-03-17:
+  - updated a thesaurus.
+  - replace `_`_ with space before checking thesaurus ID from column name.
 - 2025-03-16: updated a thesaurus.
 
 ### 3.0.2
